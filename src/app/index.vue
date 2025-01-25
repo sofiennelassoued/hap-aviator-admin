@@ -1,9 +1,18 @@
 <script setup lang="ts">
-import AppLayout from '@/layout/index.vue'
+import MainLayout from '@/layout/main/index.vue'
+import SignInView from "../views/auth/sign-in/index.vue";
+import { auth, onAuthStateChanged } from '@/domain/auth'
+import { onMounted, ref } from 'vue';
+import { type User } from 'firebase/auth';
+const user = ref<User | null>(null);
+onMounted(() => {
+  onAuthStateChanged(u => user.value = u)
+})
 </script>
 
 <template>
-  <app-layout />
+  <main-layout v-if="user" />
+  <sign-in-view v-if="!user" />
 </template>
 
 <style scoped>
