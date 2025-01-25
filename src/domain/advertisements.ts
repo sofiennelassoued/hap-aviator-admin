@@ -1,19 +1,16 @@
-import { ENDPOINT } from '@/constants'
+import { collection, addDoc } from "firebase/firestore";
+import { database } from "./firebase";
 
-const getAdvertisements = async () => {
-  const response = await fetch(`${ENDPOINT}/advertisements.json`)
-  return response.json()
-}
-
-const getAdvertisement = async (id: string) => {
-  const response = await fetch(`${ENDPOINT}/advertisements.json`)
-  const result = await response.json()
-  return result.find((x: any) => x.id === id)
-}
-
-const getAdvertisementAnalytics = async (id: string) => {
-  const response = await fetch(`${ENDPOINT}/advertisements-analytics.json`)
-  const result = await response.json()
-  return result.find((x: any) => x.id === id)
-}
-export { getAdvertisements, getAdvertisement, getAdvertisementAnalytics }
+const createDoc = async () => {
+  try {
+    const docRef = await addDoc(collection(database, "users"), {
+      first: "Ada",
+      last: "Lovelace",
+      born: 1815,
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+};
+export { createDoc };
