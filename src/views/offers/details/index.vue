@@ -1,6 +1,6 @@
 <template>
   <div>
-    Sign Up
+    Offer details
   </div>
 </template>
 
