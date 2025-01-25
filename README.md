@@ -1,4 +1,4 @@
-# happipi-advertisers
+# hap-pilot-admin
 
 This template should help get you started developing with Vue 3 in Vite.
 
@@ -38,7 +38,7 @@ npm run build
 npm run lint
 ```
 
-# happipi-advertisers
+# hap-pilot-admin
 
 Mobile app
 https://github.com/iam-rohid/react-native-shopping-app?tab=readme-ov-file

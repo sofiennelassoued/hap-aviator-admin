@@ -10,7 +10,7 @@
           <router-view />
         </div>
       </div>
-      <app-footer />
+      <!-- <app-footer /> -->
     </div>
   </div>
 </template>
