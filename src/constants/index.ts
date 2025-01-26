@@ -1,1 +1,8 @@
-export const ENDPOINT = '/public/json'
+export const ENDPOINT = "/public/json";
+export const OFFERS_DATABASE_COLLECTION = "offers";
+export const ADVERTISEMENTS_DATABASE_COLLECTION = "advertisements";
+export const GIFTS_DATABASE_COLLECTION = "gifts";
+export const PARTNERS_DATABASE_COLLECTION = "partners";
+export const ADVERTISERS_DATABASE_COLLECTION = "advertisers";
+export const USERS_DATABASE_COLLECTION = "users";
+export const IMAGES_STORAGE_BUCKET = "uploads/images";

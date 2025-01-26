@@ -1,11 +1,11 @@
 <template>
   <div class="dropzone p-5 border rounded text-center position-relative"
-    :class="{ 'border-primary': isDragging, 'border-secondary': !isDragging }" @dragover.prevent="handleDragOver"
-    @dragleave="handleDragLeave" @drop.prevent="handleDrop">
+    :class="{ 'border-primary': isDragging, 'border-secondary': !isDragging }" @dragover.prevent="handleOnDragOver"
+    @dragleave="handleOnDragLeave" @drop.prevent="handleOnDrop">
     <p v-if="imagePreviews.length === 0" class="mb-0">
       {{ isDragging ? 'Drop your images here' : 'Drag and drop images here or click to upload' }}
     </p>
-    <input type="file" class="d-none" ref="fileInput" accept="image/*" @change="handleFiles" multiple />
+    <input type="file" class="d-none" ref="fileInput" accept="image/*" @change="handleOnChange" multiple />
     <div v-if="imagePreviews.length > 0" class="preview-container d-flex flex-wrap justify-content-center">
       <div v-for="(image, index) in imagePreviews" :key="index" class="preview-box position-relative">
         <img :src="image" class="img-thumbnail" alt="Preview" />
@@ -23,30 +23,32 @@ const isDragging = ref(false);
 const fileInput = ref(null);
 const imagePreviews = ref([]);
 
-const handleDragOver = () => {
+const handleOnDragOver = () => {
   isDragging.value = true;
 };
 
-const handleDragLeave = () => {
+const handleOnDragLeave = () => {
   isDragging.value = false;
 };
 
-const handleDrop = (event) => {
+const handleOnDrop = (event) => {
   isDragging.value = false;
   const files = Array.from(event.dataTransfer.files);
   processFiles(files);
 };
 
-const handleFiles = (event) => {
+const handleOnChange = (event) => {
   const files = Array.from(event.target.files);
   processFiles(files);
 };
 
+const emit = defineEmits(["loaded"])
 const processFiles = (files) => {
   const validFiles = files.filter((file) => file.type.startsWith('image/'));
   validFiles.forEach((file) => {
     const reader = new FileReader();
     reader.onload = (e) => {
+      emit("loaded", e.target.result)
       imagePreviews.value.push(e.target.result);
     };
     reader.readAsDataURL(file);
