@@ -1,11 +1,87 @@
 <template>
-  <div>
-    Advertisers
+  <!-- Breadcrumb -->
+  <div class="d-flex justify-content-between align-items-center">
+    <nav aria-label="breadcrumb" class="main-breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><router-link to="/">Home</router-link></li>
+        <li class="breadcrumb-item active" aria-current="page">Advertisers</li>
+      </ol>
+    </nav>
+    <div>
+      <search :items="allItems" @filtered="handleOnFiltered" />
+    </div>
   </div>
+  <div class="album py-5 bg-body-tertiary" v-if="!loading && items.length > 0">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <div class="col" v-for="item in items" :key="item.id">
+          <div class="card shadow-sm">
+            <div class="d-flex justify-content-center full-width mt-2">
+              <img class="image" :src="item.image" />
+            </div>
+            <div class="card-body">
+              <p class="card-text h5">{{ item.name }}</p>
+              <p class="card-text">{{ item.email }}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <router-link type="button" class="btn btn-sm btn-outline-secondary"
+                    :to="'/advertisers/' + item.id">View</router-link>
+                  <router-link type="button" class="btn btn-sm btn-outline-secondary"
+                    :to="'/advertisements/new?advertiser=' + item.id">Create advertisement</router-link>
+                </div>
+                <small class="text-body-secondary"><a :href="item.link" target="_blank">Visit</a></small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="vh-100 d-flex justify-content-center align-items-center" v-if="!loading && items.length === 0">
+    <div class="text-center">
+      <p>No items</p>
+    </div>
+  </div>
+  <div class="vh-100 d-flex justify-content-center align-items-center" v-if="loading">
+    <div class="text-center">
+      <div class="spinner-border" role="status">
+      </div>
+    </div>
+  </div>
+  <fab link="/advertisers/new" />
 </template>
 
 <script setup>
-
+import Fab from '@/components/miscs/buttons/fab/index.vue';
+import Search from '@/components/miscs/forms/search/index.vue';
+import { getAdvertisers } from '@/domain/advertisers';
+import { onMounted, ref } from 'vue';
+const loading = ref(false)
+const allItems = ref([])
+const items = ref([])
+onMounted(() => {
+  const fn = async () => {
+    try {
+      loading.value = true
+      allItems.value = await getAdvertisers()
+      items.value = allItems.value;
+      loading.value = false
+    } catch (error) {
+      loading.value = false
+      console.log(error)
+    }
+  }
+  fn()
+})
+const handleOnFiltered = (i) => {
+  items.value = i
+}
 </script>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.image {
+  height: 128px;
+  width: 128px;
+  border-radius: 64px;
+}
+</style>

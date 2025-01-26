@@ -59,13 +59,13 @@
 <script setup lang="ts">
 import { CROPPER_ASPECT_RATIO } from '@/components/miscs/cropper/index.config';
 import Cropper from '@/components/miscs/cropper/index.vue';
+import ImagePicker from '@/components/miscs/image-picker/index.vue';
 import { IMAGES_STORAGE_BUCKET } from '@/constants';
 import { createPartnerIdentity, createPartnerMetadata } from '@/domain/partners';
 import { upload } from '@/domain/storage';
 import Swal from 'sweetalert2';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import ImagePicker from './image-picker/index.vue';
 const router = useRouter()
 const image = ref<string>('')
 const imageBlob = ref<Blob | null>(null)
