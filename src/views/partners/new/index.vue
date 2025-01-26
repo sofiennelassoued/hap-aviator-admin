@@ -29,7 +29,7 @@
               <label for="input-title" class="form-label">Email</label>
               <input type="text" class="form-control" id="input-email" aria-describedby="text-email"
                 placeholder="Ex: contact@happy-pizza.com" required v-model="email">
-              <div id="help-email" class="form-text">Provide the establishment email or the representative email</div>
+              <div id="help-email" class="form-text">Provide the business email or the representative email</div>
               <label for="input-password" class="form-label">Password</label>
               <input type="password" class="form-control" id="input-password" aria-describedby="text-password"
                 placeholder="Input password" required v-model="password">
@@ -37,7 +37,7 @@
               <label for="input-name" class="form-label">Name</label>
               <input type="text" class="form-control" id="input-name" aria-describedby="text-name"
                 placeholder="Ex: Pizza Example" required v-model="name">
-              <div id="help-name" class="form-text">Establishment name</div>
+              <div id="help-name" class="form-text">Business name</div>
               <label for="input-social-link" class="form-label">Social link</label>
               <input type="text" class="form-control" id="input-social-link" aria-describedby="text-social-link"
                 placeholder="Ex: https://www.example.com" required v-model="link">
