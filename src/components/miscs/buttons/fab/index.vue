@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/new">
+  <router-link :to="link">
     <a class="btn btn-primary px-5 fab">
       <i class="ph ph-plus"></i> Create
     </a>
@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-
+const { link } = defineProps(['link'])
 </script>
 
 <style scoped>
