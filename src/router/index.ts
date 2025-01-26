@@ -1,3 +1,4 @@
+import TestView from "@/views/test/index.vue";
 import HomeView from "@/views/home/index.vue";
 // Offers
 import OffersDetailsView from "@/views/offers/details/index.vue";
@@ -27,6 +28,11 @@ import { createRouter, createWebHistory } from "vue-router";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: "/test",
+      name: "test",
+      component: TestView,
+    },
     {
       path: "/",
       name: "home",
