@@ -19,9 +19,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+const props = defineProps(['conditions', 'limitations'])
 const conditions = ref()
 const limitations = ref()
+onMounted(() => {
+  conditions.value = props.conditions
+  limitations.value = props.limitations
+})
+defineExpose({ conditions, limitations })
 </script>
 
 <style scoped></style>

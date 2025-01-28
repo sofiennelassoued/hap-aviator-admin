@@ -12,26 +12,27 @@ const upload = (
   file: Blob | Uint8Array | ArrayBuffer,
   callback: (
     error?: string | null,
-    snapshot?: UploadTaskSnapshot | null,
-    downloadURL?: string
+    snapshot?: UploadTaskSnapshot | null
   ) => void
 ) => {
-  const r = ref(storage, url);
-  const t = uploadBytesResumable(r, file);
-  t.on(
-    "state_changed",
-    (s) => {
-      callback(null, s);
-    },
-    ({ code }) => {
-      callback(code);
-    },
-    () => {
-      getDownloadURL(t.snapshot.ref).then((u) => {
-        callback(null, null, u);
-      });
-    }
-  );
+  return new Promise((resolve) => {
+    const r = ref(storage, url);
+    const t = uploadBytesResumable(r, file);
+    t.on(
+      "state_changed",
+      (s) => {
+        callback(null, s);
+      },
+      ({ code }) => {
+        callback(code);
+      },
+      () => {
+        getDownloadURL(t.snapshot.ref).then((u) => {
+          resolve(u);
+        });
+      }
+    );
+  });
 };
 
 export { upload };
