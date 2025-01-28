@@ -18,7 +18,7 @@
                 <div class="progress-bar" role="progressbar" :style="'width: ' + progress + '%;'"
                   :aria-valuenow="progress" aria-valuemin="0" aria-valuemax="100">{{ progress }}%</div>
               </div>
-              <cropper v-if="tempImage" :image="tempImage" :aspect-ratio="CROPPER_ASPECT_RATIO.Ratio_1_1"
+              <image-cropper v-if="tempImage" :image="tempImage" :aspect-ratio="CROPPER_ASPECT_RATIO.Ratio_1_1"
                 @cropped="handleOnCropped" />
             </div>
           </div>
@@ -57,8 +57,8 @@
 </template>
 
 <script setup lang="ts">
-import { CROPPER_ASPECT_RATIO } from '@/components/miscs/cropper/index.config';
-import Cropper from '@/components/miscs/cropper/index.vue';
+import { CROPPER_ASPECT_RATIO } from '@/components/miscs/image-cropper/index.config';
+import ImageCropper from '@/components/miscs/image-cropper/index.vue';
 import ImagePicker from '@/components/miscs/image-picker/index.vue';
 import { IMAGES_STORAGE_BUCKET } from '@/constants';
 import { createAdvertiserIdentity, createAdvertiserMetadata } from '@/domain/advertisers';

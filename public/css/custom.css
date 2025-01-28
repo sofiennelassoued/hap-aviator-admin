@@ -2,3 +2,14 @@
     min-height: 100%;
     height: 100%;
 }
+
+.form-group > label {
+    margin-top: 8px !important;
+    margin-bottom: 2px !important;
+}
+.form-text {
+    opacity: 0.6 !important;
+}
+.form-text::before {
+    content: "ⓘ " !important;
+}
