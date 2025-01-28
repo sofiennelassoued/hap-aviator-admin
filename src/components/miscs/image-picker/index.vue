@@ -10,8 +10,8 @@
       Click to upload
     </p>
   </div>
-  <button type="button" class="btn btn-sm btn-danger mt-2" aria-label="Reset"
-    v-if="preview" @click="handleOnClickDelete()">Reset</button>
+  <button type="button" class="btn btn-sm btn-danger mt-2" aria-label="Reset" v-if="preview"
+    @click="handleOnClickDelete()">Reset</button>
 </template>
 
 <script setup lang="ts">
@@ -26,7 +26,11 @@ const handleOnChange = (e: Event) => {
   const reader = new FileReader()
   reader.readAsDataURL(file)
   reader.onload = () => {
-    emit('loaded', reader.result)
+    emit('loaded', null)
+    setTimeout(() => {
+      emit('loaded', reader.result);
+      (e.target as HTMLInputElement).value = "";
+    }, 100);
   }
 };
 const handleOnClick = () => {

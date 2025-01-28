@@ -11,12 +11,13 @@
     <form @submit.prevent="handleOnSubmit">
       <div class="row">
         <div class="col-md-12">
-          <media ref="media" :count="MEDIA_COUNT" :progresses="progresses" />
           <basics ref="basics" />
           <pricing ref="pricing" />
           <validity-and-availability ref="validityAndAvailability" />
           <business-details ref="businessDetails" />
+          <business-social ref="businessSocial" />
           <conditions-and-limitations ref="conditionsAndLimitations" />
+          <media ref="media" :count="MEDIA_COUNT" :progresses="progresses" />
           <button type="submit" class="btn btn-primary mt-3" :disabled="loading">
             <span v-if="!loading">Submit</span>
             <div class="spinner-grow text-light spinner-grow-sm" role="status" v-else>
@@ -30,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { IMAGES_STORAGE_BUCKET } from '@/constants';
+import { IMAGES_STORAGE_BUCKET, OFFERS_DATABASE_COLLECTION } from '@/constants';
 import { createOffer } from '@/domain/offers';
 import { upload } from '@/domain/storage';
 import Swal from 'sweetalert2';
@@ -39,9 +40,11 @@ import { useRoute, useRouter } from 'vue-router';
 import Basics from '@/views/offers/new/components/basics/index.vue'
 import Pricing from '@/views/offers/new/components/pricing/index.vue'
 import ValidityAndAvailability from '@/views/offers/new/components/validity-and-availability/index.vue'
+import BusinessSocial from '@/views/offers/new/components/social/index.vue'
 import ConditionsAndLimitations from '@/views/offers/new/components/conditions-and-limitations/index.vue'
 import BusinessDetails from '@/views/offers/new/components/business-details/index.vue'
 import Media from '@/views/offers/new/components/media/index.vue'
+import { generateId } from '@/domain/firebase';
 const router = useRouter()
 const route = useRoute()
 const MEDIA_COUNT = 4
@@ -52,6 +55,7 @@ const basics = ref()
 const pricing = ref()
 const validityAndAvailability = ref()
 const businessDetails = ref()
+const businessSocial = ref()
 const conditionsAndLimitations = ref()
 
 const loading = ref<boolean>(false)
@@ -67,7 +71,8 @@ const handleOnSubmit = () => {
       if (!media.value || !media.value.media) {
         throw new Error('Media are not provided')
       }
-      const metadata: any = {}
+      const id = await generateId(OFFERS_DATABASE_COLLECTION)
+      const payload: any = {}
       loading.value = true
       error.value = ""
       const offerMedia = []
@@ -76,7 +81,7 @@ const handleOnSubmit = () => {
       for (const [i, m] of entries) {
         if (m && m.blob) {
           j = j + 1
-          const result = await upload(IMAGES_STORAGE_BUCKET + '/offers/' + "uid-" + j, m.blob, async (e, s) => {
+          const result = await upload(IMAGES_STORAGE_BUCKET + '/offers/' + id + "-" + j, m.blob, async (e, s) => {
             if (e) error.value
             if (s) progresses.value[i] = (s.bytesTransferred / s.totalBytes) * 100;
           })
@@ -85,51 +90,60 @@ const handleOnSubmit = () => {
           }
         }
       }
-      metadata['partnerId'] = partnerId
+      payload['partnerId'] = partnerId
       if (offerMedia && offerMedia.length > 0) {
-        metadata['media'] = offerMedia
+        payload['media'] = offerMedia
       }
       if (basics.value) {
         const { title, description, category } = basics.value
-        if (title) metadata['title'] = title
-        if (description) metadata['description'] = description
-        if (category) metadata['category'] = category
+        if (title) payload['title'] = title
+        if (description) payload['description'] = description
+        if (category) payload['category'] = category
       }
       if (pricing.value) {
-        const { points, type, discount } = pricing.value
-        metadata['pricing'] = {}
-        if (points) metadata['pricing']['points'] = points
-        if (type) metadata['pricing']['type'] = type
-        if (discount) metadata['pricing']['discount'] = discount
+        const { points, price, type, discount } = pricing.value
+        payload['pricing'] = {}
+        if (points) payload['pricing']['points'] = points
+        if (price) payload['pricing']['price'] = price
+        if (type) payload['pricing']['type'] = type
+        if (discount) payload['pricing']['discount'] = discount
       }
       if (validityAndAvailability.value) {
         const { startDate, endDate, quota, priority } = validityAndAvailability.value
-        metadata['validity'] = {}
-        if (startDate) metadata['validity']['startDate'] = startDate
-        if (endDate) metadata['validity']['endDate'] = endDate
-        if (quota) metadata['validity']['quota'] = quota
-        if (priority) metadata['validity']['priority'] = priority
+        payload['validity'] = {}
+        if (startDate) payload['validity']['startDate'] = startDate
+        if (endDate) payload['validity']['endDate'] = endDate
+        if (quota) payload['validity']['quota'] = quota
+        if (priority) payload['validity']['priority'] = priority
       }
       if (businessDetails.value) {
         const { name, representative, location, address, email, phone, hours, country, cities } = businessDetails.value
-        metadata['business'] = {}
-        if (name) metadata['business']['name'] = name
-        if (representative) metadata['business']['representative'] = representative
-        if (location) metadata['business']['location'] = location
-        if (address) metadata['business']['address'] = address
-        if (country) metadata['business']['country'] = country
-        if (cities) metadata['business']['cities'] = cities
-        if (email) metadata['business']['email'] = email
-        if (phone) metadata['business']['phone'] = phone
-        if (hours) metadata['business']['hours'] = hours
+        payload['business'] = {}
+        if (name) payload['business']['name'] = name
+        if (representative) payload['business']['representative'] = representative
+        if (location) payload['business']['location'] = location
+        if (address) payload['business']['address'] = address
+        if (country) payload['business']['country'] = country
+        if (cities) payload['business']['cities'] = cities
+        if (email) payload['business']['email'] = email
+        if (phone) payload['business']['phone'] = phone
+        if (hours) payload['business']['hours'] = hours
+      }
+      if (businessSocial.value) {
+        const { website, instagram, facebook, whatsapp } = businessSocial.value
+        payload['social'] = {}
+        if (website) payload['social']['website'] = website
+        if (instagram) payload['social']['instagram'] = instagram
+        if (facebook) payload['social']['facebook'] = facebook
+        if (whatsapp) payload['social']['whatsapp'] = whatsapp
       }
       if (conditionsAndLimitations.value) {
         const { conditions, limitations } = conditionsAndLimitations.value
-        metadata['conditions'] = {}
-        if (conditions) metadata['conditions']['conditions'] = conditions
-        if (limitations) metadata['conditions']['limitations'] = limitations
+        payload['conditions'] = {}
+        if (conditions) payload['conditions']['conditions'] = conditions
+        if (limitations) payload['conditions']['limitations'] = limitations
       }
-      await createOffer("uid", metadata)
+      await createOffer(id, payload)
       loading.value = false
       Swal.fire({
         title: "Offer created",
@@ -137,14 +151,14 @@ const handleOnSubmit = () => {
         icon: "success",
         showDenyButton: true,
         showCancelButton: true,
-        confirmButtonText: "Create offer",
+        confirmButtonText: "OK",
         cancelButtonText: "Close",
         denyButtonText: `View details`
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire("Saved!", "", "success");
         } else if (result.isDenied) {
-          router.push("uid");
+          router.push(id);
         }
       });
     } catch (e) {

@@ -52,7 +52,7 @@ onMounted(() => {
   calculateDiscount()
 
   // TODO: Update this to use the correct type
-  const SELECTED_TYPE = 'with-discount'
+  const SELECTED_TYPE = 'medium'
   type.value = SELECTED_TYPE
 })
 const handleOnOriginalPriceInput = () => {
