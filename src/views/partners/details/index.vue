@@ -47,10 +47,65 @@
           <hr>
           <div class="row">
             <div class="col-sm-3">
-              <h6 class="mb-0">Link</h6>
+              <h6 class="mb-0">Representative</h6>
             </div>
             <div class="col-sm-9 text-secondary">
-              <a :href="payload.link" target="_blank" class="text-primary">{{ payload.link }}</a>
+              {{ payload.representative }}
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Website</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+              <a :href="payload.website" target="_blank" class="text-primary">{{ payload.website }}</a>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Contact Email</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+              <a :href="'mailto:' + payload.contactEmail" target="_blank" class="text-primary">{{ payload.contactEmail
+                }}</a>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Phone</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+              <a :href="'tel:' + payload.phone" target="_blank" class="text-primary">{{ payload.phone }}</a>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Instagram</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+              <a :href="payload.instagram" target="_blank" class="text-primary">{{ payload.instagram }}</a>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Facebook</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+              <a :href="payload.facebook" target="_blank" class="text-primary">{{ payload.facebook }}</a>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">WhatsApp</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+              <a :href="'tel:' + payload.whatsapp" target="_blank" class="text-primary">{{ payload.whatsapp }}</a>
             </div>
           </div>
         </div>

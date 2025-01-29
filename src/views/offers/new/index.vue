@@ -8,14 +8,16 @@
     </ol>
   </nav>
   <div class="container">
-    <form @submit.prevent="handleOnSubmit">
+    <form @submit.prevent="handleOnSubmit" v-if="partner">
       <div class="row">
         <div class="col-md-12">
           <basics ref="basics" />
           <pricing ref="pricing" />
           <validity-and-availability ref="validityAndAvailability" />
-          <business-details ref="businessDetails" />
-          <business-social ref="businessSocial" />
+          <business-details :name="name" :representative="representative" :email="contactEmail" :phone="phone"
+            ref="businessDetails" />
+          <business-social :website="website" :instagram="instagram" :facebook="facebook" :whatsapp="whatsapp"
+            ref="businessSocial" />
           <conditions-and-limitations ref="conditionsAndLimitations" />
           <media ref="media" :count="MEDIA_COUNT" :progresses="progresses" />
           <button type="submit" class="btn btn-primary mt-3" :disabled="loading">
@@ -34,6 +36,7 @@
 import { IMAGES_STORAGE_BUCKET, OFFERS_DATABASE_COLLECTION } from '@/constants';
 import { generateId } from '@/domain/firebase';
 import { createOffer } from '@/domain/offers';
+import { getPartnerMetadata } from '@/domain/partners';
 import { upload } from '@/domain/storage';
 import Basics from '@/views/offers/new/components/basics/index.vue';
 import BusinessDetails from '@/views/offers/new/components/business-details/index.vue';
@@ -43,7 +46,7 @@ import Pricing from '@/views/offers/new/components/pricing/index.vue';
 import BusinessSocial from '@/views/offers/new/components/social/index.vue';
 import ValidityAndAvailability from '@/views/offers/new/components/validity-and-availability/index.vue';
 import Swal from 'sweetalert2';
-import { ref, toRaw } from 'vue';
+import { onMounted, ref, toRaw } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 const router = useRouter()
 const route = useRoute()
@@ -62,6 +65,39 @@ const loading = ref<boolean>(false)
 const error = ref<string>('')
 const progresses = ref<number[]>([])
 const partnerId = route.query.partner
+const partner = ref()
+// Business details
+const name = ref()
+const representative = ref()
+const contactEmail = ref()
+const phone = ref()
+const website = ref()
+// Business social
+const instagram = ref()
+const facebook = ref()
+const whatsapp = ref()
+
+onMounted(() => {
+  const fn = async () => {
+    try {
+      if (partnerId) {
+        partner.value = await getPartnerMetadata(partnerId?.toString())
+        name.value = partner.value.name;
+        representative.value = partner.value.representative;
+        contactEmail.value = partner.value.contactEmail;
+        phone.value = partner.value.phone;
+        website.value = partner.value.website;
+        instagram.value = partner.value.instagram;
+        facebook.value = partner.value.facebook;
+        whatsapp.value = partner.value.whatsapp
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  fn()
+})
+
 const handleOnSubmit = () => {
   const fn = async () => {
     try {
@@ -71,10 +107,10 @@ const handleOnSubmit = () => {
       if (!media.value || !media.value.media) {
         throw new Error('Media are not provided')
       }
-      const id = await generateId(OFFERS_DATABASE_COLLECTION)
-      const payload: any = {}
       loading.value = true
       error.value = ""
+      const id = await generateId(OFFERS_DATABASE_COLLECTION)
+      const payload: any = {}
       const offerMedia = []
       const entries = media.value.media.entries()
       let j = 0;

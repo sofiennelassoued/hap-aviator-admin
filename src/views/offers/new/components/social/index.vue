@@ -26,7 +26,7 @@
         </div>
         <div class="form-group col-md-6">
           <label for="input-title">WhatsApp <small><button type="button" class="btn btn-sm"><a :href="whatsapp" target="_blank"
-                  v-if="whatsapp">Visit</a></button></small>
+                  v-if="whatsapp">Call</a></button></small>
           </label>
           <input type="text" class="form-control" id="input-title" placeholder="Ex: +123 456 7890" v-model="whatsapp">
         </div>
