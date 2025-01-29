@@ -8,7 +8,7 @@
       </ol>
     </nav>
   </div>
-  <div class="album py-5 bg-body-tertiary">
+  <div class="album py-5 bg-body-tertiary" v-if="!loading && items.length > 0">
     <div class="container">
       <div class="row">
         <div class="card p-3">
