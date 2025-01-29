@@ -1,15 +1,15 @@
 <template>
   <div>
     <input ref="uploadInput" type="file" accept="image/jpg, image/jpeg, image/png" @change="handleOnChange" />
-    <cropper v-if="tempImage" :image="tempImage" :aspect-ratio="CROPPER_ASPECT_RATIO.Ratio_1_1"
+    <image-cropper v-if="tempImage" :image="tempImage" :aspect-ratio="CROPPER_ASPECT_RATIO.Ratio_1_1"
       @cropped="handleOnCropped" />
     <img :src="result.dataURL" v-if="result.dataURL" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { CROPPER_ASPECT_RATIO } from '@/components/miscs/cropper/index.config';
-import Cropper from '@/components/miscs/cropper/index.vue'
+import { CROPPER_ASPECT_RATIO } from '@/components/miscs/image-cropper/index.config';
+import ImageCropper from '@/components/miscs/image-cropper/index.vue'
 import { reactive, ref } from 'vue';
 
 const uploadInput = ref<HTMLInputElement | null>(null)

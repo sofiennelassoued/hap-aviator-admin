@@ -12,8 +12,8 @@
         </div>
         <div class="modal-body">
           <div class="cropper-wrapper">
-            <VuePictureCropper :boxStyle="CROPPER_BOX_STYLE" :img="image"
-              :options="{ ...CROPPER_OPTIONS, aspectRatio }" v-if="!isLoading" />
+            <VuePictureCropper :boxStyle="CROPPER_BOX_STYLE" :img="image" :options="{ ...CROPPER_OPTIONS, aspectRatio }"
+              v-if="!isLoading" />
           </div>
         </div>
         <div class="modal-footer">

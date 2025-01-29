@@ -7,32 +7,40 @@
         <li class="breadcrumb-item active" aria-current="page">Partners</li>
       </ol>
     </nav>
-    <div>
-      <search :items="allItems" @filtered="handleOnFiltered" />
-    </div>
   </div>
-  <div class="album py-5 bg-body-tertiary" v-if="!loading && items.length > 0">
+  <div class="album py-5 bg-body-tertiary">
     <div class="container">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <div class="col" v-for="item in items" :key="item.id">
-          <div class="card shadow-sm">
-            <div class="d-flex justify-content-center full-width mt-2">
-              <img class="image" :src="item.image" />
+      <div class="row">
+        <div class="card p-3">
+          <div class="d-flex justify-content-between">
+            <h3>Partners</h3>
+            <div>
+              <search :items="allItems" @filtered="handleOnFiltered" />
             </div>
-            <div class="card-body">
-              <p class="card-text h5">{{ item.name }}</p>
-              <p class="card-text">{{ item.email }}</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <router-link type="button" class="btn btn-sm btn-outline-secondary"
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Logo</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in items" :key="item.id">
+                <th scope="row"><img class="image" :src="item.image" /></th>
+                <td>{{ item.name }}</td>
+                <td>{{ item.email }}</td>
+                <td>
+                  <router-link type="button" class="btn btn-sm btn-outline-primary mx-2"
                     :to="'/partners/' + item.id">View</router-link>
                   <router-link type="button" class="btn btn-sm btn-outline-secondary"
                     :to="'/offers/new?partner=' + item.id">Create offer</router-link>
-                </div>
-                <small class="text-body-secondary"><a :href="item.link" target="_blank">Visit</a></small>
-              </div>
-            </div>
-          </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -80,8 +88,8 @@ const handleOnFiltered = (i) => {
 
 <style lang="css" scoped>
 .image {
-  height: 128px;
-  width: 128px;
-  border-radius: 64px;
+  height: 32px;
+  width: 32px;
+  border-radius: 16px;
 }
 </style>

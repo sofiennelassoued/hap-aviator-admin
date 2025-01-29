@@ -16,9 +16,9 @@
               <image-picker :preview="image" @loaded="handleOnLoaded" @reset="handleOnReset" />
               <div class="progress mt-2" v-if="progress">
                 <div class="progress-bar" role="progressbar" :style="'width: ' + progress + '%;'"
-                  :aria-valuenow="progress" aria-valuemin="0" aria-valuemax="100">{{ progress }}%</div>
+                  :aria-valuenow="progress" aria-valuemin="0" aria-valuemax="100">{{ Math.round(progress) }}%</div>
               </div>
-              <cropper v-if="tempImage" :image="tempImage" :aspect-ratio="CROPPER_ASPECT_RATIO.Ratio_1_1"
+              <image-cropper v-if="tempImage" :image="tempImage" :aspect-ratio="CROPPER_ASPECT_RATIO.Ratio_1_1"
                 @cropped="handleOnCropped" />
             </div>
           </div>
@@ -28,8 +28,8 @@
             <div class="card-body">
               <label for="input-title" class="form-label">Email</label>
               <input type="text" class="form-control" id="input-email" aria-describedby="text-email"
-                placeholder="Ex: contact@happy-shoes.com" required v-model="email">
-              <div id="help-email" class="form-text">Provide the establishment email or the representative email</div>
+                placeholder="Ex: contact@happy-shoes.com / name@hap-advertiser.com" required v-model="email">
+              <div id="help-email" class="form-text">Provide the business email or the representative email</div>
               <label for="input-password" class="form-label">Password</label>
               <input type="password" class="form-control" id="input-password" aria-describedby="text-password"
                 placeholder="Input password" required v-model="password">
@@ -37,7 +37,7 @@
               <label for="input-name" class="form-label">Name</label>
               <input type="text" class="form-control" id="input-name" aria-describedby="text-name"
                 placeholder="Ex: Pizza Example" required v-model="name">
-              <div id="help-name" class="form-text">Establishment name</div>
+              <div id="help-name" class="form-text">Business name</div>
               <label for="input-social-link" class="form-label">Social link</label>
               <input type="text" class="form-control" id="input-social-link" aria-describedby="text-social-link"
                 placeholder="Ex: https://www.example.com" required v-model="link">
@@ -57,8 +57,8 @@
 </template>
 
 <script setup lang="ts">
-import { CROPPER_ASPECT_RATIO } from '@/components/miscs/cropper/index.config';
-import Cropper from '@/components/miscs/cropper/index.vue';
+import { CROPPER_ASPECT_RATIO } from '@/components/miscs/image-cropper/index.config';
+import ImageCropper from '@/components/miscs/image-cropper/index.vue';
 import ImagePicker from '@/components/miscs/image-picker/index.vue';
 import { IMAGES_STORAGE_BUCKET } from '@/constants';
 import { createAdvertiserIdentity, createAdvertiserMetadata } from '@/domain/advertisers';
@@ -85,38 +85,39 @@ const handleOnSubmit = () => {
         error.value = ""
         const { user } = await createAdvertiserIdentity(email.value,
           password.value)
-        upload(IMAGES_STORAGE_BUCKET + '/advertisers/' + user.uid, imageBlob.value, async (e, s, u) => {
+        const u = await upload(IMAGES_STORAGE_BUCKET + '/advertisers/' + user.uid, imageBlob.value, async (e, s) => {
           if (e) error.value
           if (s) progress.value = (s.bytesTransferred / s.totalBytes) * 100;
-          if (u) {
-            const metadata = {
-              email: email.value,
-              name: name.value,
-              link: link.value,
-              image: u,
-              createdAt: new Date().toISOString()
-            }
-            await createAdvertiserMetadata(user.uid, metadata)
-            loading.value = false
-            Swal.fire({
-              title: "Advertiser created",
-              text: "What do you want to do next?",
-              icon: "success",
-              showDenyButton: true,
-              showCancelButton: true,
-              confirmButtonText: "Create advertisement",
-              cancelButtonText: "Close",
-              denyButtonText: `View details`
-            }).then((result) => {
-              if (result.isConfirmed) {
-                Swal.fire("Saved!", "", "success");
-              } else if (result.isDenied) {
-                router.push(user.uid);
-              }
-            });
-          }
         })
-      } catch (e) {
+        if (u) {
+          const metadata = {
+            email: email.value,
+            name: name.value,
+            link: link.value,
+            image: u,
+            createdAt: new Date().toISOString()
+          }
+          await createAdvertiserMetadata(user.uid, metadata)
+          loading.value = false
+          Swal.fire({
+            title: "Advertiser created",
+            text: "What do you want to do next?",
+            icon: "success",
+            showCancelButton: true,
+            confirmButtonText: "View details",
+            cancelButtonText: "View all",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              router.push(user.uid);
+            } else if (result.isDismissed) {
+              router.push({
+                name: 'advertisers'
+              })
+            }
+          });
+        }
+      }
+      catch (e) {
         console.log(e)
         loading.value = false
         // @ts-ignore
