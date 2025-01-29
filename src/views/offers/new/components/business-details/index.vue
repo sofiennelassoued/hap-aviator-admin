@@ -53,10 +53,10 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, toRaw } from 'vue';
-import CountryPicker from './country-picker/index.vue'
-import CitiesPicker from './cities-picker/index.vue'
-import OpeningHours from './opening-hours/index.vue'
+import { onMounted, ref } from 'vue';
+import CitiesPicker from './cities-picker/index.vue';
+import CountryPicker from './country-picker/index.vue';
+import OpeningHours from './opening-hours/index.vue';
 const props = defineProps(['name', 'representative', 'location', 'address', 'email', 'phone', 'country', 'cities'])
 
 // Components

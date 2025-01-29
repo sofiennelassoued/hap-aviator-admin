@@ -26,23 +26,68 @@
         <div class="col-md-8">
           <div class="card">
             <div class="card-body">
-              <label for="input-title" class="form-label">Email</label>
+              <label for="input-title" class="form-label">Login email*</label>
               <input type="text" class="form-control" id="input-email" aria-describedby="text-email"
                 placeholder="Ex: contact@happy-pizza.com / name@hap-partner.com" required v-model="email">
               <div id="help-email" class="form-text">Provide the business email or the representative email</div>
-              <label for="input-password" class="form-label">Password</label>
+              <label for="input-password" class="form-label">Login password*</label>
               <input type="password" class="form-control" id="input-password" aria-describedby="text-password"
                 placeholder="Input password" required v-model="password">
               <div id="help-password" class="form-text">Type a strong password</div>
-              <label for="input-name" class="form-label">Name</label>
+              <label for="input-name" class="form-label">Name*</label>
               <input type="text" class="form-control" id="input-name" aria-describedby="text-name"
                 placeholder="Ex: Pizza Example" required v-model="name">
               <div id="help-name" class="form-text">Business name</div>
-              <label for="input-social-link" class="form-label">Social link</label>
-              <input type="text" class="form-control" id="input-social-link" aria-describedby="text-social-link"
-                placeholder="Ex: https://www.example.com" required v-model="link">
-              <div id="help-social-link" class="form-text">Website, Instagram, Facebook...</div>
-              <button type="submit" class="btn btn-primary" :disabled="loading">
+              <div class="row mt-2">
+                <div class="col-md-6">
+                  <label for="input-social-link" class="form-label">Business representative</label>
+                  <input type="text" class="form-control" id="input-business-representative"
+                    aria-describedby="text-business-representative" placeholder="Ex: Bob Black"
+                    v-model="representative">
+                  <div id="help-business-representative" class="form-text">Business manager</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="input-business-website" class="form-label">Business website</label>
+                  <input type="text" class="form-control" id="input-business-website"
+                    aria-describedby="text-business-representative" placeholder="Ex: https://www.pizzaexample.com"
+                    v-model="website">
+                  <div id="help-business-website" class="form-text">Business website</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="input-contact-email" class="form-label">Business contact email</label>
+                  <input type="text" class="form-control" id="input-business-contact-email"
+                    aria-describedby="text-business-representative" placeholder="Ex: contact@pizza-example.com"
+                    v-model="contactEmail">
+                  <div id="help-business-contact-email" class="form-text">Business contact email</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="input-business-phone" class="form-label">Business phone</label>
+                  <input type="text" class="form-control" id="input-business-phone"
+                    aria-describedby="text-business-representative" placeholder="Ex: +1 234 567 890" v-model="phone">
+                  <div id="help-business-phone" class="form-text">Business phone</div>
+                </div>
+                <div class="col-md-4">
+                  <label for="input-business-instagram" class="form-label">Business Instagram</label>
+                  <input type="text" class="form-control" id="input-business-website"
+                    aria-describedby="text-business-representative"
+                    placeholder="Ex: https://www.instagram.com/@pizzaexample" v-model="instagram">
+                  <div id="help-business-instagram" class="form-text">Business Instagram</div>
+                </div>
+                <div class="col-md-4">
+                  <label for="input-business-instagram" class="form-label">Business Facebook</label>
+                  <input type="text" class="form-control" id="input-business-instagram"
+                    aria-describedby="text-business-representative"
+                    placeholder="Ex: https://www.facebook.com/pizzaexample" v-model="facebook">
+                  <div id="help-business-facebook" class="form-text">Business Facebook</div>
+                </div>
+                <div class="col-md-4">
+                  <label for="input-business-whatsapp" class="form-label">Business WhatsApp</label>
+                  <input type="text" class="form-control" id="input-business-representative"
+                    aria-describedby="text-business-representative" placeholder="Ex: +1 234 567 890" v-model="whatsapp">
+                  <div id="help-business-whatsapp" class="form-text">Business WhatsApp</div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary mt-4" :disabled="loading">
                 <span v-if="!loading">Submit</span>
                 <div class="spinner-grow text-light spinner-grow-sm" role="status" v-else>
                 </div>
@@ -73,7 +118,13 @@ const tempImage = ref<string>('')
 const email = ref()
 const password = ref()
 const name = ref()
-const link = ref()
+const representative = ref()
+const contactEmail = ref()
+const phone = ref()
+const website = ref()
+const instagram = ref()
+const facebook = ref()
+const whatsapp = ref()
 const loading = ref<boolean>(false)
 const error = ref<string>('')
 const progress = ref<number>(0)
@@ -93,7 +144,13 @@ const handleOnSubmit = () => {
           const metadata = {
             email: email.value,
             name: name.value,
-            link: link.value,
+            representative: representative.value,
+            contactEmail: contactEmail.value,
+            phone: phone.value,
+            website: website.value,
+            instagram: instagram.value,
+            facebook: facebook.value,
+            whatsapp: whatsapp.value,
             image: u,
             createdAt: new Date().toISOString()
           }
