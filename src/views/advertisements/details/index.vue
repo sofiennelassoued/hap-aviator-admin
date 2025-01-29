@@ -1,4 +1,12 @@
 <template>
+  <!-- Breadcrumb -->
+  <nav aria-label="breadcrumb" class="main-breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><router-link to="/">Home</router-link></li>
+      <li class="breadcrumb-item"><router-link to="/advertisements">Advertisements</router-link></li>
+      <li class="breadcrumb-item active" aria-current="page">Details</li>
+    </ol>
+  </nav>
   <div class="row">
     <div class="col-lg-3" v-if="state.payload">
       <div class="row">
@@ -42,18 +50,18 @@ import Age from '@/components/advertisements/analytics/age/index.vue';
 import Interests from '@/components/advertisements/analytics/interests/index.vue';
 import Reach from '@/components/advertisements/analytics/reach/index.vue';
 import Sex from '@/components/advertisements/analytics/sex/index.vue';
-import { getAdvertisement, getAdvertisementAnalytics } from '@/domain/advertisements';
+import { getAdvertisementMetadata } from '@/domain/advertisements';
 import { onMounted, reactive, toRefs } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute()
-const { id } = route.params
+const id = route.params.id
 const state = reactive({ payload: null, analytics: null, titleContainer: true })
 
 onMounted(() => {
   const fn = async () => {
     try {
-      const result = await getAdvertisement(id)
+      const result = await getAdvertisementMetadata(id)
       state.payload = result
     } catch (error) {
       console.log(error)
@@ -61,12 +69,12 @@ onMounted(() => {
   }
   fn()
   const fn2 = async () => {
-    try {
-      const result = await getAdvertisementAnalytics(id)
-      state.analytics = result
-    } catch (error) {
-      console.log(error)
-    }
+    // try {
+    //   const result = await getAdvertisementAnalytics(id)
+    //   state.analytics = result
+    // } catch (error) {
+    //   console.log(error)
+    // }
   }
   fn2()
 })
