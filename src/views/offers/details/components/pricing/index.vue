@@ -5,7 +5,7 @@
         <h3>Pricing</h3>
         <div class="form-group col-md-6">
           <label for="input-points">Points *</label>
-          <input type="number" class="form-control" id="input-points" placeholder="Ex: 100" min="0" required
+          <input type="number"   class="form-control" id="input-points" placeholder="Ex: 100" min="0" required
             v-model.number="points">
         </div>
         <div class="form-group col-md-6">
@@ -14,12 +14,12 @@
         </div>
         <div class="form-group col-md-4">
           <label for="input-original-price">Original price *</label>
-          <input type="number" class="form-control" id="input-original-price" min="0" placeholder="Ex: 20" required
+          <input type="number"   class="form-control" id="input-original-price" min="0" placeholder="Ex: 20" required
             v-model.number="price" @input="handleOnOriginalPriceInput">
         </div>
         <div class="form-group col-md-4">
           <label for="input-discount">Discount (percentage) *</label>
-          <input type="number" class="form-control" id="input-discount" min="0" max="100" placeholder="Ex: 50" required
+          <input type="number"   class="form-control" id="input-discount" min="0" max="100" placeholder="Ex: 50" required
             v-model.number="discount" @input="handleOnDiscountInput">
         </div>
         <div class="form-group col-md-4">

@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, toRaw } from 'vue';
 import CountryPicker from './country-picker/index.vue'
 import CitiesPicker from './cities-picker/index.vue'
 import OpeningHours from './opening-hours/index.vue'
@@ -70,7 +70,7 @@ const email = ref()
 const phone = ref()
 const country = ref()
 const cities = ref()
-let hours = null
+const hours = ref()
 onMounted(() => {
   name.value = props.name
   representative.value = props.representative
@@ -79,7 +79,7 @@ onMounted(() => {
   email.value = props.email
   phone.value = props.phone
   if (openingHours!.value!.hours)
-    hours = openingHours!.value!.hours
+    hours.value = openingHours!.value!.hours
 
   country.value = props.country
 

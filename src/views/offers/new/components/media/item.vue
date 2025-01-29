@@ -3,7 +3,7 @@
     <image-picker :preview="image" @loaded="handleOnLoaded" @reset="handleOnReset" />
     <div class="progress mt-2" v-if="progress">
       <div class="progress-bar" role="progressbar" :style="'width: ' + progress + '%;'" :aria-valuenow="progress"
-        aria-valuemin="0" aria-valuemax="100">{{ progress }}%</div>
+        aria-valuemin="0" aria-valuemax="100">{{ Math.round(progress) }}%</div>
     </div>
     <image-cropper v-if="tempImage" :image="tempImage" :aspect-ratio="CROPPER_ASPECT_RATIO.Ratio_16_9"
       @cropped="handleOnCropped" />

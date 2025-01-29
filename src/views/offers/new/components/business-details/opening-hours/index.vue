@@ -48,8 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
-
+import { reactive, toRaw } from 'vue';
 const hours = reactive({
   monday: {
     opening: "",
@@ -104,7 +103,7 @@ const handleOnClickReset = (day: string) => {
   hours[day].closing = ''
 }
 defineExpose({
-  hours
+  hours: toRaw(hours)
 })
 </script>
 

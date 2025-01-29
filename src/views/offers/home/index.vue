@@ -41,7 +41,8 @@
                   <router-link type="button" class="btn btn-sm btn-outline-secondary"
                     :to="'/offers/' + item.id">View</router-link>
                 </div>
-                <small class="text-body-secondary"><a :href="item.social" target="_blank">Visite website</a></small>
+                <small class="text-body-secondary"><a :href="item.social?.website" target="_blank">Visit
+                    website</a></small>
               </div>
             </div>
           </div>
@@ -60,18 +61,15 @@
       </div>
     </div>
   </div>
-  <!-- <fab link="/offers/new" /> -->
 </template>
 
 <script setup>
-import Fab from '@/components/miscs/buttons/fab/index.vue';
 import Search from '@/components/miscs/forms/search/index.vue';
 import { getOffers, getOffersByPartner } from '@/domain/offers';
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 const route = useRoute()
 const { partner } = route.query
-console.log(partner)
 const loading = ref(false)
 const allItems = ref([])
 const items = ref([])

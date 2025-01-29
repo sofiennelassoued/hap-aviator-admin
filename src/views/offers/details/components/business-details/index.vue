@@ -46,7 +46,7 @@
           <input type="text" class="form-control" id="input-phone" placeholder="Ex: +1 234 567 890" v-model="phone">
         </div>
         <div class="mt-4"></div>
-        <opening-hours :hours="hours" ref="openingHours" />
+        <opening-hours v-if="hours" :hours="hours" ref="openingHours" />
       </div>
     </div>
   </div>

@@ -13,7 +13,7 @@
         </div>
         <div class="form-group col-md-6">
           <label for="input-stock-or-quota">Stock/Quota *</label>
-          <input type="number" class="form-control" min="1" id="input-stock-or-quota" placeholder="Ex: 10" required
+          <input type="number"   class="form-control" min="1" id="input-stock-or-quota" placeholder="Ex: 10" required
             v-model.number="quota">
         </div>
         <div class="form-group col-md-6">

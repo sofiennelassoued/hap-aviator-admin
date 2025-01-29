@@ -32,19 +32,19 @@
 
 <script setup lang="ts">
 import { IMAGES_STORAGE_BUCKET, OFFERS_DATABASE_COLLECTION } from '@/constants';
+import { generateId } from '@/domain/firebase';
 import { createOffer } from '@/domain/offers';
 import { upload } from '@/domain/storage';
+import Basics from '@/views/offers/new/components/basics/index.vue';
+import BusinessDetails from '@/views/offers/new/components/business-details/index.vue';
+import ConditionsAndLimitations from '@/views/offers/new/components/conditions-and-limitations/index.vue';
+import Media from '@/views/offers/new/components/media/index.vue';
+import Pricing from '@/views/offers/new/components/pricing/index.vue';
+import BusinessSocial from '@/views/offers/new/components/social/index.vue';
+import ValidityAndAvailability from '@/views/offers/new/components/validity-and-availability/index.vue';
 import Swal from 'sweetalert2';
-import { ref } from 'vue';
+import { ref, toRaw } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import Basics from '@/views/offers/new/components/basics/index.vue'
-import Pricing from '@/views/offers/new/components/pricing/index.vue'
-import ValidityAndAvailability from '@/views/offers/new/components/validity-and-availability/index.vue'
-import BusinessSocial from '@/views/offers/new/components/social/index.vue'
-import ConditionsAndLimitations from '@/views/offers/new/components/conditions-and-limitations/index.vue'
-import BusinessDetails from '@/views/offers/new/components/business-details/index.vue'
-import Media from '@/views/offers/new/components/media/index.vue'
-import { generateId } from '@/domain/firebase';
 const router = useRouter()
 const route = useRoute()
 const MEDIA_COUNT = 4
@@ -127,7 +127,7 @@ const handleOnSubmit = () => {
         if (cities) payload['business']['cities'] = cities
         if (email) payload['business']['email'] = email
         if (phone) payload['business']['phone'] = phone
-        if (hours) payload['business']['hours'] = hours
+        if (hours) payload['business']['hours'] = toRaw(hours)
       }
       if (businessSocial.value) {
         const { website, instagram, facebook, whatsapp } = businessSocial.value
@@ -149,16 +149,16 @@ const handleOnSubmit = () => {
         title: "Offer created",
         text: "What do you want to do next?",
         icon: "success",
-        showDenyButton: true,
         showCancelButton: true,
-        confirmButtonText: "OK",
-        cancelButtonText: "Close",
-        denyButtonText: `View details`
+        confirmButtonText: "View details",
+        cancelButtonText: "View all",
       }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire("Saved!", "", "success");
-        } else if (result.isDenied) {
           router.push(id);
+        } else if (result.isDismissed) {
+          router.push({
+            name: 'offers'
+          })
         }
       });
     } catch (e) {
