@@ -13,7 +13,11 @@
       <div class="row">
         <div class="card p-3">
           <div class="d-flex justify-content-between">
-            <h3>Advertisers</h3>
+            <h3>Advertisers
+              <router-link to="advertisers/new">
+                <button class="btn btn-secondary btn-sm">Create</button>
+              </router-link>
+            </h3>
             <div>
               <search :items="allItems" @filtered="handleOnFiltered" />
             </div>
@@ -56,7 +60,6 @@
       </div>
     </div>
   </div>
-  <fab link="/advertisers/new" />
 </template>
 
 <script setup>
