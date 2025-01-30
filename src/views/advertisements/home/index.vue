@@ -15,7 +15,7 @@
   <div class="album py-5 bg-body-tertiary" v-if="!loading && items.length > 0">
     <div class="container">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <div class="col" v-for="item in items" :key="item.id">
+        <div class="col-md-3" v-for="item in items" :key="item.id">
           <div class="card shadow-sm">
             <img class="media" :src="item.image" />
             <div class="card-body">

@@ -7,9 +7,6 @@
         <li class="breadcrumb-item active" aria-current="page">Advertisers</li>
       </ol>
     </nav>
-    <div>
-      <search :items="allItems" @filtered="handleOnFiltered" />
-    </div>
   </div>
   <div class="album py-5 bg-body-tertiary" v-if="!loading && items.length > 0">
     <div class="container">
