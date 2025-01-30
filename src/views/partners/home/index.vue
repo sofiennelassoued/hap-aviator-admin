@@ -60,11 +60,9 @@
       </div>
     </div>
   </div>
-  <fab link="/partners/new" />
 </template>
 
 <script setup>
-import Fab from '@/components/miscs/buttons/fab/index.vue';
 import Search from '@/components/miscs/forms/search/index.vue';
 import { getPartners } from '@/domain/partners';
 import { onMounted, ref } from 'vue';
