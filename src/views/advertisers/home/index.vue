@@ -7,16 +7,17 @@
         <li class="breadcrumb-item active" aria-current="page">Advertisers</li>
       </ol>
     </nav>
-    <div>
-      <search :items="allItems" @filtered="handleOnFiltered" />
-    </div>
   </div>
   <div class="album py-5 bg-body-tertiary" v-if="!loading && items.length > 0">
     <div class="container">
       <div class="row">
         <div class="card p-3">
           <div class="d-flex justify-content-between">
-            <h3>Advertisers</h3>
+            <h3>Advertisers
+              <router-link to="advertisers/new">
+                <button class="btn btn-secondary btn-sm">Create</button>
+              </router-link>
+            </h3>
             <div>
               <search :items="allItems" @filtered="handleOnFiltered" />
             </div>
@@ -59,11 +60,9 @@
       </div>
     </div>
   </div>
-  <fab link="/advertisers/new" />
 </template>
 
 <script setup>
-import Fab from '@/components/miscs/buttons/fab/index.vue';
 import Search from '@/components/miscs/forms/search/index.vue';
 import { getAdvertisers } from '@/domain/advertisers';
 import { onMounted, ref } from 'vue';

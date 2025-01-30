@@ -13,7 +13,11 @@
       <div class="row">
         <div class="card p-3">
           <div class="d-flex justify-content-between">
-            <h3>Partners</h3>
+            <h3>Partners
+              <router-link to="partners/new">
+                <button class="btn btn-secondary btn-sm">Create</button>
+              </router-link>
+            </h3>
             <div>
               <search :items="allItems" @filtered="handleOnFiltered" />
             </div>
@@ -56,11 +60,9 @@
       </div>
     </div>
   </div>
-  <fab link="/partners/new" />
 </template>
 
 <script setup>
-import Fab from '@/components/miscs/buttons/fab/index.vue';
 import Search from '@/components/miscs/forms/search/index.vue';
 import { getPartners } from '@/domain/partners';
 import { onMounted, ref } from 'vue';
