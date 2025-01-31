@@ -53,6 +53,8 @@
   <div class="vh-100 d-flex justify-content-center align-items-center" v-if="!loading && items.length === 0">
     <div class="text-center">
       <p>No items</p>
+      <router-link type="button" class="btn btn-sm btn-outline-primary mx-2"
+        :to="'/offers/new'">Create</router-link>
     </div>
   </div>
   <div class="vh-100 d-flex justify-content-center align-items-center" v-if="loading">

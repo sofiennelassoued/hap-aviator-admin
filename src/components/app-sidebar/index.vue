@@ -27,8 +27,7 @@
           </li>
           <router-link to="/offers">
             <li class="sidebar-item">
-              <a class="sidebar-link" :class="route.path === '/offers' ? 'active' : ''"
-                aria-expanded="false">
+              <a class="sidebar-link" :class="route.path === '/offers' ? 'active' : ''" aria-expanded="false">
                 <iconify-icon icon="solar:gift-bold"></iconify-icon>
                 <span class="hide-menu">Offers</span>
               </a>
@@ -44,8 +43,7 @@
           </router-link>
           <router-link to="/gifts">
             <li class="sidebar-item">
-              <a class="sidebar-link" :class="route.path === '/gifts' ? 'active' : ''"
-                aria-expanded="false">
+              <a class="sidebar-link" :class="route.path === '/gifts' ? 'active' : ''" aria-expanded="false">
                 <iconify-icon icon="solar:tag-bold"></iconify-icon>
                 <span class="hide-menu">Gifts</span>
               </a>
@@ -79,6 +77,37 @@
               <a class="sidebar-link" :class="route.path === '/users' ? 'active' : ''" aria-expanded="false">
                 <iconify-icon icon="solar:user-bold"></iconify-icon>
                 <span class="hide-menu">Users</span>
+              </a>
+            </li>
+          </router-link>
+          <li>
+            <span class="sidebar-divider lg"></span>
+          </li>
+          <li class="nav-small-cap">
+            <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
+            <span class="hide-menu">Miscs</span>
+          </li>
+          <router-link to="/categories">
+            <li class="sidebar-item">
+              <a class="sidebar-link" :class="route.path === '/categories' ? 'active' : ''" aria-expanded="false">
+                <iconify-icon icon="solar:checklist-minimalistic-bold"></iconify-icon>
+                <span class="hide-menu">Categories</span>
+              </a>
+            </li>
+          </router-link>
+          <router-link to="/countries">
+            <li class="sidebar-item">
+              <a class="sidebar-link" :class="route.path === '/countries' ? 'active' : ''" aria-expanded="false">
+                <iconify-icon icon="solar:earth-bold"></iconify-icon>
+                <span class="hide-menu">Countries</span>
+              </a>
+            </li>
+          </router-link>
+          <router-link to="/regions">
+            <li class="sidebar-item">
+              <a class="sidebar-link" :class="route.path === '/regions' ? 'active' : ''" aria-expanded="false">
+                <iconify-icon icon="solar:map-bold-duotone"></iconify-icon>
+                <span class="hide-menu">Regions</span>
               </a>
             </li>
           </router-link>

@@ -6,8 +6,25 @@
 </template>
 
 <script setup lang="ts">
-import { items } from './items';
+import { onMounted, ref } from 'vue';
+import { getCategories } from '@/domain/categories';
+import { type DocumentData } from 'firebase/firestore';
 const { selected } = defineProps(['selected'])
+const loading = ref(false)
+const items = ref<DocumentData>([])
+onMounted(() => {
+  const fn = async () => {
+    try {
+      loading.value = true
+      items.value = await getCategories()
+      loading.value = false
+    } catch (error) {
+      loading.value = false
+      console.log(error)
+    }
+  }
+  fn()
+})
 const emit = defineEmits(['select'])
 const handleOnChange = (e: Event) => {
   emit('select', (e.target as HTMLInputElement).value)

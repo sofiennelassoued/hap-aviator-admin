@@ -1,5 +1,5 @@
-import TestView from "@/views/test/index.vue";
 import HomeView from "@/views/home/index.vue";
+import TestView from "@/views/test/index.vue";
 // Offers
 import OffersDetailsView from "@/views/offers/details/index.vue";
 import OffersView from "@/views/offers/home/index.vue";
@@ -23,6 +23,10 @@ import NewAdvertiserView from "@/views/advertisers/new/index.vue";
 // Users
 import UsersDetailsView from "@/views/users/details/index.vue";
 import UsersView from "@/views/users/home/index.vue";
+// Categories
+import CategoriesDetailsView from "@/views/categories/details/index.vue";
+import CategoriesView from "@/views/categories/home/index.vue";
+import NewCategoryView from "@/views/categories/new/index.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
@@ -67,7 +71,7 @@ const router = createRouter({
     },
     {
       path: "/offers/:id",
-      name: "offers-details",
+      name: "offer-details",
       component: OffersDetailsView,
     },
     // Gifts
@@ -83,7 +87,7 @@ const router = createRouter({
     },
     {
       path: "/gifts/:id",
-      name: "gifts-details",
+      name: "gift-details",
       component: GiftsDetailsView,
     },
     // Advertisers
@@ -99,7 +103,7 @@ const router = createRouter({
     },
     {
       path: "/advertisers/:id",
-      name: "advertisers-details",
+      name: "advertiser-details",
       component: AdvertisersDetailsView,
     },
     // Partners
@@ -115,7 +119,7 @@ const router = createRouter({
     },
     {
       path: "/partners/:id",
-      name: "partners-details",
+      name: "partner-details",
       component: PartnersDetailsView,
     },
     // Users
@@ -126,9 +130,25 @@ const router = createRouter({
     },
     {
       path: "/users/:id",
-      name: "users-details",
+      name: "user-details",
       component: UsersDetailsView,
-    }
+    },
+    // Categories
+    {
+      path: "/categories",
+      name: "categories",
+      component: CategoriesView,
+    },
+    {
+      path: "/categories/new",
+      name: "new-category",
+      component: NewCategoryView,
+    },
+    {
+      path: "/categories/:id",
+      name: "category-details",
+      component: CategoriesDetailsView,
+    },
   ],
 });
 export default router;
