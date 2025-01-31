@@ -64,6 +64,41 @@
         </div>
       </div>
     </div>
+    <div class="my-5" />
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <p>Miscs</p>
+          <div class="col-4">
+            <h6>Categories</h6>
+            <div>
+              <router-link to="/categories">View</router-link>
+            </div>
+            <div>
+              <router-link to="/categories/new">Create</router-link>
+            </div>
+          </div>
+          <div class="col-4">
+            <h6>Countries</h6>
+            <div>
+              <router-link to="/countries">View</router-link>
+            </div>
+            <div>
+              <router-link to="/countries/new">Create</router-link>
+            </div>
+          </div>
+          <div class="col-4">
+            <h6>Regions</h6>
+            <div>
+              <router-link to="/countries">View</router-link>
+            </div>
+            <div>
+              <router-link to="/countries/new">Create</router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

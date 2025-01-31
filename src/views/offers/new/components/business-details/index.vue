@@ -78,8 +78,8 @@ onMounted(() => {
   address.value = props.address
   email.value = props.email
   phone.value = props.phone
-  if (openingHours!.value!.hours)
-    hours.value = openingHours!.value!.hours
+  if (openingHours && openingHours.value && openingHours.value.hours)
+    hours.value = openingHours.value.hours
 
   country.value = props.country
 
