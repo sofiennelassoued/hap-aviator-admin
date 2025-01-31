@@ -6,4 +6,5 @@ export const PARTNERS_DATABASE_COLLECTION = "partners";
 export const ADVERTISERS_DATABASE_COLLECTION = "advertisers";
 export const USERS_DATABASE_COLLECTION = "users";
 export const CATEGORIES_DATABASE_COLLECTION = "categories";
+export const COUNTRIES_DATABASE_COLLECTION = "countries";
 export const IMAGES_STORAGE_BUCKET = "uploads/images";

@@ -27,6 +27,10 @@ import UsersView from "@/views/users/home/index.vue";
 import CategoriesDetailsView from "@/views/categories/details/index.vue";
 import CategoriesView from "@/views/categories/home/index.vue";
 import NewCategoryView from "@/views/categories/new/index.vue";
+// Countries
+import CountriesDetailsView from "@/views/countries/details/index.vue";
+import CountriesView from "@/views/countries/home/index.vue";
+import NewCountryView from "@/views/countries/new/index.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
@@ -148,6 +152,22 @@ const router = createRouter({
       path: "/categories/:id",
       name: "category-details",
       component: CategoriesDetailsView,
+    },
+    // Countries
+    {
+      path: "/countries",
+      name: "countries",
+      component: CountriesView,
+    },
+    {
+      path: "/countries/new",
+      name: "new-country",
+      component: NewCountryView,
+    },
+    {
+      path: "/countries/:id",
+      name: "country-details",
+      component: CountriesDetailsView,
     },
   ],
 });
