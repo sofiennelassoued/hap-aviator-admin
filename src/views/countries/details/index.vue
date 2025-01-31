@@ -1,9 +1,20 @@
 <template>
+  <!-- Breadcrumb -->
+  <div class="d-flex justify-content-between">
+    <nav aria-label="breadcrumb" class="main-breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><router-link to="/">Home</router-link></li>
+        <li class="breadcrumb-item"><router-link to="/countries">Countries</router-link></li>
+        <li class="breadcrumb-item active" aria-current="page">Details</li>
+      </ol>
+    </nav>
+  </div>
   <div class="card">
     <div class="card-body">
       <div v-if="!loading && payload">
         <h1>{{ payload.label }}</h1>
-        <p>ID: {{ payload.initials }}</p>
+        <p>ID: {{ payload.id }}</p>
+        <p>Initials: {{ payload.initials }}</p>
         <p>Position: {{ payload.position }}</p>
         <p>Enabled:
           <span class="badge bg-success" v-if="payload.enabled === true">Yes</span>
@@ -19,6 +30,29 @@
         </div>
       </div>
       <div class="alert alert-danger" v-if="error">{{ error }}</div>
+    </div>
+  </div>
+  <div class="card" v-if="!loading && payload">
+    <div class="card-body">
+      <h3>Actions</h3>
+      <div class="row">
+        <div class="col">
+          <div>
+            <router-link :to="'/countries/' + payload.id + '/governorates'"><a>View governorates</a></router-link>
+          </div>
+          <div class="mt-3">
+            <router-link :to="'/countries/' + payload.id + '/governorates'"><a>Create governorate</a></router-link>
+          </div>
+        </div>
+        <div class="col">
+          <div>
+            <router-link :to="'/countries/' + payload.id + '/regions'"><a>View regions</a></router-link>
+          </div>
+          <div class="mt-3">
+            <router-link :to="'/countries/' + payload.id + '/regions/new'"><a>Create region</a></router-link>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>

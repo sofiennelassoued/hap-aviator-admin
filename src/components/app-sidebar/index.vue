@@ -103,14 +103,6 @@
               </a>
             </li>
           </router-link>
-          <router-link to="/regions">
-            <li class="sidebar-item">
-              <a class="sidebar-link" :class="route.path === '/regions' ? 'active' : ''" aria-expanded="false">
-                <iconify-icon icon="solar:map-bold-duotone"></iconify-icon>
-                <span class="hide-menu">Regions</span>
-              </a>
-            </li>
-          </router-link>
         </ul>
       </nav>
       <!-- End Sidebar navigation -->

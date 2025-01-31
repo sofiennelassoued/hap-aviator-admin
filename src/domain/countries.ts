@@ -1,6 +1,5 @@
 import { COUNTRIES_DATABASE_COLLECTION } from "@/constants";
 import {
-  addDoc,
   collection,
   deleteDoc,
   doc,

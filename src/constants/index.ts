@@ -7,4 +7,5 @@ export const ADVERTISERS_DATABASE_COLLECTION = "advertisers";
 export const USERS_DATABASE_COLLECTION = "users";
 export const CATEGORIES_DATABASE_COLLECTION = "categories";
 export const COUNTRIES_DATABASE_COLLECTION = "countries";
+export const REGIONS_DATABASE_COLLECTION = "regions";
 export const IMAGES_STORAGE_BUCKET = "uploads/images";
