@@ -3,7 +3,8 @@
     <div class="card-body">
       <div v-if="!loading && payload">
         <h1>{{ payload.label }}</h1>
-        <p>{{ payload.icon }}</p>
+        <p>Position: {{ payload.position }}</p>
+        <p>Icon: {{ payload.icon }}</p>
         <button class="btn btn-danger" @click="handleOnClickDelete">Delete</button>
       </div>
       <div class="vh-100 d-flex justify-content-center align-items-center" v-if="loading">

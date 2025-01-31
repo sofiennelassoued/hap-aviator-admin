@@ -17,6 +17,10 @@
               <input type="text" class="form-control" id="input-label" aria-describedby="text-email"
                 placeholder="Ex: Food & Drinks" required v-model="label">
               <div id="help-label" class="form-text">Provide the category label</div>
+              <label for="input-label" class="form-label">Position*</label>
+              <input type="number" class="form-control" id="input-label" aria-describedby="text-email"
+                placeholder="Ex: 2" required v-model.number="position">
+              <div id="help-label" class="form-text">Provide the category label</div>
               <label for="input-icon" class="form-label mt-3">Icon*</label>
               <input type="text" class="form-control" id="input-icon" aria-describedby="text-icon"
                 placeholder="Ex: solar:checklist-minimalistic-bold" required v-model="icon">
@@ -47,6 +51,7 @@ import Swal from 'sweetalert2';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 const router = useRouter()
+const position = ref()
 const icon = ref()
 const label = ref()
 const loading = ref<boolean>(false)
@@ -58,6 +63,7 @@ const handleOnSubmit = () => {
       error.value = ""
       const metadata = {
         label: label.value,
+        position: position.value,
         icon: icon.value,
         createdAt: new Date().toISOString()
       }
@@ -70,7 +76,7 @@ const handleOnSubmit = () => {
         showCancelButton: true,
         confirmButtonText: "View details",
         cancelButtonText: "View all",
-      }).then(({isConfirmed, isDismissed}) => {
+      }).then(({ isConfirmed, isDismissed }) => {
         if (isConfirmed) {
           router.push(result.id);
         } else if (isDismissed) {
