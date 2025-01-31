@@ -28,6 +28,7 @@
                 <th scope="col">Icon</th>
                 <th scope="col">ID</th>
                 <th scope="col">Label</th>
+                <th scope="col">Position</th>
                 <th scope="col">Actions</th>
               </tr>
             </thead>
@@ -36,6 +37,7 @@
                 <th scope="row"><img class="icon" :src="item.icon" /></th>
                 <td>{{ item.id }}</td>
                 <td>{{ item.label }}</td>
+                <td>{{ item.position }}</td>
                 <td>
                   <router-link type="button" class="btn btn-sm btn-outline-primary mx-2"
                     :to="'/categories/' + item.id">View</router-link>
@@ -67,14 +69,12 @@ import Search from '@/components/miscs/forms/search/index.vue';
 import { getCategories } from '@/domain/categories';
 import { onMounted, ref } from 'vue';
 const loading = ref(false)
-const allItems = ref([])
 const items = ref([])
 onMounted(() => {
   const fn = async () => {
     try {
       loading.value = true
-      allItems.value = await getCategories()
-      items.value = allItems.value;
+      items.value = await getCategories()
       loading.value = false
     } catch (error) {
       loading.value = false
