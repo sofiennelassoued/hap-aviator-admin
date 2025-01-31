@@ -74,8 +74,7 @@ onMounted(() => {
   const fn = async () => {
     try {
       loading.value = true
-      const result = await getCategories()
-      items.value = result.sort((a, b) => a.position - b.position)
+      items.value = await getCategories()
       loading.value = false
     } catch (error) {
       loading.value = false

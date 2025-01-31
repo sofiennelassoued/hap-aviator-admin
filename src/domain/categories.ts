@@ -35,7 +35,7 @@ const getCategories = async () => {
   snapshot.forEach((doc) => {
     data.push({ id: doc.id, ...doc.data() });
   });
-  return data;
+  return data.sort((a, b) => a.position - b.position);
 };
 export {
   createCategoryMetadata,
