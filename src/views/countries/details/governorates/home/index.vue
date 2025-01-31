@@ -29,6 +29,7 @@
                 <th scope="col">ID</th>
                 <th scope="col">Label</th>
                 <th scope="col">Position</th>
+                <th scope="col">Region ID</th>
                 <th scope="col">Enabled</th>
                 <th scope="col">Actions</th>
               </tr>
@@ -38,6 +39,10 @@
                 <td>{{ item.id }}</td>
                 <td>{{ item.label }}</td>
                 <td>{{ item.position }}</td>
+                <td>
+                  <router-link type="button" class="btn btn-sm btn-simple mx-2"
+                    :to="'/countries/' + item.countryId + '/regions/' + item.regionId">View region</router-link>
+                </td>
                 <td>
                   <span class="badge bg-success" v-if="item.enabled === true">Yes</span>
                   <span class="badge bg-danger" v-else-if="item.enabled === false">No</span>
@@ -56,8 +61,8 @@
   <div class="vh-100 d-flex justify-content-center align-items-center" v-if="!loading && items.length === 0">
     <div class="text-center">
       <p>No items</p>
-      <router-link type="button" class="btn btn-sm btn-outline-primary mx-2" :to="'/countries/' + id + '/governorates/new'"
-        v-if="id">Create</router-link>
+      <router-link type="button" class="btn btn-sm btn-outline-primary mx-2"
+        :to="'/countries/' + id + '/governorates/new'" v-if="id">Create</router-link>
     </div>
   </div>
   <div class="vh-100 d-flex justify-content-center align-items-center" v-if="loading">

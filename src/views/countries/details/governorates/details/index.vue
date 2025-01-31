@@ -9,7 +9,10 @@
           <span class="badge bg-success" v-if="payload.enabled === true">Yes</span>
           <span class="badge bg-danger" v-else-if="payload.enabled === false">No</span>
         </p>
-        <p>Country ID: {{ payload.countryId }} <router-link :to="'/countries/' + payload.countryId">View</router-link></p>
+        <p>Region ID: {{ payload.regionId }} <router-link
+            :to="'/countries/' + payload.countryId + '/regions/' + payload.regionId">View</router-link></p>
+        <p>Country ID: {{ payload.countryId }} <router-link :to="'/countries/' + payload.countryId">View</router-link>
+        </p>
         <button class="btn btn-danger" @click="handleOnClickDelete">Delete</button>
       </div>
       <div class="vh-100 d-flex justify-content-center align-items-center" v-if="loading">
@@ -34,14 +37,13 @@ const route = useRoute()
 const loading = ref(false)
 const error = ref('')
 const payload = ref()
-const countryId = ref()
-const governorateId = ref()
+const countryId = route.params.countryId as string
+const governorateId = route.params.governorateId as string
 onMounted(() => {
-  governorateId.value = route.params.governorateId as string
   const fn = async () => {
     try {
       loading.value = true
-      payload.value = await getGovernorateMetadata(governorateId.value)
+      payload.value = await getGovernorateMetadata(governorateId)
       loading.value = false
     } catch (e) {
       loading.value = false
@@ -56,9 +58,9 @@ const handleOnClickDelete = () => {
   const fn = async () => {
     try {
       loading.value = true
-      await deleteGovernorate(governorateId.value)
+      await deleteGovernorate(governorateId)
       Swal.fire("Delete!", "Governorate deleted successfully", "success");
-      router.push('/governorates')
+      router.push('/countries/' + countryId + '/governorates')
     } catch (e) {
       loading.value = false
       // @ts-ignore

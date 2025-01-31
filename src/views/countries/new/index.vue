@@ -22,19 +22,18 @@
               <input type="text" class="form-control" id="input-initials" aria-describedby="text-initials"
                 placeholder="Ex: sau" min="3" max="3" required v-model="initials">
               <div id="help-initials" class="form-text">Provide the country initial (3 letters)</div>
-              <label for="input-position" class="form-label mt-3">Position* <small><a
-                    href="https://en.wikipedia.org/wiki/List_of_national_flags_of_sovereign_states" target="_blank">Get
-                    flag</a></small></label>
+              <label for="input-position" class="form-label mt-3">Position*</label>
               <input type="number" class="form-control" id="input-position" aria-describedby="text-position"
                 placeholder="Ex: 2" required v-model.number="position">
               <div id="help-position" class="form-text">Provide the country position</div>
               <div class="form-check form-switch mt-3">
                 <input class="form-check-input" type="checkbox" role="switch" id="switch-enabled" v-model="enabled">
                 <label class="form-check-label" for="switch-enabled">Country is <span>{{ enabled ? 'enabled' :
-                    'disabled'}}</span> by default</label>
+                  'disabled' }}</span> by default</label>
               </div>
-
-              <label for="input-flag" class="form-label mt-3">Flag*</label>
+              <label for="input-flag" class="form-label mt-3">Flag* <small><a
+                    href="https://en.wikipedia.org/wiki/List_of_national_flags_of_sovereign_states" target="_blank">Get
+                    flag</a></small></label>
               <image-picker :preview="image" @loaded="handleOnLoaded" @reset="handleOnReset" />
               <div class="progress mt-2" v-if="progress">
                 <div class="progress-bar" role="progressbar" :style="'width: ' + progress + '%;'"
@@ -79,7 +78,7 @@ const handleOnSubmit = () => {
     try {
       loading.value = true
       error.value = ""
-      const u = await upload(IMAGES_STORAGE_BUCKET + '/countries/' + initials, imageBlob.value, async (e, s) => {
+      const u = await upload(IMAGES_STORAGE_BUCKET + '/countries/' + initials.value, imageBlob.value, async (e, s) => {
         if (e) error.value
         if (s) progress.value = (s.bytesTransferred / s.totalBytes) * 100;
       })
