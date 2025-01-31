@@ -20,6 +20,10 @@
               <input type="text" class="form-control" id="input-label" aria-describedby="text-label"
                 placeholder="Ex: Al-Kharj" required v-model="label">
               <div id="help-label" class="form-text">Provide the governorate name</div>
+              <label for="input-region" class="form-label mt-3">Region*</label>
+              <country-region-picker :country-id="countryId" :disabled="!countryId" :required="true"
+                @select="handleOnSelectCountryRegion" />
+              <div id="help-label" class="form-text">Provide the governorate name</div>
               <label for="input-position" class="form-label mt-3">Position*</label>
               <input type="number" class="form-control" id="input-position" aria-describedby="text-position"
                 placeholder="Ex: 2" required v-model.number="position">
@@ -46,6 +50,7 @@
 </template>
 
 <script setup lang="ts">
+import CountryRegionPicker from "@/components/miscs/forms/country-region-picker/index.vue"
 import { createGovernorateMetadata } from '@/domain/governorates';
 import Swal from 'sweetalert2';
 import { ref } from 'vue';
@@ -57,12 +62,13 @@ const position = ref()
 const loading = ref<boolean>(false)
 const error = ref<string>('')
 const enabled = ref<boolean>(false)
+const regionId = ref()
+const countryId = route.params.id
 const handleOnSubmit = () => {
   const fn = async () => {
     try {
-      const id = route.params.id as string
-      if (!id) {
-        throw "ID is not provided"
+      if (!countryId) {
+        throw "Country ID is not provided"
       }
       loading.value = true
       error.value = ""
@@ -70,7 +76,8 @@ const handleOnSubmit = () => {
         label: label.value,
         position: position.value,
         enabled: enabled.value,
-        countryId: id,
+        countryId: countryId,
+        regionId: regionId.value,
         createdAt: new Date().toISOString()
       }
       const result = await createGovernorateMetadata(metadata)
@@ -87,7 +94,7 @@ const handleOnSubmit = () => {
           router.push(result.id);
         } else if (isDismissed) {
           router.push({
-            path: '/countries/' + id + '/governorates'
+            path: '/countries/' + countryId + '/governorates'
           })
         }
       });
@@ -99,6 +106,9 @@ const handleOnSubmit = () => {
     }
   }
   fn()
+}
+const handleOnSelectCountryRegion = (v: string) => {
+  regionId.value = v
 }
 </script>
 

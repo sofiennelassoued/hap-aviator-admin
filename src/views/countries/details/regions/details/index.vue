@@ -58,7 +58,7 @@ const handleOnClickDelete = () => {
       loading.value = true
       await deleteRegion(regionId.value)
       Swal.fire("Delete!", "Region deleted successfully", "success");
-      router.push('/regions')
+      router.push('/countries/' + countryId + '/regions')
     } catch (e) {
       loading.value = false
       // @ts-ignore

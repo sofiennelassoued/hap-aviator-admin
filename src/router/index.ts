@@ -205,7 +205,7 @@ const router = createRouter({
       component: NewGovernorateView,
     },
     {
-      path: "/countries/:countryId/governorates/:regionId",
+      path: "/countries/:countryId/governorates/:governorateId",
       name: "governorate-details",
       component: GovernorateDetailsView,
     },
