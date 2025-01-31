@@ -18,8 +18,8 @@ const deleteCategory = async (id: string) => {
   return deleteDoc(doc(database, CATEGORIES_DATABASE_COLLECTION, id));
 };
 
-const getCategoryMetadata = async (uid: string) => {
-  const ref = doc(database, CATEGORIES_DATABASE_COLLECTION, uid);
+const getCategoryMetadata = async (id: string) => {
+  const ref = doc(database, CATEGORIES_DATABASE_COLLECTION, id);
   const snapshot = await getDoc(ref);
   if (!snapshot.exists()) {
     throw new Error("No such document!");

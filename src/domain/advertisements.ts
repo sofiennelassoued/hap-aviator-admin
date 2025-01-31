@@ -20,8 +20,8 @@ const deleteAdvertisement = async (id: string) => {
   return deleteDoc(doc(database, ADVERTISEMENTS_DATABASE_COLLECTION, id));
 };
 
-const getAdvertisementMetadata = async (uid: string) => {
-  const ref = doc(database, ADVERTISEMENTS_DATABASE_COLLECTION, uid);
+const getAdvertisementMetadata = async (id: string) => {
+  const ref = doc(database, ADVERTISEMENTS_DATABASE_COLLECTION, id);
   const snapshot = await getDoc(ref);
   if (!snapshot.exists()) {
     throw new Error("No such document!");
