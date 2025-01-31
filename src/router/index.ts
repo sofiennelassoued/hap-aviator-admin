@@ -27,6 +27,18 @@ import UsersView from "@/views/users/home/index.vue";
 import CategoriesDetailsView from "@/views/categories/details/index.vue";
 import CategoriesView from "@/views/categories/home/index.vue";
 import NewCategoryView from "@/views/categories/new/index.vue";
+// Countries
+import CountriesDetailsView from "@/views/countries/details/index.vue";
+import CountriesView from "@/views/countries/home/index.vue";
+import NewCountryView from "@/views/countries/new/index.vue";
+// Regions
+import RegionDetailsView from "@/views/countries/details/regions/details/index.vue";
+import RegionsView from "@/views/countries/details/regions/home/index.vue";
+import NewRegionView from "@/views/countries/details/regions/new/index.vue";
+// Governorates
+import GovernorateDetailsView from "@/views/countries/details/governorates/details/index.vue";
+import GovernoratesView from "@/views/countries/details/governorates/home/index.vue";
+import NewGovernorateView from "@/views/countries/details/governorates/new/index.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
@@ -148,6 +160,54 @@ const router = createRouter({
       path: "/categories/:id",
       name: "category-details",
       component: CategoriesDetailsView,
+    },
+    // Countries
+    {
+      path: "/countries",
+      name: "countries",
+      component: CountriesView,
+    },
+    {
+      path: "/countries/new",
+      name: "new-country",
+      component: NewCountryView,
+    },
+    {
+      path: "/countries/:id",
+      name: "country-details",
+      component: CountriesDetailsView,
+    },
+    // Regions
+    {
+      path: "/countries/:id/regions",
+      name: "regions",
+      component: RegionsView,
+    },
+    {
+      path: "/countries/:id/regions/new",
+      name: "new-region",
+      component: NewRegionView,
+    },
+    {
+      path: "/countries/:countryId/regions/:regionId",
+      name: "region-details",
+      component: RegionDetailsView,
+    },
+    // Governorates
+    {
+      path: "/countries/:id/governorates",
+      name: "governorates",
+      component: GovernoratesView,
+    },
+    {
+      path: "/countries/:id/governorates/new",
+      name: "new-governorate",
+      component: NewGovernorateView,
+    },
+    {
+      path: "/countries/:countryId/governorates/:regionId",
+      name: "governorate-details",
+      component: GovernorateDetailsView,
     },
   ],
 });

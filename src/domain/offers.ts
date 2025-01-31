@@ -20,8 +20,8 @@ const deleteOffer = async (id: string) => {
   return deleteDoc(doc(database, OFFERS_DATABASE_COLLECTION, id));
 };
 
-const getOfferMetadata = async (uid: string) => {
-  const ref = doc(database, OFFERS_DATABASE_COLLECTION, uid);
+const getOfferMetadata = async (id: string) => {
+  const ref = doc(database, OFFERS_DATABASE_COLLECTION, id);
   const snapshot = await getDoc(ref);
   if (!snapshot.exists()) {
     throw new Error("No such document!");

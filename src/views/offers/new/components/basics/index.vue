@@ -14,8 +14,8 @@
         </div>
         <div class="form-group col-md-12">
           <label for="input-description">Offer description *</label>
-          <textarea class="form-control" id="input-description" placeholder="Ex: Lorem ipsum"
-            required v-model="description"></textarea>
+          <textarea class="form-control" id="input-description" placeholder="Ex: Lorem ipsum" required
+            v-model="description"></textarea>
         </div>
       </div>
     </div>
@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import CategoryPicker from "./category-picker/index.vue"
+import CategoryPicker from "@/components/miscs/forms/category-picker/index.vue"
 const props = defineProps(['title', 'description', 'category'])
 const title = ref()
 const description = ref()

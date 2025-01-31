@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import CategoryPicker from "./category-picker/index.vue"
+import CategoryPicker from "@/components/miscs/forms/category-picker/index.vue"
 const props = defineProps(['title', 'description', 'category'])
 const title = ref()
 const description = ref()

@@ -134,7 +134,7 @@ const handleOnSubmit = () => {
         const { title, description, category } = basics.value
         if (title) payload['title'] = title
         if (description) payload['description'] = description
-        if (category) payload['category'] = category
+        if (category) payload['categoryId'] = category
       }
       if (pricing.value) {
         const { points, price, type, discount } = pricing.value
@@ -179,6 +179,7 @@ const handleOnSubmit = () => {
         if (conditions) payload['conditions']['conditions'] = conditions
         if (limitations) payload['conditions']['limitations'] = limitations
       }
+      payload["createdAt"] = new Date().toISOString()
       await createOffer(id, payload)
       loading.value = false
       Swal.fire({

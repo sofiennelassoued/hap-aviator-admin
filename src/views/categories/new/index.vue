@@ -14,17 +14,17 @@
           <div class="card">
             <div class="card-body">
               <label for="input-label" class="form-label">Label*</label>
-              <input type="text" class="form-control" id="input-label" aria-describedby="text-email"
+              <input type="text" class="form-control" id="input-label" aria-describedby="text-label"
                 placeholder="Ex: Food & Drinks" required v-model="label">
               <div id="help-label" class="form-text">Provide the category label</div>
-              <label for="input-label" class="form-label">Position*</label>
-              <input type="number" class="form-control" id="input-label" aria-describedby="text-email"
+              <label for="input-position" class="form-position">Position*</label>
+              <input type="number" class="form-control" id="input-position" aria-describedby="text-position"
                 placeholder="Ex: 2" required v-model.number="position">
-              <div id="help-label" class="form-text">Provide the category label</div>
+              <div id="help-position" class="form-text">Provide the category position</div>
               <label for="input-icon" class="form-label mt-3">Icon*</label>
               <input type="text" class="form-control" id="input-icon" aria-describedby="text-icon"
                 placeholder="Ex: solar:checklist-minimalistic-bold" required v-model="icon">
-              <div id="help-email" class="form-text">Provide the category icon</div>
+              <div id="help-icon" class="form-text">Provide the category icon</div>
               <button type="submit" class="btn btn-primary mt-4" :disabled="loading">
                 <span v-if="!loading">Submit</span>
                 <div class="spinner-grow text-light spinner-grow-sm" role="status" v-else>
@@ -40,13 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import { CROPPER_ASPECT_RATIO } from '@/components/miscs/image-cropper/index.config';
-import ImageCropper from '@/components/miscs/image-cropper/index.vue';
-import ImagePicker from '@/components/miscs/image-picker/index.vue';
-import { IMAGES_STORAGE_BUCKET } from '@/constants';
 import { createCategoryMetadata } from '@/domain/categories';
-import { createPartnerIdentity, createPartnerMetadata } from '@/domain/partners';
-import { upload } from '@/domain/storage';
 import Swal from 'sweetalert2';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
