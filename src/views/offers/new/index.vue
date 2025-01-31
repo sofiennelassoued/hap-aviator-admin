@@ -179,6 +179,7 @@ const handleOnSubmit = () => {
         if (conditions) payload['conditions']['conditions'] = conditions
         if (limitations) payload['conditions']['limitations'] = limitations
       }
+      payload["createdAt"] = new Date().toISOString()
       await createOffer(id, payload)
       loading.value = false
       Swal.fire({
