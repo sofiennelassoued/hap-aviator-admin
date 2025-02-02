@@ -13,6 +13,28 @@
           <input type="text" class="form-control" id="input-business-representative" placeholder="Ex: Bob Black"
             v-model="representative">
         </div>
+        <div class="form-group col-md-6">
+          <label for="input-email">Business country</label>
+          <country-picker :required="true" :selected="country" @select="handleOnCountrySelect" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="input-phone">Business governorate</label>
+          <governorate-picker :required="true" :country-id="country" :selected="governorate"
+            @select="handleOnGovernorateSelect" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="input-business-city">City *</label>
+          <input type="text" class="form-control" id="input-business-city" placeholder="Ex: Happy Town" v-model="city">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="input-business-zip">Zip code</label>
+          <input type="text" class="form-control" id="input-business-zip" placeholder="Ex: 12345" v-model="zip">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="input-address">Business postal address *</label>
+          <textarea class="form-control" id="input-address" placeholder="Ex: 123 Abc St, XYZ, UVW - 12345"
+            v-model="address" required></textarea>
+        </div>
         <div class="form-group col-md-6 mt-2">
           <div class="d-flex justify-content-between align-items-center">
             <label for="input-location">Business location *</label>
@@ -22,19 +44,6 @@
             placeholder="Ex: https://www.google.com/maps/place/Eiffel+Tower/data=!4m2!3m1!1s0x0:0x8ddca9ee380ef7e0?sa=X&ved=1t:2428&ictx=111"
             v-model="location" required>
           <div id="help-input-location" class="form-text">Put Google Maps address</div>
-        </div>
-        <div class="form-group col-md-6">
-          <label for="input-address">Business postal address *</label>
-          <textarea class="form-control" id="input-address" placeholder="Ex: 123 Abc St, XYZ, UVW - 12345"
-            v-model="address" required></textarea>
-        </div>
-        <div class="form-group col-md-6">
-          <label for="input-email">Business country</label>
-          <country-picker :selected="country" @select="handleOnCountrySelect" />
-        </div>
-        <div class="form-group col-md-6">
-          <label for="input-phone">Business cities</label>
-          <cities-picker :selected="cities" @select="handleOnCitiesSelect" />
         </div>
         <div class="form-group col-md-6">
           <label for="input-email">Business contact email</label>
@@ -54,53 +63,51 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import CitiesPicker from './cities-picker/index.vue';
-import CountryPicker from './country-picker/index.vue';
+import GovernoratePicker from '@/components/miscs/forms/country-governorate-picker/index.vue';
+import CountryPicker from '@/components/miscs/forms/country-picker/index.vue';
 import OpeningHours from './opening-hours/index.vue';
-const props = defineProps(['name', 'representative', 'location', 'address', 'email', 'phone', 'country', 'cities'])
+const props = defineProps(['name', 'representative', 'city', 'zip', 'address', 'location', 'email', 'phone', 'country', 'governorate'])
 
 // Components
 const openingHours = ref()
 
 const name = ref()
 const representative = ref()
-const location = ref()
+const country = ref()
+const governorate = ref()
+const city = ref()
+const zip = ref()
 const address = ref()
+const location = ref()
 const email = ref()
 const phone = ref()
-const country = ref()
-const cities = ref()
 const hours = ref()
 onMounted(() => {
   name.value = props.name
   representative.value = props.representative
-  location.value = props.location
+  city.value = props.city
+  zip.value = props.zip
   address.value = props.address
+  location.value = props.location
   email.value = props.email
   phone.value = props.phone
   if (openingHours && openingHours.value && openingHours.value.hours)
     hours.value = openingHours.value.hours
 
-  country.value = props.country
-
   // TODO: Update this to use the correct country
   const SELECTED_COUNTRY = 'sau'
   country.value = SELECTED_COUNTRY
 
-  cities.value = props.cities
-
-  // TODO: Update this to use the correct cities
-  const SELECTED_CITIES = 'all'
-  cities.value = SELECTED_CITIES
+  // TODO: Update this to use the correct governorate
+  governorate.value = props.governorate
 })
 const handleOnCountrySelect = (v: string) => {
   country.value = v
 }
-const handleOnCitiesSelect = (v: string) => {
-  cities.value = v
+const handleOnGovernorateSelect = (v: string) => {
+  governorate.value = v
 }
-// @ts-ignore
-defineExpose({ name, representative, location, address, email, phone, hours })
+defineExpose({ name, representative, city, zip, address, location, email, phone, hours, country, governorate })
 </script>
 
 <style scoped></style>

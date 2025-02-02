@@ -34,7 +34,16 @@
         </div>
         <div class="form-group col-md-6">
           <label for="input-phone">Business cities</label>
-          <cities-picker :selected="cities" @select="handleOnCitiesSelect" />
+          <governorate-picker :required="true" :country-id="country" :selected="governorate"
+            @select="handleOnGovernorateSelect" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="input-business-city">City *</label>
+          <input type="text" class="form-control" id="input-business-city" placeholder="Ex: Happy Town" v-model="city">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="input-business-zip">Zip code</label>
+          <input type="text" class="form-control" id="input-business-zip" placeholder="Ex: 12345" v-model="zip">
         </div>
         <div class="form-group col-md-6">
           <label for="input-email">Business contact email</label>
@@ -54,32 +63,36 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import CountryPicker from './country-picker/index.vue'
-import CitiesPicker from './cities-picker/index.vue'
+import CountryPicker from '@/components/miscs/forms/country-picker/index.vue'
+import GovernoratePicker from '@/components/miscs/forms/country-governorate-picker/index.vue'
 import OpeningHours from './opening-hours/index.vue'
-const props = defineProps(['name', 'representative', 'location', 'address', 'email', 'phone', 'country', 'cities', 'hours'])
+const props = defineProps(['name', 'representative', 'city', 'zip', 'address', 'location', 'email', 'phone', 'country', 'governorate'])
 
 // Components
 const openingHours = ref()
 
 const name = ref()
 const representative = ref()
-const location = ref()
+const country = ref()
+const governorate = ref()
+const city = ref()
+const zip = ref()
 const address = ref()
+const location = ref()
 const email = ref()
 const phone = ref()
-const country = ref()
-const cities = ref()
-let mHours = null
+const hours = ref()
 onMounted(() => {
   name.value = props.name
   representative.value = props.representative
-  location.value = props.location
+  city.value = props.city
+  zip.value = props.zip
   address.value = props.address
+  location.value = props.location
   email.value = props.email
   phone.value = props.phone
   if (openingHours && openingHours.value && openingHours.value.hours)
-    mHours = openingHours.value.hours
+    hours.value = openingHours.value.hours
 
   country.value = props.country
 
@@ -87,20 +100,17 @@ onMounted(() => {
   const SELECTED_COUNTRY = 'sau'
   country.value = SELECTED_COUNTRY
 
-  cities.value = props.cities
-
-  // TODO: Update this to use the correct cities
-  const SELECTED_CITIES = 'all'
-  cities.value = SELECTED_CITIES
+  // TODO: Update this to use the correct governorate
+  governorate.value = props.governorate
 })
 const handleOnCountrySelect = (v: string) => {
   country.value = v
 }
-const handleOnCitiesSelect = (v: string) => {
-  cities.value = v
+const handleOnGovernorateSelect = (v: string) => {
+  governorate.value = v
 }
 // @ts-ignore
-defineExpose({ name, representative, location, address, email, phone, hours: mHours })
+defineExpose({ name, representative, city, zip, address, location, email, phone, hours, country, governorate })
 </script>
 
 <style scoped></style>
