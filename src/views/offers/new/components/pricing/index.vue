@@ -80,8 +80,15 @@ onMounted(() => {
   discount.value = props.discount
   type.value = props.type
 
-  calculatePriceAfterDiscount()
+  if (type.value === "with-price") {
+    calculatePriceAfterDiscount()
+  } else if (type.value === "with-discount") {
+    calculateDiscount()
+  } else if (type.value === "with-points") {
+    // Points only
+  }
 })
+// TODO: Check formulas
 const handleOnOriginalPriceInput = () => {
   calculatePriceAfterDiscount()
 }
@@ -97,13 +104,13 @@ const handleOnSelectType = (v: string) => {
 const calculatePriceAfterDiscount = () => {
   if (!isNaN(price.value) && !isNaN(discount.value) && price.value > 0 && discount.value > 0) {
     const result = (price.value * (100 - discount.value)) / 100
-    priceAfterDiscount.value = Math.floor(result)
+    priceAfterDiscount.value = Number(result.toFixed(2))
   }
 }
 const calculateDiscount = () => {
   if (!isNaN(price.value) && !isNaN(priceAfterDiscount.value) && price.value > 0 && priceAfterDiscount.value > 0) {
     const result = (price.value * (100 - priceAfterDiscount.value)) / 100
-    discount.value = Math.floor(result)
+    discount.value = Number(result.toFixed(2))
   }
 }
 defineExpose({ points, price, discount, type })

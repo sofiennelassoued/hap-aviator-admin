@@ -10,8 +10,8 @@ const items = [
     enabled: true,
   },
   {
-    id: "full-discount",
-    label: "Full Discount (points only)",
+    id: "with-points",
+    label: "Points only",
     enabled: true,
   },
   {
