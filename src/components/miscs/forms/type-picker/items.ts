@@ -1,12 +1,12 @@
 const items = [
   {
-    id: "with-discount",
-    label: "With Discount",
+    id: "with-price",
+    label: "With Price",
     enabled: true,
   },
   {
-    id: "with-price",
-    label: "With Price",
+    id: "with-discount",
+    label: "With Discount",
     enabled: true,
   },
   {

@@ -12,21 +12,23 @@
           <label for="input-points">Offer type *</label>
           <type-picker :selected="type" @select="handleOnSelectType" />
         </div>
-        <div class="form-group col-md-4">
-          <label for="input-original-price">Original price *</label>
-          <input type="number" class="form-control" id="input-original-price" min="0" placeholder="Ex: 20" required
-            v-model.number="price" @input="handleOnOriginalPriceInput">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="input-discount">Discount (percentage) *</label>
-          <input type="number" class="form-control" id="input-discount" min="0" max="100" placeholder="Ex: 50" required
-            v-model.number="discount" @input="handleOnDiscountInput">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="input-price-after-discount">Price after discount</label>
-          <input disabled type="text" class="form-control" id="input-price-after-discount" placeholder="Ex: 10"
-            v-model="priceAfterDiscount">
-          <div id="help-input-price-after-discount" class="form-text">Formula: (Original Price * Discount) / 100</div>
+        <div v-if="type === 'false'">
+          <div class="form-group col-md-4">
+            <label for="input-original-price">Original price *</label>
+            <input type="number" class="form-control" id="input-original-price" min="0" placeholder="Ex: 20" required
+              v-model.number="price" @input="handleOnOriginalPriceInput">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="input-discount">Discount (percentage) *</label>
+            <input type="number" class="form-control" id="input-discount" min="0" max="100" placeholder="Ex: 50"
+              required v-model.number="discount" @input="handleOnDiscountInput">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="input-price-after-discount">Price after discount</label>
+            <input disabled type="text" class="form-control" id="input-price-after-discount" placeholder="Ex: 10"
+              v-model="priceAfterDiscount">
+            <div id="help-input-price-after-discount" class="form-text">Formula: (Original Price * Discount) / 100</div>
+          </div>
         </div>
       </div>
     </div>
@@ -49,22 +51,18 @@ onMounted(() => {
   discount.value = props.discount
   type.value = props.type
 
-  calculateDiscount()
-
-  // TODO: Update this to use the correct type
-  const SELECTED_TYPE = 'medium'
-  type.value = SELECTED_TYPE
+  calculatePriceAfterDiscount()
 })
 const handleOnOriginalPriceInput = () => {
-  calculateDiscount()
+  calculatePriceAfterDiscount()
 }
 const handleOnDiscountInput = () => {
-  calculateDiscount()
+  calculatePriceAfterDiscount()
 }
 const handleOnSelectType = (v: string) => {
   type.value = v
 }
-const calculateDiscount = () => {
+const calculatePriceAfterDiscount = () => {
   if (!isNaN(price.value) && !isNaN(discount.value) && price.value > 0 && discount.value > 0) {
     const result = (price.value * (100 - discount.value)) / 100
     priceAfterDiscount.value = Math.floor(result)
