@@ -1,7 +1,8 @@
 <template>
-  <select class="form-select" aria-label="Select offer type" @change="handleOnChange" disabled>
+  <select class="form-select" aria-label="Select offer type" @change="handleOnChange">
     <option disabled :selected="!selected">Select offer type</option>
-    <option :key="i.id" :value="i.id" :selected="selected === i.id" v-for="i in items">{{ i.label }}</option>
+    <option :disabled="i.enabled === false" :key="i.id" :value="i.id" :selected="selected === i.id" v-for="i in items">{{
+      i.label }}</option>
   </select>
 </template>
 
