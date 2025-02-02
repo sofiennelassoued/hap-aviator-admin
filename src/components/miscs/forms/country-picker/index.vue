@@ -1,5 +1,6 @@
 <template>
-  <select class="form-select" aria-label="Select country" :disabled="disabled" :required="required" @change="handleOnChange">
+  <select class="form-select" aria-label="Select country" :disabled="disabled" :required="required"
+    @change="handleOnChange">
     <option disabled :selected="!selected">Select country</option>
     <option :key="i.id" :value="i.id" :selected="selected === i.id" v-for="i in items">{{ i.label }}</option>
   </select>
@@ -17,6 +18,7 @@ onMounted(() => {
     try {
       loading.value = true
       items.value = await getCountries()
+      items.value = items.value.filter((i: DocumentData) => i.enabled === true)
       loading.value = false
     } catch (error) {
       loading.value = false

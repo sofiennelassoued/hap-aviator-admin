@@ -2,7 +2,8 @@
   <select class="form-select" aria-label="Select country governorate" :disabled="disabled" :required="required"
     @change="handleOnChange">
     <option disabled :selected="!selected">Select country governorate</option>
-    <option :key="i.id" :value="i.id" :selected="selected === i.id" v-for="i in items">{{ i.label }}</option>
+    <option :key="i.id" :disabled="i.enabled === false" :value="i.id" :selected="selected === i.id" v-for="i in items">
+      {{ i.label }}</option>
   </select>
 </template>
 
@@ -35,7 +36,9 @@ watch(() => countryId, (newValue, oldValue) => {
 });
 const emit = defineEmits(['select'])
 const handleOnChange = (e: Event) => {
-  emit('select', (e.target as HTMLInputElement).value)
+  const id = ((e.target as HTMLInputElement).value)
+  const { regionId } = items.value.find((i: DocumentData) => i.id === id)
+  emit('select', { id, regionId })
 }
 </script>
 

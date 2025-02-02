@@ -97,7 +97,6 @@ onMounted(() => {
   }
   fn()
 })
-
 const handleOnSubmit = () => {
   const fn = async () => {
     try {
@@ -126,7 +125,6 @@ const handleOnSubmit = () => {
           }
         }
       }
-      payload['partnerId'] = partnerId
       if (offerMedia && offerMedia.length > 0) {
         payload['media'] = offerMedia
       }
@@ -153,14 +151,17 @@ const handleOnSubmit = () => {
         if (priority) payload['validity']['priority'] = priority
       }
       if (businessDetails.value) {
-        const { name, representative, location, address, email, phone, hours, country, cities } = businessDetails.value
+        const { name, representative, city, zip, address, location, email, phone, hours, country, governorate } = businessDetails.value
         payload['business'] = {}
         if (name) payload['business']['name'] = name
         if (representative) payload['business']['representative'] = representative
         if (location) payload['business']['location'] = location
         if (address) payload['business']['address'] = address
-        if (country) payload['business']['country'] = country
-        if (cities) payload['business']['cities'] = cities
+        if (country) payload['business']['countryId'] = country
+        if (governorate) {
+          payload['business']['governorateId'] = governorate.id
+          payload['business']['regionId'] = governorate.regionId
+        }
         if (email) payload['business']['email'] = email
         if (phone) payload['business']['phone'] = phone
         if (hours) payload['business']['hours'] = toRaw(hours)
@@ -179,6 +180,8 @@ const handleOnSubmit = () => {
         if (conditions) payload['conditions']['conditions'] = conditions
         if (limitations) payload['conditions']['limitations'] = limitations
       }
+      payload['partnerId'] = partnerId
+      payload["id"] = id
       payload["createdAt"] = new Date().toISOString()
       await createOffer(id, payload)
       loading.value = false
