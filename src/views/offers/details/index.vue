@@ -66,7 +66,7 @@ const handleOnClickDelete = () => {
       loading.value = true
       await deleteOffer(id.value)
       Swal.fire("Delete!", "Offer deleted successfully", "success");
-      router.push('/offers?partner=' + payload.value.partnerId)
+      router.push('/offers')
     } catch (e) {
       loading.value = false
       // @ts-ignore
