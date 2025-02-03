@@ -157,15 +157,17 @@ const handleOnSubmit = () => {
         if (representative) payload['business']['representative'] = representative
         if (location) payload['business']['location'] = location
         if (address) payload['business']['address'] = address
-        if (country) payload['business']['countryId'] = country
-        if (governorate) {
-          payload['business']['governorateId'] = governorate.id
-          payload['business']['regionId'] = governorate.regionId
-        }
         if (email) payload['business']['email'] = email
         if (phone) payload['business']['phone'] = phone
+        if (phone) payload['business']['city'] = city
+        if (phone) payload['business']['zip'] = zip
         if (hours) payload['business']['hours'] = toRaw(hours)
-      }
+        if (country) payload['countryId'] = country
+        if (governorate) {
+          payload['governorateId'] = governorate.id
+          payload['regionId'] = governorate.regionId
+        }
+        }
       if (businessSocial.value) {
         const { website, instagram, facebook, whatsapp } = businessSocial.value
         payload['social'] = {}
@@ -180,8 +182,8 @@ const handleOnSubmit = () => {
         if (conditions) payload['conditions']['conditions'] = conditions
         if (limitations) payload['conditions']['limitations'] = limitations
       }
-      payload['partnerId'] = partnerId
       payload["id"] = id
+      payload['partnerId'] = partnerId
       payload["createdAt"] = new Date().toISOString()
       await createOffer(id, payload)
       loading.value = false
