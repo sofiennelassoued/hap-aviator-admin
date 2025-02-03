@@ -13,6 +13,10 @@
           <textarea class="form-control" id="input-limitations" placeholder="Ex: One article each week"
             v-model="limitations"></textarea>
         </div>
+        <div class="form-group col-md-6">
+          <label for="input-vibe">Vibe</label>
+          <vibes-picker :selected="vibes" @select="handleOnVibeSelect" />
+        </div>
       </div>
     </div>
   </div>
@@ -20,14 +24,20 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-const props = defineProps(['conditions', 'limitations'])
+import VibesPicker from './vibes-picker/index.vue'
+const props = defineProps(['conditions', 'limitations', 'vibes'])
 const conditions = ref()
 const limitations = ref()
+const vibes = ref()
 onMounted(() => {
   conditions.value = props.conditions
   limitations.value = props.limitations
+  vibes.value = props.vibes
 })
-defineExpose({ conditions, limitations })
+const handleOnVibeSelect = (v: string) => {
+  vibes.value = v
+}
+defineExpose({ conditions, limitations, vibes })
 </script>
 
 <style scoped></style>

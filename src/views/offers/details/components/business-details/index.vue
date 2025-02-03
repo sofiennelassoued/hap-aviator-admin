@@ -33,9 +33,9 @@
           <country-picker :selected="country" @select="handleOnCountrySelect" />
         </div>
         <div class="form-group col-md-6">
-          <label for="input-phone">Business cities</label>
-          <governorate-picker :required="true" :country-id="country" :selected="governorate"
-            @select="handleOnGovernorateSelect" />
+          <label for="input-phone">Business state</label>
+          <country-state-picker :required="true" :country-id="country" :selected="state"
+            @select="handleOnStateSelect" />
         </div>
         <div class="form-group col-md-6">
           <label for="input-business-city">City *</label>
@@ -64,9 +64,9 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import CountryPicker from '@/components/miscs/forms/country-picker/index.vue'
-import GovernoratePicker from '@/components/miscs/forms/country-governorate-picker/index.vue'
+import CountryStatePicker from '@/components/miscs/forms/country-state-picker/index.vue'
 import OpeningHours from './opening-hours/index.vue'
-const props = defineProps(['name', 'representative', 'city', 'zip', 'address', 'location', 'email', 'phone', 'country', 'governorate'])
+const props = defineProps(['name', 'representative', 'city', 'zip', 'address', 'location', 'email', 'phone', 'country', 'state'])
 
 // Components
 const openingHours = ref()
@@ -74,7 +74,7 @@ const openingHours = ref()
 const name = ref()
 const representative = ref()
 const country = ref()
-const governorate = ref()
+const state = ref()
 const city = ref()
 const zip = ref()
 const address = ref()
@@ -100,17 +100,17 @@ onMounted(() => {
   const SELECTED_COUNTRY = 'sau'
   country.value = SELECTED_COUNTRY
 
-  // TODO: Update this to use the correct governorate
-  governorate.value = props.governorate
+  // TODO: Update this to use the correct state
+  state.value = props.state
 })
 const handleOnCountrySelect = (v: string) => {
   country.value = v
 }
-const handleOnGovernorateSelect = (v: string) => {
-  governorate.value = v
+const handleOnStateSelect = (v: string) => {
+  state.value = v
 }
 // @ts-ignore
-defineExpose({ name, representative, city, zip, address, location, email, phone, hours, country, governorate })
+defineExpose({ name, representative, city, zip, address, location, email, phone, hours, country, state })
 </script>
 
 <style scoped></style>

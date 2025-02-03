@@ -5,7 +5,7 @@
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><router-link to="/">Home</router-link></li>
         <li class="breadcrumb-item"><router-link to="/countries">Countries</router-link></li>
-        <li class="breadcrumb-item active" aria-current="page">Governorates</li>
+        <li class="breadcrumb-item active" aria-current="page">States</li>
       </ol>
     </nav>
   </div>
@@ -14,8 +14,8 @@
       <div class="row">
         <div class="card p-3">
           <div class="d-flex justify-content-between">
-            <h3>Governorates
-              <router-link to="governorates/new">
+            <h3>States
+              <router-link to="states/new">
                 <button class="btn btn-secondary btn-sm">Create</button>
               </router-link>
             </h3>
@@ -49,7 +49,7 @@
                 </td>
                 <td>
                   <router-link type="button" class="btn btn-sm btn-outline-primary mx-2"
-                    :to="'/countries/' + item.countryId + '/governorates/' + item.id">View</router-link>
+                    :to="'/countries/' + item.countryId + '/states/' + item.id">View</router-link>
                 </td>
               </tr>
             </tbody>
@@ -62,7 +62,7 @@
     <div class="text-center">
       <p>No items</p>
       <router-link type="button" class="btn btn-sm btn-outline-primary mx-2"
-        :to="'/countries/' + id + '/governorates/new'" v-if="id">Create</router-link>
+        :to="'/countries/' + id + '/states/new'" v-if="id">Create</router-link>
     </div>
   </div>
   <div class="vh-100 d-flex justify-content-center align-items-center" v-if="loading">
@@ -75,7 +75,7 @@
 
 <script lang="ts" setup>
 import Search from '@/components/miscs/forms/search/index.vue';
-import { getGovernorates } from '@/domain/governorates';
+import { getStates } from '@/domain/states';
 import { type DocumentData } from 'firebase/firestore';
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
@@ -88,7 +88,7 @@ onMounted(() => {
   const fn = async () => {
     try {
       loading.value = true
-      items.value = await getGovernorates(id.value)
+      items.value = await getStates(id.value)
       loading.value = false
     } catch (error) {
       loading.value = false

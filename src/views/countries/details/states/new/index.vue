@@ -4,7 +4,7 @@
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><router-link to="/">Home</router-link></li>
       <li class="breadcrumb-item"><router-link to="/countries">Countries</router-link></li>
-      <li class="breadcrumb-item">Governorates</li>
+      <li class="breadcrumb-item">States</li>
       <li class="breadcrumb-item active" aria-current="page">New</li>
     </ol>
   </nav>
@@ -15,22 +15,22 @@
           <div class="card">
             <div class="card-body">
               <label for="input-label" class="form-label">Label* <small><a
-                    href="https://en.wikipedia.org/wiki/List_of_governorates_of_Saudi_Arabia" target="_blank">Learn
+                    href="https://en.wikipedia.org/wiki/List_of_states_of_Saudi_Arabia" target="_blank">Learn
                     more</a></small></label>
               <input type="text" class="form-control" id="input-label" aria-describedby="text-label"
                 placeholder="Ex: Al-Kharj" required v-model="label">
-              <div id="help-label" class="form-text">Provide the governorate name</div>
+              <div id="help-label" class="form-text">Provide the state name</div>
               <label for="input-region" class="form-label mt-3">Region*</label>
               <country-region-picker :country-id="countryId" :disabled="!countryId" :required="true"
                 @select="handleOnSelectCountryRegion" />
-              <div id="help-label" class="form-text">Provide the governorate name</div>
+              <div id="help-label" class="form-text">Provide the state name</div>
               <label for="input-position" class="form-label mt-3">Position*</label>
               <input type="number" class="form-control" id="input-position" aria-describedby="text-position"
                 placeholder="Ex: 2" required v-model.number="position">
-              <div id="help-position" class="form-text">Provide the governorate position</div>
+              <div id="help-position" class="form-text">Provide the state position</div>
               <div class="form-check form-switch mt-3">
                 <input class="form-check-input" type="checkbox" role="switch" id="switch-enabled" v-model="enabled">
-                <label class="form-check-label" for="switch-enabled">Governorate is <span>{{ enabled ? 'enabled' :
+                <label class="form-check-label" for="switch-enabled">State is <span>{{ enabled ? 'enabled' :
                   'disabled' }}</span> by default</label>
               </div>
               <div>
@@ -51,7 +51,7 @@
 
 <script setup lang="ts">
 import CountryRegionPicker from "@/components/miscs/forms/country-region-picker/index.vue"
-import { createGovernorateMetadata } from '@/domain/governorates';
+import { createStateMetadata } from '@/domain/states';
 import Swal from 'sweetalert2';
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -80,10 +80,10 @@ const handleOnSubmit = () => {
         regionId: regionId.value,
         createdAt: new Date().toISOString()
       }
-      const result = await createGovernorateMetadata(metadata)
+      const result = await createStateMetadata(metadata)
       loading.value = false
       Swal.fire({
-        title: "Governorate created",
+        title: "State created",
         text: "What do you want to do next?",
         icon: "success",
         showCancelButton: true,
@@ -94,7 +94,7 @@ const handleOnSubmit = () => {
           router.push(result.id);
         } else if (isDismissed) {
           router.push({
-            path: '/countries/' + countryId + '/governorates'
+            path: '/countries/' + countryId + '/states'
           })
         }
       });

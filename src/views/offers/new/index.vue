@@ -151,7 +151,7 @@ const handleOnSubmit = () => {
         if (priority) payload['validity']['priority'] = priority
       }
       if (businessDetails.value) {
-        const { name, representative, city, zip, address, location, email, phone, hours, country, governorate } = businessDetails.value
+        const { name, representative, city, zip, address, location, email, phone, hours, country, state } = businessDetails.value
         payload['business'] = {}
         if (name) payload['business']['name'] = name
         if (representative) payload['business']['representative'] = representative
@@ -163,11 +163,11 @@ const handleOnSubmit = () => {
         if (phone) payload['business']['zip'] = zip
         if (hours) payload['business']['hours'] = toRaw(hours)
         if (country) payload['countryId'] = country
-        if (governorate) {
-          payload['governorateId'] = governorate.id
-          payload['regionId'] = governorate.regionId
+        if (state) {
+          payload['stateId'] = state.id
+          payload['regionId'] = state.regionId
         }
-        }
+      }
       if (businessSocial.value) {
         const { website, instagram, facebook, whatsapp } = businessSocial.value
         payload['social'] = {}
@@ -177,10 +177,11 @@ const handleOnSubmit = () => {
         if (whatsapp) payload['social']['whatsapp'] = whatsapp
       }
       if (conditionsAndLimitations.value) {
-        const { conditions, limitations } = conditionsAndLimitations.value
+        const { conditions, limitations, vibes } = conditionsAndLimitations.value
         payload['conditions'] = {}
         if (conditions) payload['conditions']['conditions'] = conditions
         if (limitations) payload['conditions']['limitations'] = limitations
+        if (vibes) payload['conditions']['vibes'] = vibes
       }
       payload["id"] = id
       payload['partnerId'] = partnerId

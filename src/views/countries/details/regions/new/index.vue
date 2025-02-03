@@ -15,7 +15,7 @@
           <div class="card">
             <div class="card-body">
               <label for="input-label" class="form-label">Label* <small><a
-                    href="https://en.wikipedia.org/wiki/List_of_governorates_of_Saudi_Arabia" target="_blank">Learn
+                    href="https://en.wikipedia.org/wiki/List_of_states_of_Saudi_Arabia" target="_blank">Learn
                     more</a></small></label>
               <input type="text" class="form-control" id="input-label" aria-describedby="text-label"
                 placeholder="Ex: Riyadh" required v-model="label">

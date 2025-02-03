@@ -18,7 +18,7 @@
             <span v-if="!limited" class="cursor-pointer" @click="handleOnClickLimited">Set unlimited</span>
           </div>
           <input type="number" class="form-control" min="1" id="input-stock-or-quota" :disabled="limited"
-            :placeholder="!limited ? 'Ex: 10' : 'Unlimited'" required v-model.number="quota">
+            :placeholder="!limited ? 'Ex: 10' : 'Unlimited'" :required="limited" v-model.number="quota">
           <div id="help-stock-or-quota" class="form-text" v-if="limited">Offer is limited</div>
           <div id="help-stock-or-quota" class="form-text" v-if="!limited">Offer is unlimited</div>
         </div>
