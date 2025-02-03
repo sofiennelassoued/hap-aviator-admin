@@ -38,10 +38,10 @@
       <div class="row">
         <div class="col">
           <div>
-            <router-link :to="'/countries/' + payload.id + '/governorates'"><a>View governorates</a></router-link>
+            <router-link :to="'/countries/' + payload.id + '/states'"><a>View states</a></router-link>
           </div>
           <div class="mt-3">
-            <router-link :to="'/countries/' + payload.id + '/governorates/new'"><a>Create governorate</a></router-link>
+            <router-link :to="'/countries/' + payload.id + '/states/new'"><a>Create state</a></router-link>
           </div>
         </div>
         <div class="col">

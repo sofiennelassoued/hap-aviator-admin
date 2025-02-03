@@ -12,10 +12,10 @@
       <div class="col-md-12">
         <media ref="media" :media="payload.media" />
         <div class="details">
-          <basics ref="basics" v-bind="payload" />
+          <basics ref="basics" v-bind="payload" :category="payload.categoryId" />
           <pricing ref="pricing" v-bind="payload.pricing" />
           <validity-and-availability ref="validityAndAvailability" v-bind="payload.validity" />
-          <business-details ref="businessDetails" v-bind="payload.business" />
+          <business-details ref="businessDetails" v-bind="payload.business" :country="payload.countryId" :state="payload.stateId" />
           <conditions-and-limitations ref="conditionsAndLimitations" v-bind="payload.conditions" />
         </div>
         <div>
@@ -66,7 +66,7 @@ const handleOnClickDelete = () => {
       loading.value = true
       await deleteOffer(id.value)
       Swal.fire("Delete!", "Offer deleted successfully", "success");
-      router.push('/offers?partner=' + payload.value.partnerId)
+      router.push('/offers')
     } catch (e) {
       loading.value = false
       // @ts-ignore

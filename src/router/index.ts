@@ -38,10 +38,10 @@ import NewCountryView from "@/views/countries/new/index.vue";
 import RegionDetailsView from "@/views/countries/details/regions/details/index.vue";
 import RegionsView from "@/views/countries/details/regions/home/index.vue";
 import NewRegionView from "@/views/countries/details/regions/new/index.vue";
-// Governorates
-import GovernorateDetailsView from "@/views/countries/details/governorates/details/index.vue";
-import GovernoratesView from "@/views/countries/details/governorates/home/index.vue";
-import NewGovernorateView from "@/views/countries/details/governorates/new/index.vue";
+// States
+import StateDetailsView from "@/views/countries/details/states/details/index.vue";
+import StatesView from "@/views/countries/details/states/home/index.vue";
+import NewStateView from "@/views/countries/details/states/new/index.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
@@ -207,21 +207,21 @@ const router = createRouter({
       name: "region-details",
       component: RegionDetailsView,
     },
-    // Governorates
+    // States
     {
-      path: "/countries/:id/governorates",
-      name: "governorates",
-      component: GovernoratesView,
+      path: "/countries/:id/states",
+      name: "states",
+      component: StatesView,
     },
     {
-      path: "/countries/:id/governorates/new",
-      name: "new-governorate",
-      component: NewGovernorateView,
+      path: "/countries/:id/states/new",
+      name: "new-state",
+      component: NewStateView,
     },
     {
-      path: "/countries/:countryId/governorates/:governorateId",
-      name: "governorate-details",
-      component: GovernorateDetailsView,
+      path: "/countries/:countryId/states/:stateId",
+      name: "state-details",
+      component: StateDetailsView,
     },
   ],
 });

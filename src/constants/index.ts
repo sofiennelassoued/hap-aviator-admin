@@ -9,5 +9,5 @@ export const OFFER_VALIDATIONS_DATABASE_COLLECTION = "offer-validations";
 export const CATEGORIES_DATABASE_COLLECTION = "categories";
 export const COUNTRIES_DATABASE_COLLECTION = "countries";
 export const REGIONS_DATABASE_COLLECTION = "regions";
-export const GOVERNORATES_DATABASE_COLLECTION = "governorates";
+export const STATES_DATABASE_COLLECTION = "states";
 export const IMAGES_STORAGE_BUCKET = "uploads/images";

@@ -151,20 +151,22 @@ const handleOnSubmit = () => {
         if (priority) payload['validity']['priority'] = priority
       }
       if (businessDetails.value) {
-        const { name, representative, city, zip, address, location, email, phone, hours, country, governorate } = businessDetails.value
+        const { name, representative, city, zip, address, location, email, phone, hours, country, state } = businessDetails.value
         payload['business'] = {}
         if (name) payload['business']['name'] = name
         if (representative) payload['business']['representative'] = representative
         if (location) payload['business']['location'] = location
         if (address) payload['business']['address'] = address
-        if (country) payload['business']['countryId'] = country
-        if (governorate) {
-          payload['business']['governorateId'] = governorate.id
-          payload['business']['regionId'] = governorate.regionId
-        }
         if (email) payload['business']['email'] = email
         if (phone) payload['business']['phone'] = phone
+        if (phone) payload['business']['city'] = city
+        if (phone) payload['business']['zip'] = zip
         if (hours) payload['business']['hours'] = toRaw(hours)
+        if (country) payload['countryId'] = country
+        if (state) {
+          payload['stateId'] = state.id
+          payload['regionId'] = state.regionId
+        }
       }
       if (businessSocial.value) {
         const { website, instagram, facebook, whatsapp } = businessSocial.value
@@ -175,13 +177,14 @@ const handleOnSubmit = () => {
         if (whatsapp) payload['social']['whatsapp'] = whatsapp
       }
       if (conditionsAndLimitations.value) {
-        const { conditions, limitations } = conditionsAndLimitations.value
+        const { conditions, limitations, vibes } = conditionsAndLimitations.value
         payload['conditions'] = {}
         if (conditions) payload['conditions']['conditions'] = conditions
         if (limitations) payload['conditions']['limitations'] = limitations
+        if (vibes) payload['conditions']['vibes'] = vibes
       }
-      payload['partnerId'] = partnerId
       payload["id"] = id
+      payload['partnerId'] = partnerId
       payload["createdAt"] = new Date().toISOString()
       await createOffer(id, payload)
       loading.value = false
