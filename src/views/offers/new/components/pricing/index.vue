@@ -9,7 +9,7 @@
             v-model.number="points">
         </div>
         <div class="form-group col-md-6">
-          <label for="input-points">Offer type *</label>
+          <label for="input-type">Offer type *</label>
           <type-picker :selected="type" @select="handleOnSelectType" />
         </div>
         <template v-if="type === 'with-price'">
