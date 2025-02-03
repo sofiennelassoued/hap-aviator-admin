@@ -23,6 +23,9 @@ import NewAdvertiserView from "@/views/advertisers/new/index.vue";
 // Users
 import UsersDetailsView from "@/views/users/details/index.vue";
 import UsersView from "@/views/users/home/index.vue";
+// Offer Validations
+import OfferValidationDetailsView from "@/views/offer-validations/details/index.vue";
+import OfferValidationsView from "@/views/offer-validations/home/index.vue";
 // Categories
 import CategoriesDetailsView from "@/views/categories/details/index.vue";
 import CategoriesView from "@/views/categories/home/index.vue";
@@ -144,6 +147,17 @@ const router = createRouter({
       path: "/users/:id",
       name: "user-details",
       component: UsersDetailsView,
+    },
+    // Offer Validations
+    {
+      path: "/offer-validations",
+      name: "offer-validations",
+      component: OfferValidationsView,
+    },
+    {
+      path: "/offer-validations/:id",
+      name: "offer-validation-details",
+      component: OfferValidationDetailsView,
     },
     // Categories
     {

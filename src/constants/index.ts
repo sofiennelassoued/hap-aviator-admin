@@ -5,6 +5,7 @@ export const GIFTS_DATABASE_COLLECTION = "gifts";
 export const PARTNERS_DATABASE_COLLECTION = "partners";
 export const ADVERTISERS_DATABASE_COLLECTION = "advertisers";
 export const USERS_DATABASE_COLLECTION = "users";
+export const OFFER_VALIDATIONS_DATABASE_COLLECTION = "offer-validations";
 export const CATEGORIES_DATABASE_COLLECTION = "categories";
 export const COUNTRIES_DATABASE_COLLECTION = "countries";
 export const REGIONS_DATABASE_COLLECTION = "regions";
