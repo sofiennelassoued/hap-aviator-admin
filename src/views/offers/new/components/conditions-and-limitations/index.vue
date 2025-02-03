@@ -14,8 +14,8 @@
             v-model="limitations"></textarea>
         </div>
         <div class="form-group col-md-6">
-          <label for="input-vibe">Vibe</label>
-          <vibes-picker :selected="vibes" @select="handleOnVibeSelect" />
+          <label for="input-vibes">Vibes</label>
+          <vibes-picker :selected="vibes" @select="handleOnVibesSelect" />
         </div>
       </div>
     </div>
@@ -34,7 +34,7 @@ onMounted(() => {
   limitations.value = props.limitations
   vibes.value = props.vibes
 })
-const handleOnVibeSelect = (v: string) => {
+const handleOnVibesSelect = (v: string) => {
   vibes.value = v
 }
 defineExpose({ conditions, limitations, vibes })
