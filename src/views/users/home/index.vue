@@ -13,6 +13,7 @@
       <div class="row">
         <div class="card p-3">
           <div class="d-flex justify-content-between">
+            <h1>Users</h1>
             <div>
               <search :items="allItems" @filtered="handleOnFiltered" />
             </div>
@@ -20,17 +21,29 @@
           <table class="table">
             <thead>
               <tr>
-                <th scope="col">Logo</th>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
+                <th scope="col">Avatar</th>
+                <th scope="col">ID</th>
+                <th scope="col">First name</th>
+                <th scope="col">Last name</th>
+                <th scope="col">Sex</th>
+                <th scope="col">Birth Date</th>
+                <th scope="col">Points</th>
+                <th scope="col">Hearts</th>
+                <th scope="col">Created At</th>
                 <th scope="col">Actions</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="item in items" :key="item.id">
                 <th scope="row"><img class="image" :src="item.image" /></th>
-                <td>{{ item.name }}</td>
-                <td>{{ item.email }}</td>
+                <td>{{ item.id }}</td>
+                <td>{{ item.firstName }}</td>
+                <td>{{ item.lastName }}</td>
+                <td>{{ item.sex }}</td>
+                <td>{{ item.birthDate }}</td>
+                <td>{{ item.points }}</td>
+                <td>{{ item.hearts }}</td>
+                <td>{{ item.createdAt }}</td>
                 <td>
                   <router-link type="button" class="btn btn-sm btn-outline-primary mx-2"
                     :to="'/users/' + item.id">View</router-link>

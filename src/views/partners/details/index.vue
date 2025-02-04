@@ -13,7 +13,7 @@
       <div class="card">
         <div class="card-body">
           <div class="d-flex flex-column align-items-center text-center">
-            <img :src="payload.image" alt="Admin" class="rounded-circle" width="150">
+            <img :src="payload.image" alt="Admin" class="" width="150">
             <div class="mt-3">
               <h4>{{ payload.name }}</h4>
               <router-link class="btn btn-primary" :to="'/offers?partner=' + id">View offers</router-link>
@@ -31,7 +31,7 @@
             <div class="col-sm-3">
               <h6 class="mb-0">Name</h6>
             </div>
-            <div class="col-sm-9 text-secondary">
+            <div class="col-sm-9">
               {{ payload.name }}
             </div>
           </div>
@@ -49,7 +49,7 @@
             <div class="col-sm-3">
               <h6 class="mb-0">Representative</h6>
             </div>
-            <div class="col-sm-9 text-secondary">
+            <div class="col-sm-9">
               {{ payload.representative }}
             </div>
           </div>
@@ -58,7 +58,7 @@
             <div class="col-sm-3">
               <h6 class="mb-0">Website</h6>
             </div>
-            <div class="col-sm-9 text-secondary">
+            <div class="col-sm-9">
               <a :href="payload.website" target="_blank" class="text-primary">{{ payload.website }}</a>
             </div>
           </div>
@@ -67,7 +67,7 @@
             <div class="col-sm-3">
               <h6 class="mb-0">Contact Email</h6>
             </div>
-            <div class="col-sm-9 text-secondary">
+            <div class="col-sm-9">
               <a :href="'mailto:' + payload.contactEmail" target="_blank" class="text-primary">{{ payload.contactEmail
                 }}</a>
             </div>
@@ -77,7 +77,7 @@
             <div class="col-sm-3">
               <h6 class="mb-0">Phone</h6>
             </div>
-            <div class="col-sm-9 text-secondary">
+            <div class="col-sm-9">
               <a :href="'tel:' + payload.phone" target="_blank" class="text-primary">{{ payload.phone }}</a>
             </div>
           </div>
@@ -86,7 +86,7 @@
             <div class="col-sm-3">
               <h6 class="mb-0">Instagram</h6>
             </div>
-            <div class="col-sm-9 text-secondary">
+            <div class="col-sm-9">
               <a :href="payload.instagram" target="_blank" class="text-primary">{{ payload.instagram }}</a>
             </div>
           </div>
@@ -95,7 +95,7 @@
             <div class="col-sm-3">
               <h6 class="mb-0">Facebook</h6>
             </div>
-            <div class="col-sm-9 text-secondary">
+            <div class="col-sm-9">
               <a :href="payload.facebook" target="_blank" class="text-primary">{{ payload.facebook }}</a>
             </div>
           </div>
@@ -104,7 +104,7 @@
             <div class="col-sm-3">
               <h6 class="mb-0">WhatsApp</h6>
             </div>
-            <div class="col-sm-9 text-secondary">
+            <div class="col-sm-9">
               <a :href="'tel:' + payload.whatsapp" target="_blank" class="text-primary">{{ payload.whatsapp }}</a>
             </div>
           </div>

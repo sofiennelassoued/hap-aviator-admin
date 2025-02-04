@@ -13,6 +13,7 @@
       <div class="row">
         <div class="card p-3">
           <div class="d-flex justify-content-between">
+            <h1>Offer validations</h1>
             <div>
               <search :items="allItems" @filtered="handleOnFiltered" />
             </div>
@@ -20,20 +21,25 @@
           <table class="table">
             <thead>
               <tr>
-                <th scope="col">Logo</th>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Actions</th>
+                <th scope="col">ID</th>
+                <th scope="col">Offer ID</th>
+                <th scope="col">Partner ID</th>
+                <th scope="col">User ID</th>
+                <th scope="col">Created At</th>
+                <th scope="col">Status</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in items" :key="item.id">
-                <th scope="row"><img class="image" :src="item.image" /></th>
-                <td>{{ item.name }}</td>
-                <td>{{ item.email }}</td>
+              <tr v-for="item in items" :key="item.id" class="ooo">
+                <td>{{ item.id }}</td>
+                <td><router-link :to="'/offers/' + item.offerId">{{ item.offerId }}</router-link></td>
+                <td><router-link :to="'/partners/' + item.partnerId">{{ item.partnerId }}</router-link></td>
+                <td><router-link :to="'/users/' + item.userId">{{ item.userId }}</router-link></td>
+                <td>{{ item.createdAt }}</td>
                 <td>
-                  <router-link type="button" class="btn btn-sm btn-outline-primary mx-2"
-                    :to="'/users/' + item.id">View</router-link>
+                  <span class="badge bg-secondary" v-if="item.status === 'pending'">Pending</span>
+                  <span class="badge bg-success" v-else-if="item.status === 'validated'">Validated</span>
+                  <span class="badge bg-danger" v-else-if="item.status === 'expired'">Expired</span>
                 </td>
               </tr>
             </tbody>

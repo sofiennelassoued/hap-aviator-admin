@@ -57,23 +57,10 @@ const getOfferValidations = async (
   if (!auth.currentUser) {
     throw new Error("No current user");
   }
-  let q;
-  if (filter.offerId) {
-    q = await query(
-      collection(database, OFFER_VALIDATIONS_DATABASE_COLLECTION),
-      where("userId", "==", auth.currentUser.uid),
-      where("status", "in", filter.statuses),
-      where("offerId", "==", filter.offerId),
-      orderBy("createdAt", "desc")
-    );
-  } else {
-    q = await query(
-      collection(database, OFFER_VALIDATIONS_DATABASE_COLLECTION),
-      where("userId", "==", auth.currentUser.uid),
-      where("status", "in", filter.statuses),
-      orderBy("createdAt", "desc")
-    );
-  }
+  const q = await query(
+    collection(database, OFFER_VALIDATIONS_DATABASE_COLLECTION),
+    orderBy("createdAt", "desc")
+  );
   const data: DocumentData[] = [];
   const snapshot = await getDocs(q);
   snapshot.forEach((doc) => {
