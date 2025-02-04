@@ -30,6 +30,10 @@ import OfferValidationsView from "@/views/offer-validations/home/index.vue";
 import CategoriesDetailsView from "@/views/categories/details/index.vue";
 import CategoriesView from "@/views/categories/home/index.vue";
 import NewCategoryView from "@/views/categories/new/index.vue";
+// Interests
+import InterestsDetailsView from "@/views/interests/details/index.vue";
+import InterestsView from "@/views/interests/home/index.vue";
+import NewInterestView from "@/views/interests/new/index.vue";
 // Countries
 import CountriesDetailsView from "@/views/countries/details/index.vue";
 import CountriesView from "@/views/countries/home/index.vue";
@@ -174,6 +178,22 @@ const router = createRouter({
       path: "/categories/:id",
       name: "category-details",
       component: CategoriesDetailsView,
+    },
+    // Interests
+    {
+      path: "/interests",
+      name: "interests",
+      component: InterestsView,
+    },
+    {
+      path: "/interests/new",
+      name: "new-interest",
+      component: NewInterestView,
+    },
+    {
+      path: "/interests/:id",
+      name: "interest-details",
+      component: InterestsDetailsView,
     },
     // Countries
     {
