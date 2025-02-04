@@ -23,7 +23,7 @@ const updateUserPoints = async (id: string, points: number) => {
   const ref = doc(database, USERS_DATABASE_COLLECTION, id);
   return updateDoc(ref, {
     points,
-    timestamp: serverTimestamp(),
+    updatedAt: serverTimestamp(),
   });
 };
 
@@ -31,7 +31,7 @@ const updateUserHearts = async (id: string, hearts: number) => {
   const ref = doc(database, USERS_DATABASE_COLLECTION, id);
   return updateDoc(ref, {
     hearts,
-    timestamp: serverTimestamp(),
+    updatedAt: serverTimestamp(),
   });
 };
 
@@ -45,4 +45,5 @@ const getUsers = async () => {
   });
   return data;
 };
-export { getUserMetadata, getUsers, updateUserPoints, updateUserHearts };
+export { getUserMetadata, getUsers, updateUserHearts, updateUserPoints };
+
