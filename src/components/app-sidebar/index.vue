@@ -95,6 +95,14 @@
               </a>
             </li>
           </router-link>
+          <router-link to="/interests">
+            <li class="sidebar-item">
+              <a class="sidebar-link" :class="route.path === '/interests' ? 'active' : ''" aria-expanded="false">
+                <iconify-icon icon="solar:checklist-minimalistic-bold"></iconify-icon>
+                <span class="hide-menu">Interests</span>
+              </a>
+            </li>
+          </router-link>
           <router-link to="/countries">
             <li class="sidebar-item">
               <a class="sidebar-link" :class="route.path === '/countries' ? 'active' : ''" aria-expanded="false">

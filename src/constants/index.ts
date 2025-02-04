@@ -7,6 +7,7 @@ export const ADVERTISERS_DATABASE_COLLECTION = "advertisers";
 export const USERS_DATABASE_COLLECTION = "users";
 export const OFFER_VALIDATIONS_DATABASE_COLLECTION = "offer-validations";
 export const CATEGORIES_DATABASE_COLLECTION = "categories";
+export const INTERESTS_DATABASE_COLLECTION = "interests";
 export const COUNTRIES_DATABASE_COLLECTION = "countries";
 export const REGIONS_DATABASE_COLLECTION = "regions";
 export const STATES_DATABASE_COLLECTION = "states";
