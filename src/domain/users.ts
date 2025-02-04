@@ -4,7 +4,9 @@ import {
   doc,
   getDoc,
   getDocs,
-  type DocumentData
+  serverTimestamp,
+  updateDoc,
+  type DocumentData,
 } from "firebase/firestore";
 import { database } from "./firebase";
 
@@ -17,6 +19,22 @@ const getUserMetadata = async (id: string) => {
   return snapshot.data();
 };
 
+const updateUserPoints = async (id: string, points: number) => {
+  const ref = doc(database, USERS_DATABASE_COLLECTION, id);
+  return updateDoc(ref, {
+    points,
+    timestamp: serverTimestamp(),
+  });
+};
+
+const updateUserHearts = async (id: string, hearts: number) => {
+  const ref = doc(database, USERS_DATABASE_COLLECTION, id);
+  return updateDoc(ref, {
+    hearts,
+    timestamp: serverTimestamp(),
+  });
+};
+
 const getUsers = async () => {
   const snapshot = await getDocs(
     collection(database, USERS_DATABASE_COLLECTION)
@@ -27,4 +45,4 @@ const getUsers = async () => {
   });
   return data;
 };
-export { getUserMetadata, getUsers };
+export { getUserMetadata, getUsers, updateUserPoints, updateUserHearts };
