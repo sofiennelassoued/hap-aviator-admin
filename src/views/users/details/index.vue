@@ -16,9 +16,9 @@
             <img :src="payload.image" alt="Avatar" class="rounded-circle" width="150">
             <div class="mt-3">
               <h4>{{ payload.firstName }} {{ payload.lastName }}</h4>
-              <button class="btn btn-primary">Assign points</button>
+              <button class="btn btn-primary" @click="handleUpdateUserPoints">Assign points</button>
               <span class="mx-1"></span>
-              <button class="btn btn-secondary">Assign hearts</button>
+              <button class="btn btn-secondary" @click="handleUpdateUserHearts">Assign hearts</button>
             </div>
           </div>
         </div>
@@ -120,7 +120,7 @@
 </template>
 
 <script setup lang="ts">
-import { getUserMetadata } from '@/domain/users';
+import { getUserMetadata, updateUserHearts, updateUserPoints } from '@/domain/users';
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 const route = useRoute()
@@ -141,6 +141,34 @@ onMounted(() => {
   }
   fn()
 })
+const handleUpdateUserPoints = () => {
+  const fn = async () => {
+    try {
+      loading.value = true
+      const points = prompt("Points to assign")
+      await updateUserPoints(id.value, Number(points))
+      payload.value = await getUserMetadata(id.value)
+      loading.value = false
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  fn()
+}
+const handleUpdateUserHearts = () => {
+  const fn = async () => {
+    try {
+      loading.value = true
+      const points = prompt("Hearts to assign")
+      await updateUserHearts(id.value, Number(points))
+      payload.value = await getUserMetadata(id.value)
+      loading.value = false
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  fn()
+}
 </script>
 
 <style scoped></style>
