@@ -13,12 +13,12 @@
       <div class="card">
         <div class="card-body">
           <div class="d-flex flex-column align-items-center text-center">
-            <img :src="payload.image" alt="Admin" class="rounded-circle" width="150">
+            <img :src="payload.image" alt="Avatar" class="rounded-circle" width="150">
             <div class="mt-3">
-              <h4>{{ payload.name }}</h4>
-              <router-link class="btn btn-primary" :to="'/offers?user=' + id">View offers</router-link>
+              <h4>{{ payload.firstName }} {{ payload.lastName }}</h4>
+              <button class="btn btn-primary">Assign points</button>
               <span class="mx-1"></span>
-              <router-link class="btn btn-secondary" :to="'/offers/new?user=' + id">Create offer</router-link>
+              <button class="btn btn-secondary">Assign hearts</button>
             </div>
           </div>
         </div>
@@ -29,83 +29,82 @@
         <div class="card-body">
           <div class="row">
             <div class="col-sm-3">
-              <h6 class="mb-0">Name</h6>
-            </div>
-            <div class="col-sm-9 text-secondary">
-              {{ payload.name }}
-            </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="col-sm-3">
-              <h6 class="mb-0">Email</h6>
+              <h6 class="mb-0">Points</h6>
             </div>
             <div class="col-sm-9">
-              <a class="text-primary" :href="'mailto:' + payload.email">{{ payload.email }}</a>
+              {{ payload.points }}
             </div>
           </div>
           <hr>
           <div class="row">
             <div class="col-sm-3">
-              <h6 class="mb-0">Representative</h6>
+              <h6 class="mb-0">Hearts</h6>
             </div>
-            <div class="col-sm-9 text-secondary">
-              {{ payload.representative }}
-            </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="col-sm-3">
-              <h6 class="mb-0">Website</h6>
-            </div>
-            <div class="col-sm-9 text-secondary">
-              <a :href="payload.website" target="_blank" class="text-primary">{{ payload.website }}</a>
+            <div class="col-sm-9">
+              {{ payload.hearts }}
             </div>
           </div>
           <hr>
           <div class="row">
             <div class="col-sm-3">
-              <h6 class="mb-0">Contact Email</h6>
+              <h6 class="mb-0">First name</h6>
             </div>
-            <div class="col-sm-9 text-secondary">
-              <a :href="'mailto:' + payload.contactEmail" target="_blank" class="text-primary">{{ payload.contactEmail
-                }}</a>
-            </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="col-sm-3">
-              <h6 class="mb-0">Phone</h6>
-            </div>
-            <div class="col-sm-9 text-secondary">
-              <a :href="'tel:' + payload.phone" target="_blank" class="text-primary">{{ payload.phone }}</a>
+            <div class="col-sm-9">
+              {{ payload.firstName }}
             </div>
           </div>
           <hr>
           <div class="row">
             <div class="col-sm-3">
-              <h6 class="mb-0">Instagram</h6>
+              <h6 class="mb-0">Last name</h6>
             </div>
-            <div class="col-sm-9 text-secondary">
-              <a :href="payload.instagram" target="_blank" class="text-primary">{{ payload.instagram }}</a>
-            </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="col-sm-3">
-              <h6 class="mb-0">Facebook</h6>
-            </div>
-            <div class="col-sm-9 text-secondary">
-              <a :href="payload.facebook" target="_blank" class="text-primary">{{ payload.facebook }}</a>
+            <div class="col-sm-9">
+              {{ payload.lastName }}
             </div>
           </div>
           <hr>
           <div class="row">
             <div class="col-sm-3">
-              <h6 class="mb-0">WhatsApp</h6>
+              <h6 class="mb-0">Sex</h6>
             </div>
-            <div class="col-sm-9 text-secondary">
-              <a :href="'tel:' + payload.whatsapp" target="_blank" class="text-primary">{{ payload.whatsapp }}</a>
+            <div class="col-sm-9">
+              {{ payload.sex }}
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Birth date</h6>
+            </div>
+            <div class="col-sm-9">
+              {{ payload.birthDate }}
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">State</h6>
+            </div>
+            <div class="col-sm-9">
+              {{ payload.stateId }}
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Region</h6>
+            </div>
+            <div class="col-sm-9">
+              {{ payload.regionId }}
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Interests</h6>
+            </div>
+            <div class="col-sm-9">
+              {{ payload.interestsIds }}
             </div>
           </div>
         </div>

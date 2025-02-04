@@ -13,7 +13,7 @@
       <div class="card">
         <div class="card-body">
           <div class="d-flex flex-column align-items-center text-center">
-            <img :src="payload.image" alt="Admin" class="rounded-circle" width="150">
+            <img :src="payload.image" alt="Admin" class="" width="150">
             <div class="mt-3">
               <h4>{{ payload.name }}</h4>
               <router-link class="btn btn-primary" :to="'/advertisements?advertiser=' + id">View advertisements</router-link>
@@ -31,7 +31,7 @@
             <div class="col-sm-3">
               <h6 class="mb-0">Name</h6>
             </div>
-            <div class="col-sm-9 text-secondary">
+            <div class="col-sm-9">
               {{ payload.name }}
             </div>
           </div>
@@ -49,7 +49,7 @@
             <div class="col-sm-3">
               <h6 class="mb-0">Link</h6>
             </div>
-            <div class="col-sm-9 text-secondary">
+            <div class="col-sm-9">
               <a :href="payload.link" target="_blank" class="text-primary">{{ payload.link }}</a>
             </div>
           </div>

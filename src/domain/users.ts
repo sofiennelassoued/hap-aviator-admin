@@ -4,14 +4,9 @@ import {
   doc,
   getDoc,
   getDocs,
-  setDoc,
-  type DocumentData,
+  type DocumentData
 } from "firebase/firestore";
 import { database } from "./firebase";
-
-const createUserMetadata = async (id: string, metadata: any) => {
-  return setDoc(doc(database, USERS_DATABASE_COLLECTION, id), metadata);
-};
 
 const getUserMetadata = async (id: string) => {
   const ref = doc(database, USERS_DATABASE_COLLECTION, id);
@@ -32,4 +27,4 @@ const getUsers = async () => {
   });
   return data;
 };
-export { createUserMetadata, getUserMetadata, getUsers };
+export { getUserMetadata, getUsers };

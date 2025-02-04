@@ -49,6 +49,14 @@
               </a>
             </li>
           </router-link>
+          <router-link to="/offer-validations">
+            <li class="sidebar-item">
+              <a class="sidebar-link" :class="route.path === '/offer-validations' ? 'active' : ''" aria-expanded="false">
+                <iconify-icon icon="solar:check-circle-bold"></iconify-icon>
+                <span class="hide-menu">Offer validations</span>
+              </a>
+            </li>
+          </router-link>
           <li>
             <span class="sidebar-divider lg"></span>
           </li>

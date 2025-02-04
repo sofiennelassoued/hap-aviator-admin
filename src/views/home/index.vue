@@ -29,6 +29,12 @@
               <router-link to="/gifts/new">Create</router-link>
             </div>
           </div>
+          <div class="col-4">
+            <h6>Offer validations</h6>
+            <div>
+              <router-link to="/offer-validations">View</router-link>
+            </div>
+          </div>
         </div>
       </div>
     </div>
