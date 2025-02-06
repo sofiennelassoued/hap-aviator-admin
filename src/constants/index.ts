@@ -1,6 +1,7 @@
 export const ENDPOINT = "/public/json";
 export const OFFERS_DATABASE_COLLECTION = "offers";
 export const ADVERTISEMENTS_DATABASE_COLLECTION = "advertisements";
+export const ADVERTISEMENTS_ANALYTICS_DATABASE_COLLECTION = "advertisements-analytics";
 export const GIFTS_DATABASE_COLLECTION = "gifts";
 export const PARTNERS_DATABASE_COLLECTION = "partners";
 export const ADVERTISERS_DATABASE_COLLECTION = "advertisers";
