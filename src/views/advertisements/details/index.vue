@@ -43,6 +43,12 @@
     <div class="col-md-4">
       <interests :views="state.analytics.views.interests" :visits="state.analytics.visits.interests" :payload="state.interests" />
     </div>
+   <div class="col-md-4" :payload="state.regions">
+      <regions v-if="state.regions" :views="state.analytics.views.regions" :visits="state.analytics.visits.regions" :payload="state.regions"  />
+    </div>
+    <div class="col-md-8" :payload="state.states">
+      <states v-if="state.states" :views="state.analytics.views.states" :visits="state.analytics.visits.states" :payload="state.states" />
+    </div>
   </div>
 </template>
 
@@ -51,6 +57,8 @@ import Ages from '@/components/advertisements/analytics/ages/index.vue';
 import Reach from '@/components/advertisements/analytics/reach/index.vue';
 import Sexes from '@/components/advertisements/analytics/sexes/index.vue';
 import Interests from '@/components/advertisements/analytics/interests/index.vue';
+import Regions from '@/components/advertisements/analytics/regions/index.vue';
+import States from '@/components/advertisements/analytics/states/index.vue';
 import { getAdvertisementAnalytics } from '@/domain/advertisement-analytics';
 import { getAdvertisementMetadata } from '@/domain/advertisements';
 import { getInterests } from '@/domain/interests';

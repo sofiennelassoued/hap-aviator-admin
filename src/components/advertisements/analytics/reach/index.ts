@@ -86,5 +86,19 @@ const OPTIONS = {
     theme: "dark",
   },
 };
-
-export { OPTIONS };
+const generateDatePatterns = () => {
+  const year = new Date().getFullYear();
+  const obj = {};
+  const patterns = [];
+  for (let index = 0; index < 12; index++) {
+    const d = new Date();
+    d.setMonth(index);
+    const month = d.toLocaleString("default", { month: "long" });
+    patterns.push({
+      label: `${month} ${year}`,
+      pattern: year + "-" + ("0" + (index + 1)).slice(-2),
+    });
+  }
+  return patterns;
+};
+export { OPTIONS, generateDatePatterns };
