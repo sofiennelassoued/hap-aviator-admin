@@ -29,8 +29,8 @@
       </div>
     </div>
     <div class="col-md-9"
-      v-if="state.analytics && state.analytics.dates && state.analytics.dates.views && state.analytics.dates.visits">
-      <reach :views="state.analytics.dates.views" :visits="state.analytics.dates.visits" />
+      v-if="state.analytics && state.analytics.dates && state.analytics.dates.views && state.analytics.dates.visits && state.payload" >
+      <reach :views="state.analytics.dates.views" :visits="state.analytics.dates.visits" :createdAt="state.payload.createdAt" />
     </div>
   </div>
   <div class="row" v-if="state.analytics">
@@ -41,13 +41,16 @@
       <ages :views="state.analytics.views.ages" :visits="state.analytics.visits.ages" />
     </div>
     <div class="col-md-4">
-      <interests :views="state.analytics.views.interests" :visits="state.analytics.visits.interests" :payload="state.interests" />
+      <interests :views="state.analytics.views.interests" :visits="state.analytics.visits.interests"
+        :payload="state.interests" />
     </div>
-   <div class="col-md-4" :payload="state.regions">
-      <regions v-if="state.regions" :views="state.analytics.views.regions" :visits="state.analytics.visits.regions" :payload="state.regions"  />
+    <div class="col-md-4" :payload="state.regions">
+      <regions v-if="state.regions" :views="state.analytics.views.regions" :visits="state.analytics.visits.regions"
+        :payload="state.regions" />
     </div>
     <div class="col-md-8" :payload="state.states">
-      <states v-if="state.states" :views="state.analytics.views.states" :visits="state.analytics.visits.states" :payload="state.states" />
+      <states v-if="state.states" :views="state.analytics.views.states" :visits="state.analytics.visits.states"
+        :payload="state.states" />
     </div>
   </div>
 </template>

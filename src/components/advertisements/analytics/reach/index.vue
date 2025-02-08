@@ -23,7 +23,7 @@ import { getDaysInMonth } from '@/utils/dates';
 import ApexCharts from 'apexcharts';
 import { onMounted, ref, watch } from 'vue';
 import { generateDatePatterns, OPTIONS } from '.';
-const { views, visits } = defineProps(['views', "visits"])
+const { views, visits, createdAt } = defineProps(['views', "visits", "createdAt"])
 
 const pattern = ref(new Date().toISOString().substring(0, 8))
 const patterns = ref([])
@@ -50,7 +50,8 @@ const process = () => {
 }
 onMounted(() => {
   if (el.value) {
-    patterns.value = generateDatePatterns()
+    console.log(createdAt)
+    patterns.value = generateDatePatterns(createdAt.substring(0, 8) + "01")
     const series = process()
     chart.value = new ApexCharts(el.value, { ...OPTIONS, series });
     chart.value.render();
