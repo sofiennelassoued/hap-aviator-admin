@@ -7,7 +7,8 @@
         </div>
         <div>
           <select class="form-select" v-if="patterns && patterns.length > 0" @change="handleOnChange">
-            <option :value="p.pattern" v-for="p in patterns">{{ p.label }}</option>
+            <option :value="p" v-for="p in patterns.slice().reverse()">{{ new Date(p +
+              '-01').toLocaleString("default", { month: "long" }) }} {{ p.split("-")[0] }}</option>
           </select>
         </div>
       </div>
@@ -18,22 +19,23 @@
 
 <script setup lang="ts">
 
-import { onMounted, ref, watch } from 'vue';
-import ApexCharts from 'apexcharts'
 import { getDaysInMonth } from '@/utils/dates';
+import ApexCharts from 'apexcharts';
+import { onMounted, ref, watch } from 'vue';
 import { generateDatePatterns, OPTIONS } from '.';
 const { views, visits } = defineProps(['views', "visits"])
 
-const pattern = ref(null)
+const pattern = ref(new Date().toISOString().substring(0, 8))
 const patterns = ref([])
 const el = ref(null);
 const chart = ref();
 const process = () => {
-  const days = getDaysInMonth(new Date().getMonth(), new Date().getFullYear())
+  const [y, m] = pattern.value.split('-')
+  const days = getDaysInMonth(Number(m) - 1, Number(y))
   const viewsData: unknown[] = []
   const visitsData: unknown[] = []
   days.forEach(d => {
-    const dateString = `${pattern.value}-01`
+    const dateString = `${y}-${m}-${d.toString().padStart(2, "0")}`
     viewsData.push({
       x: d,
       y: views[dateString] ?? 0
@@ -56,7 +58,6 @@ onMounted(() => {
 })
 watch(() => [views, visits], () => {
   const series = process()
-  chart.value.updateSeries(series)
 });
 const handleOnChange = (e: Event) => {
   pattern.value = (e.target as HTMLInputElement).value

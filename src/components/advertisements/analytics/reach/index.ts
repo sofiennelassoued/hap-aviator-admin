@@ -86,19 +86,17 @@ const OPTIONS = {
     theme: "dark",
   },
 };
-const generateDatePatterns = () => {
-  const year = new Date().getFullYear();
-  const obj = {};
-  const patterns = [];
-  for (let index = 0; index < 12; index++) {
-    const d = new Date();
-    d.setMonth(index);
-    const month = d.toLocaleString("default", { month: "long" });
-    patterns.push({
-      label: `${month} ${year}`,
-      pattern: year + "-" + ("0" + (index + 1)).slice(-2),
-    });
+const generateDatePatterns = (d: string = "2024-01-01") => {
+  const start = new Date(d);
+  const today = new Date();
+  const months = [];
+  while (start <= today) {
+    const year = start.getFullYear();
+    const month = start.getMonth() + 1;
+    months.push(`${year}-${month.toString().padStart(2, "0")}`);
+    start.setMonth(start.getMonth() + 1);
   }
-  return patterns;
+  return months;
 };
+
 export { OPTIONS, generateDatePatterns };
