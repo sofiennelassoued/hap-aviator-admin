@@ -86,5 +86,17 @@ const OPTIONS = {
     theme: "dark",
   },
 };
+const generateDatePatterns = (d: string = "2024-01-01") => {
+  const start = new Date(d);
+  const today = new Date();
+  const months = [];
+  while (start <= today) {
+    const year = start.getFullYear();
+    const month = start.getMonth() + 1;
+    months.push(`${year}-${month.toString().padStart(2, "0")}`);
+    start.setMonth(start.getMonth() + 1);
+  }
+  return months;
+};
 
-export { OPTIONS };
+export { OPTIONS, generateDatePatterns };

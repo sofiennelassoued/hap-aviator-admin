@@ -15,7 +15,7 @@ const handleOnSelectCountry = (v: string) => {
   countryId.value = v
 }
 const handleOnSelectCountryRegion = (v: string) => {
-  console.log("region ", v)
+  console.info("Region: ", v)
 }
 </script>
 

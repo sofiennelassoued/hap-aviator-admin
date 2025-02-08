@@ -6,11 +6,9 @@
           <h5 class="card-title fw-semibold">Reach of the month</h5>
         </div>
         <div>
-          <select class="form-select">
-            <option :value="2024">2024</option>
-            <option :value="2023">2023</option>
-            <option :value="2022">2022</option>
-            <option :value="2021">2021</option>
+          <select class="form-select" v-if="patterns && patterns.length > 0" @change="handleOnChange">
+            <option :value="p" v-for="p in patterns.slice().reverse()">{{ new Date(p +
+              '-01').toLocaleString("default", { month: "long" }) }} {{ p.split("-")[0] }}</option>
           </select>
         </div>
       </div>
@@ -21,24 +19,23 @@
 
 <script setup lang="ts">
 
-import { onMounted, ref, watch } from 'vue';
-import ApexCharts from 'apexcharts'
 import { getDaysInMonth } from '@/utils/dates';
-import { OPTIONS } from '.';
-const { views, visits } = defineProps(['views', "visits"])
+import ApexCharts from 'apexcharts';
+import { onMounted, ref, watch } from 'vue';
+import { generateDatePatterns, OPTIONS } from '.';
+const { views, visits, createdAt } = defineProps(['views', "visits", "createdAt"])
 
+const pattern = ref(new Date().toISOString().substring(0, 8))
+const patterns = ref([])
 const el = ref(null);
 const chart = ref();
 const process = () => {
-  const days = getDaysInMonth(new Date().getMonth(), new Date().getFullYear())
+  const [y, m] = pattern.value.split('-')
+  const days = getDaysInMonth(Number(m) - 1, Number(y))
   const viewsData: unknown[] = []
   const visitsData: unknown[] = []
   days.forEach(d => {
-    const date = new Date()
-    const year = date.getFullYear()
-    const month = ('0' + (new Date().getMonth() + 1)).slice(-2)
-    const day = ('0' + d).slice(-2)
-    const dateString = `${year}-${month}-${day}`
+    const dateString = `${y}-${m}-${d.toString().padStart(2, "0")}`
     viewsData.push({
       x: d,
       y: views[dateString] ?? 0
@@ -53,6 +50,7 @@ const process = () => {
 }
 onMounted(() => {
   if (el.value) {
+    patterns.value = generateDatePatterns(createdAt.substring(0, 8) + "01")
     const series = process()
     chart.value = new ApexCharts(el.value, { ...OPTIONS, series });
     chart.value.render();
@@ -60,8 +58,12 @@ onMounted(() => {
 })
 watch(() => [views, visits], () => {
   const series = process()
-  chart.value.updateSeries(series)
 });
+const handleOnChange = (e: Event) => {
+  pattern.value = (e.target as HTMLInputElement).value
+  const series = process()
+  chart.value.updateSeries(series)
+}
 </script>
 
 <style scoped></style>

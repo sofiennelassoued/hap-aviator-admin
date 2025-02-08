@@ -2,7 +2,7 @@
   <div class="card m-h">
     <div class="card-body">
       <div class="d-flex justify-content-between">
-        <h5>Interests
+        <h5>States
           <small v-show="isViews">(Views)</small>
           <small v-show="!isViews">(Visits)</small>
         </h5>
@@ -23,22 +23,27 @@ const isViews = ref(true)
 const el = ref(null)
 const chart = ref();
 const process = () => {
-  const ids = payload.map((p) => p.id)
-  ids.push("unknown")
+  let meta: unknown[] = []
   const source = isViews.value === true ? views : visits
-  let arr = new Array(ids.length + 1).fill(0);
-  ids.forEach((i, j) => {
-    arr[j] = source[i]
+  Object.keys(payload).forEach(k => {
+    let obj = {
+      x: payload[k].label,
+      y: source[payload[k].id] ?? 0
+    }
+    meta.push(obj)
   });
-  arr = arr.map(i => i === undefined ? 0 : i)
-  return arr
+  if (source.unknown) {
+    meta.push({
+      x: "Unknown",
+      y: source["unknown"]
+    })
+  }
+  return [{ data: meta }]
 }
 onMounted(() => {
   if (el.value) {
     const series = process()
-    const labels = payload.map((p) => p.label)
-    labels.push("Unknown")
-    chart.value = new ApexCharts(el.value, { ...OPTIONS, labels, series });
+    chart.value = new ApexCharts(el.value, { ...OPTIONS, series });
     chart.value.render();
   }
 })
