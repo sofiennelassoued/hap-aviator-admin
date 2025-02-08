@@ -41,28 +41,31 @@
       <ages :views="state.analytics.views.ages" :visits="state.analytics.visits.ages" />
     </div>
     <div class="col-md-4">
-      <!-- <interests :payload="state.analytics.interests" /> -->
+      <interests :views="state.analytics.views.interests" :visits="state.analytics.visits.interests" :payload="state.interests" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import Ages from '@/components/advertisements/analytics/ages/index.vue';
-import Interests from '@/components/advertisements/analytics/interests/index.vue';
 import Reach from '@/components/advertisements/analytics/reach/index.vue';
 import Sexes from '@/components/advertisements/analytics/sexes/index.vue';
+import Interests from '@/components/advertisements/analytics/interests/index.vue';
 import { getAdvertisementAnalytics } from '@/domain/advertisement-analytics';
 import { getAdvertisementMetadata } from '@/domain/advertisements';
-import { getDaysInMonth } from '@/utils/dates';
-import { onMounted, reactive, toRefs, onUnmounted, ref } from 'vue';
+import { getInterests } from '@/domain/interests';
+import { getRegions } from '@/domain/regions';
+import { getStates } from '@/domain/states';
+import { onMounted, onUnmounted, reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute()
 const id = route.params.id as string
-const state = reactive({ payload: null, analytics: null, titleContainer: true })
+const state = reactive({ payload: null, interests: null, regions: null, states: null, analytics: null, titleContainer: true })
 const listener = ref()
+const COUNTRY = "sau"
 onMounted(() => {
-  const fn = async () => {
+  const fn1 = async () => {
     try {
       if (!id) {
         throw new Error('No ID provided')
@@ -73,8 +76,44 @@ onMounted(() => {
       console.log(error)
     }
   }
-  fn()
+  fn1()
   const fn2 = async () => {
+    try {
+      if (!id) {
+        throw new Error('No ID provided')
+      }
+      const result = await getInterests()
+      state.interests = result
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  fn2()
+  const fn3 = async () => {
+    try {
+      if (!id) {
+        throw new Error('No ID provided')
+      }
+      const result = await getRegions(COUNTRY)
+      state.regions = result
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  fn3()
+  const fn4 = async () => {
+    try {
+      if (!id) {
+        throw new Error('No ID provided')
+      }
+      const result = await getStates(COUNTRY)
+      state.states = result
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  fn4()
+  const fn5 = async () => {
     try {
       if (!id) {
         throw new Error('No ID provided')
@@ -86,10 +125,10 @@ onMounted(() => {
       console.log(error)
     }
   }
-  fn2()
+  fn5()
 })
 onUnmounted(() => {
-  listener.value()
+  listener.value() // Unsubscribe listener
 })
 const hideTitleContainer = () => {
   state.titleContainer = false

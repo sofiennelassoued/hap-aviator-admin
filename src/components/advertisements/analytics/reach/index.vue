@@ -31,8 +31,8 @@ const el = ref(null);
 const chart = ref();
 const process = () => {
   const days = getDaysInMonth(new Date().getMonth(), new Date().getFullYear())
-  const viewsData = []
-  const visitsData = []
+  const viewsData: unknown[] = []
+  const visitsData: unknown[] = []
   days.forEach(d => {
     const date = new Date()
     const year = date.getFullYear()

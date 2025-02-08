@@ -1,58 +1,61 @@
 <template>
   <div class="card m-h">
     <div class="card-body">
-      <h5>Interests</h5>
+      <div class="d-flex justify-content-between">
+        <h5>Interests
+          <small v-show="isViews">(Views)</small>
+          <small v-show="!isViews">(Visits)</small>
+        </h5>
+        <div class="cursor-pointer" @click="handleOnClickToggleIsViews">Toggle</div>
+      </div>
       <div ref="el"></div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import ApexCharts from 'apexcharts'
+import { OPTIONS } from '.';
 
-const { payload } = defineProps(['payload'])
-const labels = [
-  'Art',
-  'Culture',
-  'Food',
-  'Health',
-  'Sport',
-  'Tech',
-  'Travel',
-  'Unknown'
-]
-const options = {
-  series: payload,
-  chart: {
-    type: 'polarArea',
-  },
-  stroke: {
-    colors: ['#fff']
-  },
-  fill: {
-    opacity: 0.8
-  },
-  labels,
-  responsive: [{
-    breakpoint: 480,
-    options: {
-      chart: {
-        width: 200
-      },
-      legend: {
-        position: 'bottom'
-      }
-    }
-  }]
-};
+const { payload, views, visits } = defineProps(['payload', 'views', 'visits'])
+const isViews = ref(true)
 const el = ref(null)
+const chart = ref();
+const process = () => {
+  const ids = payload.map((p) => p.id)
+  ids.push("unknown")
+  const source = isViews.value === true ? views : visits
+  let arr = new Array(ids.length + 1).fill(0);
+  console.log(arr)
+  ids.forEach((i, j) => {
+    console.log(i)
+    console.log(source[i]
+    )
+    arr[j] = source[i]
+  });
+  console.log(arr)
+  arr = arr.map(i => i === undefined ? 0 : i)
+  return arr
+}
 onMounted(() => {
   if (el.value) {
-    const chart = new ApexCharts(el.value, options);
-    chart.render();
+    const series = process()
+    const labels = payload.map((p) => p.label)
+    labels.push("Unknown")
+    chart.value = new ApexCharts(el.value, { ...OPTIONS, labels, series });
+    chart.value.render();
   }
 })
+watch(() => [views, visits], () => {
+  const series = process()
+  chart.value.updateSeries(series)
+});
+const handleOnClickToggleIsViews = () => {
+  isViews.value = !isViews.value
+  const series = process()
+  chart.value.updateSeries(series)
+}
 </script>
 
 <style scoped>
