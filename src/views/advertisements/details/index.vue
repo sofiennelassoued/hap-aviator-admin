@@ -35,22 +35,22 @@
   </div>
   <div class="row" v-if="state.analytics">
     <div class="col-md-4">
-      <sex :payload="state.analytics.sex" />
+      <sexes :views="state.analytics.views.sexes" :visits="state.analytics.visits.sexes" />
     </div>
     <div class="col-md-4">
-      <age :payload="state.analytics.age" />
+      <ages :views="state.analytics.views.ages" :visits="state.analytics.visits.ages" />
     </div>
     <div class="col-md-4">
-      <interests :payload="state.analytics.interests" />
+      <!-- <interests :payload="state.analytics.interests" /> -->
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import Age from '@/components/advertisements/analytics/age/index.vue';
+import Ages from '@/components/advertisements/analytics/ages/index.vue';
 import Interests from '@/components/advertisements/analytics/interests/index.vue';
 import Reach from '@/components/advertisements/analytics/reach/index.vue';
-import Sex from '@/components/advertisements/analytics/sex/index.vue';
+import Sexes from '@/components/advertisements/analytics/sexes/index.vue';
 import { getAdvertisementAnalytics } from '@/domain/advertisement-analytics';
 import { getAdvertisementMetadata } from '@/domain/advertisements';
 import { getDaysInMonth } from '@/utils/dates';
@@ -81,7 +81,6 @@ onMounted(() => {
       }
       listener.value = await getAdvertisementAnalytics(id, (doc) => {
         state.analytics = doc.data()
-        console.log("updated")
       })
     } catch (error) {
       console.log(error)
@@ -92,7 +91,6 @@ onMounted(() => {
 onUnmounted(() => {
   listener.value()
 })
-const { payload } = toRefs(state)
 const hideTitleContainer = () => {
   state.titleContainer = false
 }

@@ -1,24 +1,39 @@
 <template>
   <div class="card m-h">
     <div class="card-body">
-      <h5>Sex</h5>
+      <h5>Interests</h5>
       <div ref="el"></div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-
 import { onMounted, ref } from 'vue';
 import ApexCharts from 'apexcharts'
+
 const { payload } = defineProps(['payload'])
+const labels = [
+  'Art',
+  'Culture',
+  'Food',
+  'Health',
+  'Sport',
+  'Tech',
+  'Travel',
+  'Unknown'
+]
 const options = {
   series: payload,
   chart: {
-    width: 380,
-    type: 'pie',
+    type: 'polarArea',
   },
-  labels: ['Females', 'Males', 'Unknown'],
+  stroke: {
+    colors: ['#fff']
+  },
+  fill: {
+    opacity: 0.8
+  },
+  labels,
   responsive: [{
     breakpoint: 480,
     options: {
@@ -31,7 +46,6 @@ const options = {
     }
   }]
 };
-
 const el = ref(null)
 onMounted(() => {
   if (el.value) {
@@ -39,7 +53,6 @@ onMounted(() => {
     chart.render();
   }
 })
-
 </script>
 
 <style scoped>
