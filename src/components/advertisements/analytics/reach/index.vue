@@ -50,7 +50,6 @@ const process = () => {
 }
 onMounted(() => {
   if (el.value) {
-    console.log(createdAt)
     patterns.value = generateDatePatterns(createdAt.substring(0, 8) + "01")
     const series = process()
     chart.value = new ApexCharts(el.value, { ...OPTIONS, series });
