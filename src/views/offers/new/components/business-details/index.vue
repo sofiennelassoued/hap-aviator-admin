@@ -55,8 +55,8 @@
           <input type="text" class="form-control" id="input-phone" placeholder="Ex: +1 234 567 890" v-model="phone">
         </div>
         <div class="form-group col-md-6">
-          <label for="input-phone">Ameneties</label>
-          <ameneties-picker :required="true" :selected="ameneties || []" @select="handleOnAmenetiesSelect" />
+          <label for="input-phone">Amenities</label>
+          <amenities-picker :required="true" :selected="amenities || []" @select="handleOnAmenitiesSelect" />
         </div>
         <div class="form-group col-md-6">
           <label for="input-vibes">Vibes</label>
@@ -73,10 +73,10 @@
 import { onMounted, ref, toRaw } from 'vue';
 import CountryStatePicker from '@/components/miscs/forms/country-state-picker/index.vue'
 import CountryPicker from '@/components/miscs/forms/country-picker/index.vue';
-import AmenetiesPicker from '@/components/miscs/forms/ameneties-picker/index.vue';
+import AmenitiesPicker from '@/components/miscs/forms/amenities-picker/index.vue';
 import VibesPicker from './vibes-picker/index.vue'
 import OpeningHours from './opening-hours/index.vue';
-const props = defineProps(['name', 'representative', 'city', 'zip', 'address', 'location', 'email', 'phone', 'country', 'state', 'vibes', 'ameneties'])
+const props = defineProps(['name', 'representative', 'city', 'zip', 'address', 'location', 'email', 'phone', 'country', 'state', 'vibes', 'amenities'])
 
 // Components
 const openingHours = ref()
@@ -91,7 +91,7 @@ const address = ref()
 const location = ref()
 const email = ref()
 const phone = ref()
-const ameneties = ref()
+const amenities = ref()
 const vibes = ref()
 const hours = ref()
 onMounted(() => {
@@ -103,7 +103,7 @@ onMounted(() => {
   location.value = props.location
   email.value = props.email
   phone.value = props.phone
-  ameneties.value = props.ameneties
+  amenities.value = props.amenities
   if (openingHours && openingHours.value && openingHours.value.hours)
     hours.value = openingHours.value.hours
 
@@ -121,13 +121,13 @@ const handleOnCountrySelect = (v: string) => {
 const handleOnStateSelect = (v: string) => {
   state.value = v
 }
-const handleOnAmenetiesSelect = (v: string[]) => {
-  ameneties.value = toRaw(v)
+const handleOnAmenitiesSelect = (v: string[]) => {
+  amenities.value = toRaw(v)
 }
 const handleOnVibesSelect = (v: string) => {
   vibes.value = v
 }
-defineExpose({ name, representative, city, zip, address, location, email, phone, hours, country, state, vibes, ameneties })
+defineExpose({ name, representative, city, zip, address, location, email, phone, hours, country, state, vibes, amenities })
 </script>
 
 <style scoped></style>

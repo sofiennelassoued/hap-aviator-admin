@@ -119,11 +119,11 @@
               </a>
             </li>
           </router-link>
-          <router-link to="/ameneties">
+          <router-link to="/amenities">
             <li class="sidebar-item">
-              <a class="sidebar-link" :class="route.path === '/ameneties' ? 'active' : ''" aria-expanded="false">
+              <a class="sidebar-link" :class="route.path === '/amenities' ? 'active' : ''" aria-expanded="false">
                 <iconify-icon class="icon-lg" icon="mdi:sofa"></iconify-icon>
-                <span class="hide-menu">Ameneties</span>
+                <span class="hide-menu">Amenities</span>
               </a>
             </li>
           </router-link>

@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import { getAmeneties } from '@/domain/ameneties';
+import { getAmenities } from '@/domain/amenities';
 import { type DocumentData } from 'firebase/firestore';
 import { onMounted, ref, toRaw } from 'vue';
 const { selected } = defineProps(['selected'])
@@ -44,7 +44,7 @@ onMounted(() => {
   const fn = async () => {
     try {
       loading.value = true
-      allItems.value = await getAmeneties()
+      allItems.value = await getAmenities()
       items.value = allItems.value.filter(({ id }: DocumentData) => !selected.includes(id));
       tags.value = allItems.value.filter(({ id }: DocumentData) => selected.includes(id));
       loading.value = false
@@ -69,7 +69,7 @@ const handleOnClickAdd = (v: DocumentData) => {
       emit('select', elements)
     }
   }
-}
+}git
 const handleOnClickRemove = (v: string) => {
   tags.value = tags.value.filter(({ id }: DocumentData) => id !== v)
   items.value = [...items.value, allItems.value.find(({ id }: DocumentData) => id === v)]
@@ -87,7 +87,7 @@ const handleOnRefresh = () => {
     try {
       loading.value = true
       tags.value = []
-      allItems.value = await getAmeneties()
+      allItems.value = await getAmenities()
       items.value = allItems.value
       loading.value = false
     } catch (error) {

@@ -46,10 +46,10 @@ import NewRegionView from "@/views/countries/details/regions/new/index.vue";
 import StateDetailsView from "@/views/countries/details/states/details/index.vue";
 import StatesView from "@/views/countries/details/states/home/index.vue";
 import NewStateView from "@/views/countries/details/states/new/index.vue";
-// Ameneties
-import AmenetyDetailsView from "@/views/ameneties/details/index.vue";
-import AmenetiesView from "@/views/ameneties/home/index.vue";
-import NewAmenetyView from "@/views/ameneties/new/index.vue";
+// Amenities
+import AmenityDetailsView from "@/views/amenities/details/index.vue";
+import AmenitiesView from "@/views/amenities/home/index.vue";
+import NewAmenityView from "@/views/amenities/new/index.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
@@ -247,21 +247,21 @@ const router = createRouter({
       name: "state-details",
       component: StateDetailsView,
     },
-    // Ameneties
+    // Amenities
     {
-      path: "/ameneties",
-      name: "ameneties",
-      component: AmenetiesView,
+      path: "/amenities",
+      name: "amenities",
+      component: AmenitiesView,
     },
     {
-      path: "/ameneties/new",
-      name: "new-amenety",
-      component: NewAmenetyView,
+      path: "/amenities/new",
+      name: "new-amenity",
+      component: NewAmenityView,
     },
     {
-      path: "/ameneties/:id",
-      name: "amenety-details",
-      component: AmenetyDetailsView,
+      path: "/amenities/:id",
+      name: "amenity-details",
+      component: AmenityDetailsView,
     },
   ],
 });
