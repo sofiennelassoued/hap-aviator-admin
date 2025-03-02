@@ -13,7 +13,9 @@
     </div>
   </div>
   <div class="container-items">
-    <div class="container-item" v-for="item in items" :key="item.id" @click="handleOnClickAdd(item)">
+    <div class="container-item" v-for="item in items.sort((a, b) => a.position - b.position)" :key="item.id"
+      @click="handleOnClickAdd(item)">
+      {{ item.position }} -
       <iconify-icon :icon="'mdi:' + item.icon"></iconify-icon>
       <div class="mx-1"></div>
       {{ item.label }}
@@ -21,8 +23,8 @@
   </div>
   <div class="mb-1"></div>
   <div class="container-tags">
-    <div class="badge bg-secondary container-badge me-1 mb-1" v-for="item in tags" :key="item.id"
-      @click="handleOnClickRemove(item.id)">
+    <div class="badge bg-secondary container-badge me-1 mb-1"
+      v-for="item in tags.sort((a, b) => a.position - b.position)" :key="item.id" @click="handleOnClickRemove(item.id)">
       <iconify-icon :icon="'mdi:' + item.icon"></iconify-icon>
       {{ item.label }}
     </div>
@@ -32,7 +34,7 @@
 <script setup lang="ts">
 import { getAmeneties } from '@/domain/ameneties';
 import { type DocumentData } from 'firebase/firestore';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, toRaw } from 'vue';
 const { selected } = defineProps(['selected'])
 const loading = ref(false)
 const allItems = ref<DocumentData>([])
@@ -43,7 +45,8 @@ onMounted(() => {
     try {
       loading.value = true
       allItems.value = await getAmeneties()
-      items.value = allItems.value
+      items.value = allItems.value.filter(({ id }: DocumentData) => !selected.includes(id));
+      tags.value = allItems.value.filter(({ id }: DocumentData) => selected.includes(id));
       loading.value = false
     } catch (error) {
       loading.value = false
@@ -53,22 +56,27 @@ onMounted(() => {
   fn()
 })
 const emit = defineEmits(['select'])
-const handleOnChange = (e: Event) => {
-  emit('select', (e.target as HTMLInputElement).value)
-}
 const handleOnSearch = (e: Event) => {
   const term = (e.target as HTMLInputElement).value
-  items.value = allItems.value.filter(({ label }: { label: string }) => label.toLowerCase().includes(term.toLowerCase()))
+  items.value = allItems.value.filter(({ label }: DocumentData) => label.toLowerCase().includes(term.toLowerCase()))
 }
 const handleOnClickAdd = (v: DocumentData) => {
   if (!tags.value.some(({ id }: { id: string }) => id === v.id)) {
     tags.value = [...tags.value, v]
-    items.value = items.value.filter(({ id }: { id: string }) => id !== v.id)
+    items.value = items.value.filter(({ id }: DocumentData) => id !== v.id)
+    if (tags.value.length > 0) {
+      const elements = tags.value.map(({ id }) => id)
+      emit('select', elements)
+    }
   }
 }
 const handleOnClickRemove = (v: string) => {
-  tags.value = tags.value.filter(({ id }: { id: string }) => id !== v)
-  items.value = [...items.value, allItems.value.find(({ id }: { id: string }) => id === v)]
+  tags.value = tags.value.filter(({ id }: DocumentData) => id !== v)
+  items.value = [...items.value, allItems.value.find(({ id }: DocumentData) => id === v)]
+  if (tags.value.length > 0) {
+    const elements = tags.value.map(({ id }) => id)
+    emit('select', elements)
+  }
 }
 const handleOnReset = () => {
   tags.value = []
