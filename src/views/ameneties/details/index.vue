@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 
-import { getCategoryMetadata, deleteCategory } from '@/domain/categories';
+import { getAmenetyMetadata, deleteAmenety } from '@/domain/ameneties';
 import Swal from 'sweetalert2';
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -38,7 +38,7 @@ onMounted(() => {
   const fn = async () => {
     try {
       loading.value = true
-      payload.value = await getCategoryMetadata(id.value)
+      payload.value = await getAmenetyMetadata(id.value)
       loading.value = false
     } catch (e) {
       loading.value = false
@@ -53,16 +53,16 @@ const handleOnClickDelete = () => {
   const fn = async () => {
     try {
       loading.value = true
-      await deleteCategory(id.value)
-      Swal.fire("Delete!", "Category deleted successfully", "success");
-      router.push('/categories')
+      await deleteAmenety(id.value)
+      Swal.fire("Delete!", "Amenety deleted successfully", "success");
+      router.push('/ameneties')
     } catch (e) {
       loading.value = false
       // @ts-ignore
       error.value = e.message
     }
   }
-  if (confirm('Are you sure to delete the category?')) {
+  if (confirm('Are you sure to delete the amenety?')) {
     fn()
   }
 }

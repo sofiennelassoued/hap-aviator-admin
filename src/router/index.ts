@@ -46,6 +46,10 @@ import NewRegionView from "@/views/countries/details/regions/new/index.vue";
 import StateDetailsView from "@/views/countries/details/states/details/index.vue";
 import StatesView from "@/views/countries/details/states/home/index.vue";
 import NewStateView from "@/views/countries/details/states/new/index.vue";
+// Ameneties
+import AmenetyDetailsView from "@/views/ameneties/details/index.vue";
+import AmenetiesView from "@/views/ameneties/home/index.vue";
+import NewAmenetyView from "@/views/ameneties/new/index.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
@@ -242,6 +246,22 @@ const router = createRouter({
       path: "/countries/:countryId/states/:stateId",
       name: "state-details",
       component: StateDetailsView,
+    },
+    // Ameneties
+    {
+      path: "/ameneties",
+      name: "ameneties",
+      component: AmenetiesView,
+    },
+    {
+      path: "/ameneties/new",
+      name: "new-amenety",
+      component: NewAmenetyView,
+    },
+    {
+      path: "/ameneties/:id",
+      name: "amenety-details",
+      component: AmenetyDetailsView,
     },
   ],
 });

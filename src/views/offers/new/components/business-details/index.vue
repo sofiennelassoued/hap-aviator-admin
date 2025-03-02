@@ -54,6 +54,14 @@
           <label for="input-phone">Business contact phone</label>
           <input type="text" class="form-control" id="input-phone" placeholder="Ex: +1 234 567 890" v-model="phone">
         </div>
+        <div class="form-group col-md-6">
+          <label for="input-phone">Ameneties</label>
+          <ameneties-picker :required="true" :selected="ameneties || []" @select="handleOnAmenetiesSelect" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="input-vibes">Vibes</label>
+          <vibes-picker :selected="vibes" @select="handleOnVibesSelect" />
+        </div>
         <div class="mt-4"></div>
         <opening-hours ref="openingHours" />
       </div>
@@ -62,11 +70,13 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, toRaw } from 'vue';
 import CountryStatePicker from '@/components/miscs/forms/country-state-picker/index.vue'
 import CountryPicker from '@/components/miscs/forms/country-picker/index.vue';
+import AmenetiesPicker from '@/components/miscs/forms/ameneties-picker/index.vue';
+import VibesPicker from './vibes-picker/index.vue'
 import OpeningHours from './opening-hours/index.vue';
-const props = defineProps(['name', 'representative', 'city', 'zip', 'address', 'location', 'email', 'phone', 'country', 'state'])
+const props = defineProps(['name', 'representative', 'city', 'zip', 'address', 'location', 'email', 'phone', 'country', 'state', 'vibes', 'ameneties'])
 
 // Components
 const openingHours = ref()
@@ -81,6 +91,8 @@ const address = ref()
 const location = ref()
 const email = ref()
 const phone = ref()
+const ameneties = ref()
+const vibes = ref()
 const hours = ref()
 onMounted(() => {
   name.value = props.name
@@ -91,6 +103,7 @@ onMounted(() => {
   location.value = props.location
   email.value = props.email
   phone.value = props.phone
+  ameneties.value = props.ameneties
   if (openingHours && openingHours.value && openingHours.value.hours)
     hours.value = openingHours.value.hours
 
@@ -100,6 +113,7 @@ onMounted(() => {
 
   // TODO: Update this to use the correct state
   state.value = props.state
+  vibes.value = props.vibes
 })
 const handleOnCountrySelect = (v: string) => {
   country.value = v
@@ -107,7 +121,13 @@ const handleOnCountrySelect = (v: string) => {
 const handleOnStateSelect = (v: string) => {
   state.value = v
 }
-defineExpose({ name, representative, city, zip, address, location, email, phone, hours, country, state })
+const handleOnAmenetiesSelect = (v: string[]) => {
+  ameneties.value = toRaw(v)
+}
+const handleOnVibesSelect = (v: string) => {
+  vibes.value = v
+}
+defineExpose({ name, representative, city, zip, address, location, email, phone, hours, country, state, vibes, ameneties })
 </script>
 
 <style scoped></style>

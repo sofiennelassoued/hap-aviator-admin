@@ -106,7 +106,7 @@
           <router-link to="/interests">
             <li class="sidebar-item">
               <a class="sidebar-link" :class="route.path === '/interests' ? 'active' : ''" aria-expanded="false">
-                <iconify-icon icon="solar:checklist-minimalistic-bold"></iconify-icon>
+                <iconify-icon class="icon-lg" icon="mdi:heart"></iconify-icon>
                 <span class="hide-menu">Interests</span>
               </a>
             </li>
@@ -116,6 +116,14 @@
               <a class="sidebar-link" :class="route.path === '/countries' ? 'active' : ''" aria-expanded="false">
                 <iconify-icon icon="solar:earth-bold"></iconify-icon>
                 <span class="hide-menu">Countries</span>
+              </a>
+            </li>
+          </router-link>
+          <router-link to="/ameneties">
+            <li class="sidebar-item">
+              <a class="sidebar-link" :class="route.path === '/ameneties' ? 'active' : ''" aria-expanded="false">
+                <iconify-icon class="icon-lg" icon="mdi:sofa"></iconify-icon>
+                <span class="hide-menu">Ameneties</span>
               </a>
             </li>
           </router-link>

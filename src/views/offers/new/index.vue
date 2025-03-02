@@ -151,7 +151,7 @@ const handleOnSubmit = () => {
         if (priority) payload['validity']['priority'] = priority
       }
       if (businessDetails.value) {
-        const { name, representative, city, zip, address, location, email, phone, hours, country, state } = businessDetails.value
+        const { name, representative, city, zip, address, location, email, phone, hours, country, state, ameneties, vibes } = businessDetails.value
         payload['business'] = {}
         if (name) payload['business']['name'] = name
         if (representative) payload['business']['representative'] = representative
@@ -161,12 +161,15 @@ const handleOnSubmit = () => {
         if (phone) payload['business']['phone'] = phone
         if (phone) payload['business']['city'] = city
         if (phone) payload['business']['zip'] = zip
+        if (ameneties && ameneties.length > 0) payload['business']['ameneties'] = toRaw(ameneties)
+        if (vibes) payload['conditions']['vibes'] = vibes
         if (hours) payload['business']['hours'] = toRaw(hours)
         if (country) payload['countryId'] = country
         if (state) {
           payload['stateId'] = state.id
           payload['regionId'] = state.regionId
         }
+        if (ameneties) payload['ameneties'] = ameneties
       }
       if (businessSocial.value) {
         const { website, instagram, facebook, whatsapp } = businessSocial.value
@@ -177,11 +180,11 @@ const handleOnSubmit = () => {
         if (whatsapp) payload['social']['whatsapp'] = whatsapp
       }
       if (conditionsAndLimitations.value) {
-        const { conditions, limitations, vibes } = conditionsAndLimitations.value
+        const { conditions, limitations, reservationRequired } = conditionsAndLimitations.value
         payload['conditions'] = {}
         if (conditions) payload['conditions']['conditions'] = conditions
         if (limitations) payload['conditions']['limitations'] = limitations
-        if (vibes) payload['conditions']['vibes'] = vibes
+        if (reservationRequired) payload['conditions']['reservationRequired'] = reservationRequired
       }
       payload["id"] = id
       payload['partnerId'] = partnerId

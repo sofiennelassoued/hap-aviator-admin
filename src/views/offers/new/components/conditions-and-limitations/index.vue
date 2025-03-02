@@ -14,8 +14,11 @@
             v-model="limitations"></textarea>
         </div>
         <div class="form-group col-md-6">
-          <label for="input-vibes">Vibes</label>
-          <vibes-picker :selected="vibes" @select="handleOnVibesSelect" />
+          <label for="input-reservation-required">Reservation required</label>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="reservation-required" v-model="reservationRequired">
+            <label class="form-check-label" for="reservation-required">Check</label>
+          </div>
         </div>
       </div>
     </div>
@@ -24,20 +27,16 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import VibesPicker from './vibes-picker/index.vue'
-const props = defineProps(['conditions', 'limitations', 'vibes'])
+const props = defineProps(['conditions', 'limitations', 'reservationRequired'])
 const conditions = ref()
 const limitations = ref()
-const vibes = ref()
+const reservationRequired = ref()
 onMounted(() => {
   conditions.value = props.conditions
   limitations.value = props.limitations
-  vibes.value = props.vibes
+  reservationRequired.value = props.reservationRequired
 })
-const handleOnVibesSelect = (v: string) => {
-  vibes.value = v
-}
-defineExpose({ conditions, limitations, vibes })
+defineExpose({ conditions, limitations, reservationRequired })
 </script>
 
 <style scoped></style>
