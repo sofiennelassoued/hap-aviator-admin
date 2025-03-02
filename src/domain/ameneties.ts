@@ -20,9 +20,7 @@ const deleteAmenety = async (id: string) => {
 
 const getAmenetyMetadata = async (id: string) => {
   const ref = doc(database, AMENETIES_DATABASE_COLLECTION, id);
-  console.log(ref)
   const snapshot = await getDoc(ref);
-  console.log(snapshot)
   if (!snapshot.exists()) {
     throw new Error("No such document!");
   }

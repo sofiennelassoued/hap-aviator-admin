@@ -17,6 +17,13 @@
           <label for="input-vibes">Vibes</label>
           <vibes-picker :selected="vibes" @select="handleOnVibesSelect" />
         </div>
+        <div class="form-group col-md-6">
+          <label for="input-vibes">Reservation required</label>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Check</label>
+          </div>
+        </div>
       </div>
     </div>
   </div>
