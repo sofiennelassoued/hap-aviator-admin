@@ -14,10 +14,10 @@
             v-model="limitations"></textarea>
         </div>
         <div class="form-group col-md-6">
-          <label for="input-vibes">Reservation required</label>
+          <label for="input-reservation-required">Reservation required</label>
           <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-            <label class="form-check-label" for="flexSwitchCheckDefault">Check</label>
+            <input class="form-check-input" type="checkbox" id="reservation-required" v-model="reservationRequired">
+            <label class="form-check-label" for="reservation-required">Check</label>
           </div>
         </div>
       </div>
@@ -27,14 +27,16 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-const props = defineProps(['conditions', 'limitations'])
+const props = defineProps(['conditions', 'limitations', 'reservationRequired'])
 const conditions = ref()
 const limitations = ref()
+const reservationRequired = ref()
 onMounted(() => {
   conditions.value = props.conditions
   limitations.value = props.limitations
+  reservationRequired.value = props.reservationRequired
 })
-defineExpose({ conditions, limitations})
+defineExpose({ conditions, limitations, reservationRequired })
 </script>
 
 <style scoped></style>
