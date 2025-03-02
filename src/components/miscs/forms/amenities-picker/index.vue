@@ -34,7 +34,7 @@
 <script setup lang="ts">
 import { getAmenities } from '@/domain/amenities';
 import { type DocumentData } from 'firebase/firestore';
-import { onMounted, ref, toRaw } from 'vue';
+import { onMounted, ref } from 'vue';
 const { selected } = defineProps(['selected'])
 const loading = ref(false)
 const allItems = ref<DocumentData>([])
@@ -69,7 +69,7 @@ const handleOnClickAdd = (v: DocumentData) => {
       emit('select', elements)
     }
   }
-}git
+}
 const handleOnClickRemove = (v: string) => {
   tags.value = tags.value.filter(({ id }: DocumentData) => id !== v)
   items.value = [...items.value, allItems.value.find(({ id }: DocumentData) => id === v)]
