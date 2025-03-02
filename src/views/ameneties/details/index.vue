@@ -4,7 +4,10 @@
       <div v-if="!loading && payload">
         <h1>{{ payload.label }}</h1>
         <p>Position: {{ payload.position }}</p>
-        <p>Icon: {{ payload.icon }}</p>
+        <div>
+          <iconify-icon class="icon-lg" :icon="'mdi:' + payload.icon"></iconify-icon>
+        </div>
+        <div class="my-3"></div>
         <button class="btn btn-danger" @click="handleOnClickDelete">Delete</button>
       </div>
       <div class="vh-100 d-flex justify-content-center align-items-center" v-if="loading">
@@ -32,7 +35,6 @@ const payload = ref()
 const id = ref()
 onMounted(() => {
   id.value = route.params.id as string
-  console.log(id.value)
   const fn = async () => {
     try {
       loading.value = true
@@ -66,4 +68,8 @@ const handleOnClickDelete = () => {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.icon-lg {
+  font-size: xx-large;
+}
+</style>

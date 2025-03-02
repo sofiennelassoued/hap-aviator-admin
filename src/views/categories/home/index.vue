@@ -34,7 +34,9 @@
             </thead>
             <tbody>
               <tr v-for="item in items" :key="item.id">
-                <th scope="row"><img class="icon" :src="item.icon" /></th>
+                <th scope="row">
+                  <iconify-icon class="icon-lg" :icon="'mdi:' + item.icon"></iconify-icon>
+                </th>
                 <td>{{ item.id }}</td>
                 <td>{{ item.label }}</td>
                 <td>{{ item.position }}</td>
@@ -93,5 +95,8 @@ const handleOnFiltered = (i) => {
   height: 32px;
   width: 32px;
   border-radius: 16px;
+}
+.icon-lg {
+  font-size: xx-large;
 }
 </style>
