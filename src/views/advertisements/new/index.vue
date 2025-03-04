@@ -5,7 +5,10 @@
         <div class="col-md-4">
           <div class="card">
             <div class="card-body">
-              <image-picker :preview="image" @loaded="handleOnLoaded" @reset="handleOnReset" />
+              <image-picker v-if="mediaType === 'image'" :preview="image" @loaded="handleOnLoaded"
+                @reset="handleOnReset" />
+              <video-picker v-if="mediaType === 'video'" :preview="image" @loaded="handleOnLoaded"
+                @reset="handleOnReset" />
               <div class="progress mt-2" v-if="progress">
                 <div class="progress-bar" role="progressbar" :style="'width: ' + progress + '%;'"
                   :aria-valuenow="progress" aria-valuemin="0" aria-valuemax="100">{{ Math.round(progress) }}%</div>
@@ -16,10 +19,25 @@
         <div class="col-md-8">
           <div class="card">
             <div class="card-body">
-              <label for="input-title" class="form-label">Title</label>
-              <input type="text" class="form-control" id="input-title" aria-describedby="text-title"
-                placeholder="Ex: Black Friday Campaign" required v-model="title">
-              <div id="help-title" class="form-text">Add a descriptive title that you can remember</div>
+              <div class="mb-3">
+                <label for="input-title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="input-title" aria-describedby="text-title"
+                  placeholder="Ex: Black Friday Campaign" required v-model="title">
+                <div id="help-title" class="form-text">Add a descriptive title that you can remember</div>
+              </div>
+              <div class="mb-3">
+                <label for="input-title" class="form-label">Media type</label>
+                <div>
+                  <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn"
+                      :class="mediaType === 'image' ? 'btn-secondary' : 'btn-outline-secondary'"
+                      @click="handleOnMediaTypeClick('image')">Image</button>
+                    <button type="button" class="btn"
+                      :class="mediaType === 'video' ? 'btn-secondary' : 'btn-outline-secondary'"
+                      @click="handleOnMediaTypeClick('video')">Video</button>
+                  </div>
+                </div>
+              </div>
               <div class="mb-3">
                 <label for="input-title" class="form-label">Action</label>
                 <input type="text" class="form-control" id="input-title" aria-describedby="text-title"
@@ -48,6 +66,7 @@
 
 <script setup lang="ts">
 import ImagePicker from '@/components/miscs/image-picker/index.vue';
+import VideoPicker from '@/components/miscs/video-picker/index.vue';
 import { ADVERTISEMENTS_DATABASE_COLLECTION, IMAGES_STORAGE_BUCKET } from '@/constants';
 import { createAdvertisement } from '@/domain/advertisements';
 import { generateId } from '@/domain/firebase';
@@ -59,6 +78,7 @@ const router = useRouter()
 const image = ref<string>('')
 const imageBlob = ref<Blob | null>(null)
 const title = ref('')
+const mediaType = ref<'image' | 'video'>('image')
 const action = ref('')
 const link = ref('')
 const loading = ref<boolean>(false)
@@ -77,6 +97,7 @@ const handleOnSubmit = () => {
         })
         if (u) {
           const payload = {
+            mediaType: mediaType.value,
             title: title.value,
             action: action.value,
             link: link.value,
@@ -132,6 +153,10 @@ const base64ToBlob = (base64: string): Blob => {
     byteNumbers[i] = byteCharacters.charCodeAt(i);
   }
   return new Blob([byteNumbers], { type: mimeType });
+}
+
+const handleOnMediaTypeClick = (v: 'image' | 'video') => {
+  mediaType.value = v
 }
 </script>
 
