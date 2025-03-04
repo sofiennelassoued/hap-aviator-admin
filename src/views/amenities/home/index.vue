@@ -4,7 +4,7 @@
     <nav aria-label="breadcrumb" class="main-breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><router-link to="/">Home</router-link></li>
-        <li class="breadcrumb-item active" aria-current="page">Ameneties</li>
+        <li class="breadcrumb-item active" aria-current="page">Amenities</li>
       </ol>
     </nav>
   </div>
@@ -13,8 +13,8 @@
       <div class="row">
         <div class="card p-3">
           <div class="d-flex justify-content-between">
-            <h3>Ameneties
-              <router-link to="ameneties/new">
+            <h3>Amenities
+              <router-link to="amenities/new">
                 <button class="btn btn-secondary btn-sm">Create</button>
               </router-link>
             </h3>
@@ -42,7 +42,7 @@
                 <td>{{ item.position }}</td>
                 <td>
                   <router-link type="button" class="btn btn-sm btn-outline-primary mx-2"
-                    :to="'/ameneties/' + item.id">View</router-link>
+                    :to="'/amenities/' + item.id">View</router-link>
                 </td>
               </tr>
             </tbody>
@@ -55,7 +55,7 @@
     <div class="text-center">
       <p>No items</p>
       <router-link type="button" class="btn btn-sm btn-outline-primary mx-2"
-        :to="'/ameneties/new'">Create</router-link>
+        :to="'/amenities/new'">Create</router-link>
     </div>
   </div>
   <div class="vh-100 d-flex justify-content-center align-items-center" v-if="loading">
@@ -68,7 +68,7 @@
 
 <script setup>
 import Search from '@/components/miscs/forms/search/index.vue';
-import { getAmeneties } from '@/domain/ameneties';
+import { getAmenities } from '@/domain/amenities';
 import { onMounted, ref } from 'vue';
 const loading = ref(false)
 const items = ref([])
@@ -76,7 +76,7 @@ onMounted(() => {
   const fn = async () => {
     try {
       loading.value = true
-      items.value = await getAmeneties()
+      items.value = await getAmenities()
       loading.value = false
     } catch (error) {
       loading.value = false

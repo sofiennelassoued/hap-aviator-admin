@@ -151,7 +151,7 @@ const handleOnSubmit = () => {
         if (priority) payload['validity']['priority'] = priority
       }
       if (businessDetails.value) {
-        const { name, representative, city, zip, address, location, email, phone, hours, country, state, ameneties, vibes } = businessDetails.value
+        const { name, representative, city, zip, address, location, email, phone, hours, country, state, amenities, vibes } = businessDetails.value
         payload['business'] = {}
         if (name) payload['business']['name'] = name
         if (representative) payload['business']['representative'] = representative
@@ -161,7 +161,7 @@ const handleOnSubmit = () => {
         if (phone) payload['business']['phone'] = phone
         if (phone) payload['business']['city'] = city
         if (phone) payload['business']['zip'] = zip
-        if (ameneties && ameneties.length > 0) payload['business']['ameneties'] = toRaw(ameneties)
+        if (amenities && amenities.length > 0) payload['business']['amenities'] = toRaw(amenities)
         if (vibes) payload['conditions']['vibes'] = vibes
         if (hours) payload['business']['hours'] = toRaw(hours)
         if (country) payload['countryId'] = country
@@ -169,7 +169,7 @@ const handleOnSubmit = () => {
           payload['stateId'] = state.id
           payload['regionId'] = state.regionId
         }
-        if (ameneties) payload['ameneties'] = ameneties
+        if (amenities) payload['amenities'] = amenities
       }
       if (businessSocial.value) {
         const { website, instagram, facebook, whatsapp } = businessSocial.value

@@ -10,15 +10,15 @@ import {
 } from "firebase/firestore";
 import { database } from "./firebase";
 
-const createAmenetyMetadata = async (metadata: any) => {
+const createAmenityMetadata = async (metadata: any) => {
   return addDoc(collection(database, AMENETIES_DATABASE_COLLECTION), metadata);
 };
 
-const deleteAmenety = async (id: string) => {
+const deleteAmenity = async (id: string) => {
   return deleteDoc(doc(database, AMENETIES_DATABASE_COLLECTION, id));
 };
 
-const getAmenetyMetadata = async (id: string) => {
+const getAmenityMetadata = async (id: string) => {
   const ref = doc(database, AMENETIES_DATABASE_COLLECTION, id);
   const snapshot = await getDoc(ref);
   if (!snapshot.exists()) {
@@ -27,7 +27,7 @@ const getAmenetyMetadata = async (id: string) => {
   return snapshot.data();
 };
 
-const getAmeneties = async () => {
+const getAmenities = async () => {
   const snapshot = await getDocs(
     collection(database, AMENETIES_DATABASE_COLLECTION)
   );
@@ -38,8 +38,8 @@ const getAmeneties = async () => {
   return data.sort((a, b) => a.position - b.position);
 };
 export {
-  createAmenetyMetadata,
-  deleteAmenety,
-  getAmeneties,
-  getAmenetyMetadata,
+  createAmenityMetadata,
+  deleteAmenity,
+  getAmenities,
+  getAmenityMetadata,
 };

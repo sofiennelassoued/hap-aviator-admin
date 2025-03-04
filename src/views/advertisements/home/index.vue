@@ -17,7 +17,7 @@
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         <div class="col-md-3" v-for="item in items" :key="item.id">
           <div class="card shadow-sm">
-            <img class="media" :src="item.image" />
+            <img class="media" :src="item.url" />
             <div class="card-body">
               <p class="card-text h5">{{ item.title }}</p>
               <p class="card-text">{{ item.x }}</p>

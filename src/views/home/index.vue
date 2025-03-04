@@ -103,12 +103,12 @@
             </div>
           </div>
           <div class="col-4 mt-4">
-            <h6>Ameneties</h6>
+            <h6>Amenities</h6>
             <div>
-              <router-link to="/ameneties">View</router-link>
+              <router-link to="/amenities">View</router-link>
             </div>
             <div>
-              <router-link to="/ameneties/new">Create</router-link>
+              <router-link to="/amenities/new">Create</router-link>
             </div>
           </div>
         </div>
