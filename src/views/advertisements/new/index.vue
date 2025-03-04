@@ -5,9 +5,9 @@
         <div class="col-md-4">
           <div class="card">
             <div class="card-body">
-              <image-picker v-if="mediaType === 'image'" :preview="image" @loaded="handleOnLoaded"
+              <image-picker v-if="mediaType === 'image'" :preview="url" @loaded="handleOnLoaded"
                 @reset="handleOnReset" />
-              <video-picker v-if="mediaType === 'video'" :preview="image" @loaded="handleOnLoaded"
+              <video-picker v-if="mediaType === 'video'" :preview="url" @loaded="handleOnLoaded"
                 @reset="handleOnReset" />
               <div class="progress mt-2" v-if="progress">
                 <div class="progress-bar" role="progressbar" :style="'width: ' + progress + '%;'"
@@ -75,8 +75,8 @@ import Swal from 'sweetalert2';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 const router = useRouter()
-const image = ref<string>('')
-const imageBlob = ref<Blob | null>(null)
+const url = ref<string>('')
+const blob = ref<Blob | null>(null)
 const title = ref('')
 const mediaType = ref<'image' | 'video'>('image')
 const action = ref('')
@@ -86,12 +86,12 @@ const error = ref<string>('')
 const progress = ref<number>(0)
 const handleOnSubmit = () => {
   const fn = async () => {
-    if (imageBlob.value) {
+    if (blob.value) {
       try {
         loading.value = true
         error.value = ""
         const id = await generateId(ADVERTISEMENTS_DATABASE_COLLECTION)
-        const u = await upload(IMAGES_STORAGE_BUCKET + '/advertisements/' + id, imageBlob.value, async (e, s) => {
+        const u = await upload(IMAGES_STORAGE_BUCKET + '/advertisements/' + id, blob.value, async (e, s) => {
           if (e) error.value
           if (s) progress.value = (s.bytesTransferred / s.totalBytes) * 100;
         })
@@ -101,7 +101,7 @@ const handleOnSubmit = () => {
             title: title.value,
             action: action.value,
             link: link.value,
-            image: u,
+            url: u,
             createdAt: new Date().toISOString()
           }
           await createAdvertisement(id, payload)
@@ -136,13 +136,13 @@ const handleOnSubmit = () => {
 }
 const handleOnLoaded = (i: string) => {
   if (i) {
-    image.value = i
-    imageBlob.value = base64ToBlob(i)
+    url.value = i
+    blob.value = base64ToBlob(i)
   }
 }
 const handleOnReset = () => {
-  image.value = ''
-  imageBlob.value = null
+  url.value = ''
+  blob.value = null
 }
 const base64ToBlob = (base64: string): Blob => {
   const [metadata, base64Data] = base64.split(",");
