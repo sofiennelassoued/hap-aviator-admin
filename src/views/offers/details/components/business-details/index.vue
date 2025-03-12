@@ -54,6 +54,11 @@
           <label for="input-phone">Business contact phone</label>
           <input type="text" class="form-control" id="input-phone" placeholder="Ex: +1 234 567 890" v-model="phone">
         </div>
+        <div class="form-group col-md-6">
+          <label for="input-phone">Vibes</label>
+          <br />
+          <div class="badge bg-success text-capitalize">{{ vibes }}</div>
+        </div>
         <div class="mt-4"></div>
         <opening-hours v-if="hours" :hours="hours" ref="openingHours" />
       </div>
@@ -66,7 +71,7 @@ import { onMounted, ref } from 'vue';
 import CountryPicker from '@/components/miscs/forms/country-picker/index.vue'
 import CountryStatePicker from '@/components/miscs/forms/country-state-picker/index.vue'
 import OpeningHours from './opening-hours/index.vue'
-const props = defineProps(['name', 'representative', 'city', 'zip', 'address', 'location', 'email', 'phone', 'country', 'state'])
+const props = defineProps(['name', 'representative', 'city', 'zip', 'address', 'location', 'email', 'phone', 'country', 'state', 'vibes', 'amenities'])
 
 // Components
 const openingHours = ref()

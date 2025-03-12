@@ -14,8 +14,9 @@
             v-model="limitations"></textarea>
         </div>
         <div class="form-group col-md-6">
-          <div for="input-conditions">Vibes</div>
-          <div class="badge bg-info text-capitalize">{{ vibes }}</div>
+          <div for="input-conditions">Required reservation</div>
+          <div class="badge bg-success text-capitalize" v-if="reservationRequired">Yes</div>
+          <div class="badge bg-danger text-capitalize" v-else>No</div>
         </div>
       </div>
     </div>
@@ -24,16 +25,16 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-const props = defineProps(['conditions', 'limitations', 'vibes'])
+const props = defineProps(['conditions', 'limitations', 'reservationRequired'])
 const conditions = ref()
 const limitations = ref()
-const vibes = ref()
+const reservationRequired = ref()
 onMounted(() => {
   conditions.value = props.conditions
   limitations.value = props.limitations
-  vibes.value = props.vibes
+  reservationRequired.value = props.reservationRequired
 })
-defineExpose({ conditions, limitations, vibes })
+defineExpose({ conditions, limitations, reservationRequired })
 </script>
 
 <style scoped></style>
