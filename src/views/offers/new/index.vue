@@ -162,7 +162,7 @@ const handleOnSubmit = () => {
         if (phone) payload['business']['city'] = city
         if (phone) payload['business']['zip'] = zip
         if (amenities && amenities.length > 0) payload['business']['amenities'] = toRaw(amenities)
-        if (vibes) payload['conditions']['vibes'] = vibes
+        if (vibes) payload['business']['vibes'] = vibes
         if (hours) payload['business']['hours'] = toRaw(hours)
         if (country) payload['countryId'] = country
         if (state) {

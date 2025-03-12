@@ -33,7 +33,7 @@ onMounted(() => {
   limitations.value = props.limitations
   vibes.value = props.vibes
 })
-defineExpose({ conditions, limitations,vibes })
+defineExpose({ conditions, limitations, vibes })
 </script>
 
 <style scoped></style>
