@@ -33,7 +33,7 @@
             </thead>
             <tbody>
               <tr v-for="item in items" :key="item.id">
-                <th scope="row"><img class="image" :src="item.image" /></th>
+                <th scope="row"><img class="image" :src="item.url" /></th>
                 <td>{{ item.name }}</td>
                 <td>{{ item.email }}</td>
                 <td>

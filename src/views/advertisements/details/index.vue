@@ -24,7 +24,7 @@
               {{ state.payload.title }}
             </div>
           </div>
-          <img class="card-img-top img my-3" alt="Thumbnail" :src="state.payload.image" />
+          <img class="card-img-top img my-3" alt="Thumbnail" :src="state.payload.url" />
         </div>
       </div>
     </div>
@@ -53,6 +53,7 @@
         :payload="state.states" />
     </div>
   </div>
+  <div class="alert alert-info" v-if="!state.analytics">Please wait for users views and visits</div>
 </template>
 
 <script setup lang="ts">
