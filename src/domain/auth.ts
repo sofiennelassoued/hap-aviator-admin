@@ -24,8 +24,15 @@ const signOut = () => {
   return firebase_signOut(auth);
 };
 
-export {
-  auth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword,
-  signOut
+const getIdentityToken = () => {
+  return auth.currentUser?.getIdToken();
 };
 
+export {
+  auth,
+  createUserWithEmailAndPassword,
+  getIdentityToken,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+};

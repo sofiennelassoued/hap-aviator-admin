@@ -1,0 +1,80 @@
+query FindCountry($filters: CountryFilters!) {
+  findCountry(filters: $filters) {
+    id
+    label
+    status
+    createdAt
+    createdBy
+    updatedAt
+  }
+}
+
+query ListCountries($filters: CountriesFilters!, $pagination: Pagination) {
+  listCountries(filters: $filters, pagination: $pagination) {
+    items {
+      id
+      label
+      status
+      createdAt
+      createdBy
+      updatedAt
+    }
+    metadata {
+      total
+      page
+      offset
+    }
+  }
+}
+
+mutation AdminCreateCountry($input: AdminCreateCountryInput!) {
+  adminCreateCountry(input: $input) {
+    id
+  }
+}
+
+mutation AdminUpdateCountry(
+  $filters: CountryFilters!
+  $input: AdminUpdateCountryInput!
+  $pagination: Pagination
+) {
+  adminUpdateCountry(filters: $filters, input: $input, pagination: $pagination)
+}
+
+mutation AdminMarkCountryAsActive($filters: CountryFilters!) {
+  adminMarkCountryAsActive(filters: $filters)
+}
+
+mutation AdminMarkCountryAsInactive($filters: CountryFilters!) {
+  adminMarkCountryAsInactive(filters: $filters)
+}
+
+subscription OnCountryCreated {
+  onCountryCreated {
+    id
+    label
+    status
+    createdAt
+    createdBy
+    updatedAt
+  }
+}
+
+subscription OnCountryUpdated {
+  onCountryUpdated {
+    id
+    label
+    status
+    createdAt
+    createdBy
+    updatedAt
+  }
+}
+
+subscription OnCountryMarkedAsActive {
+  onCountryMarkedAsActive
+}
+
+subscription OnCountryMarkedAsInactive {
+  onCountryMarkedAsInactive
+}

@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { getCountries } from '@/domain/countries';
+import { listCountries } from '@/domain/countries';
 import { type DocumentData } from 'firebase/firestore';
 import { onMounted, ref } from 'vue';
 const { selected, disabled, required } = defineProps(['selected', 'disabled', 'required'])
@@ -17,7 +17,7 @@ onMounted(() => {
   const fn = async () => {
     try {
       loading.value = true
-      items.value = await getCountries()
+      items.value = await listCountries()
       items.value = items.value.filter((i: DocumentData) => i.enabled === true)
       loading.value = false
     } catch (error) {

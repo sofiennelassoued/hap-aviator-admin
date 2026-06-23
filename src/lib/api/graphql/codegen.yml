@@ -1,0 +1,12 @@
+schema:
+  - http://localhost:4040/graphql
+documents:
+  - src/lib/api/graphql/**/*.graphql
+generates:
+  "src/lib/api/graphql/types/generated/":
+    preset: "client"
+    config:
+      enumsAsTypes: true
+      preResolveTypes: true
+      useTypeImports: true
+      namingConvention: "keep"

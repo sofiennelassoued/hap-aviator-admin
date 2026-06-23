@@ -70,7 +70,7 @@
 
 <script setup>
 import Search from '@/components/miscs/forms/search/index.vue';
-import { getCountries } from '@/domain/countries';
+import { listCountries } from '@/domain/countries';
 import { onMounted, ref } from 'vue';
 const loading = ref(false)
 const items = ref([])
@@ -78,7 +78,7 @@ onMounted(() => {
   const fn = async () => {
     try {
       loading.value = true
-      items.value = await getCountries()
+      items.value = await listCountries()
       loading.value = false
     } catch (error) {
       loading.value = false
