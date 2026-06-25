@@ -17,8 +17,9 @@ onMounted(() => {
   const fn = async () => {
     try {
       loading.value = true
-      items.value = await listCountries()
-      items.value = items.value.filter((i: DocumentData) => i.enabled === true)
+      const { data } = await listCountries({ status: "INACTIVE" })
+      if (data?.listCountries.items)
+        items.value = data.listCountries.items
       loading.value = false
     } catch (error) {
       loading.value = false

@@ -1,0 +1,80 @@
+query FindGift($filters: GiftFilters!) {
+  findGift(filters: $filters) {
+    id
+    label
+    status
+    createdAt
+    createdBy
+    updatedAt
+  }
+}
+
+query ListGifts($filters: GiftsFilters!, $pagination: Pagination) {
+  listGifts(filters: $filters, pagination: $pagination) {
+    items {
+      id
+      label
+        status
+      createdAt
+      createdBy
+      updatedAt
+    }
+    metadata {
+      total
+      page
+      offset
+    }
+  }
+}
+
+mutation AdminCreateGift($input: AdminCreateGiftInput!) {
+  adminCreateGift(input: $input) {
+    id
+  }
+}
+
+mutation AdminUpdateGift(
+  $filters: GiftFilters!
+  $input: AdminUpdateGiftInput!
+  $pagination: Pagination
+) {
+  adminUpdateGift(filters: $filters, input: $input, pagination: $pagination)
+}
+
+mutation AdminMarkGiftAsActive($filters: GiftFilters!) {
+  adminMarkGiftAsActive(filters: $filters)
+}
+
+mutation AdminMarkGiftAsInactive($filters: GiftFilters!) {
+  adminMarkGiftAsInactive(filters: $filters)
+}
+
+subscription OnGiftCreated {
+  onGiftCreated {
+    id
+    label
+    status
+    createdAt
+    createdBy
+    updatedAt
+  }
+}
+
+subscription OnGiftUpdated {
+  onGiftUpdated {
+    id
+    label
+    status
+    createdAt
+    createdBy
+    updatedAt
+  }
+}
+
+subscription OnGiftMarkedAsActive {
+  onGiftMarkedAsActive
+}
+
+subscription OnGiftMarkedAsInactive {
+  onGiftMarkedAsInactive
+}

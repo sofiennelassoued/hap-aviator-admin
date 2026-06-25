@@ -123,61 +123,85 @@ const about = ref()
 const loading = ref<boolean>(false)
 const error = ref<string>('')
 const progress = ref<number>(0)
-const handleOnSubmit = () => {
-  const fn = async () => {
-    if (imageBlob.value) {
-      try {
-        loading.value = true
-        error.value = ""
-        const id = await generateId(GIFTS_DATABASE_COLLECTION)
-        const u = await upload(IMAGES_STORAGE_BUCKET + '/gifts/' + id, imageBlob.value, async (e, s) => {
-          if (e) error.value
-          if (s) progress.value = (s.bytesTransferred / s.totalBytes) * 100;
-        })
-        if (u) {
-          const metadata = {
-            countryId: country.value,
-            status: status.value,
-            label: label.value,
-            type: type.value,
-            payload: payload.value,
-            description: description.value,
-            about: about.value,
-            image: u,
-            createdAt: new Date().toISOString()
-          }
-          // @ts-ignore
-          if (points.value) metadata["points"] = points.value
-          // @ts-ignore
-          if (hearts.value) metadata["hearts"] = hearts.value
-          await createGift(id, metadata)
-          loading.value = false
-          Swal.fire({
-            title: "Gift created",
-            text: "What do you want to do next?",
-            icon: "success",
-            showCancelButton: true,
-            confirmButtonText: "View details",
-            cancelButtonText: "View all",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              router.push(id);
-            } else if (result.isDismissed) {
-              router.push({
-                name: 'gifts'
-              })
-            }
-          });
+const handleOnSubmit = async () => {
+  const metadata2 = {
+    label: label.value,
+  }
+  const { data } = await createGift(metadata2)
+  loading.value = false
+  Swal.fire({
+    title: "Gift created",
+    text: "What do you want to do next?",
+    icon: "success",
+    showCancelButton: true,
+    confirmButtonText: "View details",
+    cancelButtonText: "View all",
+  }).then((result) => {
+    if (result.isConfirmed && data?.adminCreateGift.id) {
+      router.push(data?.adminCreateGift.id);
+    } else if (result.isDismissed) {
+      router.push({
+        name: 'gifts'
+      })
+    }
+  });
+}
+
+const fn = async () => {
+  if (imageBlob.value) {
+    try {
+      loading.value = true
+      error.value = ""
+      const id = await generateId(GIFTS_DATABASE_COLLECTION)
+      const u = await upload(IMAGES_STORAGE_BUCKET + '/gifts/' + id, imageBlob.value, async (e, s) => {
+        if (e) error.value
+        if (s) progress.value = (s.bytesTransferred / s.totalBytes) * 100;
+      })
+      if (u) {
+        const metadata = {
+          countryId: country.value,
+          status: status.value,
+          label: label.value,
+          type: type.value,
+          payload: payload.value,
+          description: description.value,
+          about: about.value,
+          image: u,
+          createdAt: new Date().toISOString()
         }
-      } catch (e) {
-        console.log(e)
-        loading.value = false
         // @ts-ignore
-        error.value = e.message
+        if (points.value) metadata["points"] = points.value
+        // @ts-ignore
+        if (hearts.value) metadata["hearts"] = hearts.value
+        const metadata2 = {
+          label: label.value,
+        }
+        await createGift(metadata2)
+        loading.value = false
+        Swal.fire({
+          title: "Gift created",
+          text: "What do you want to do next?",
+          icon: "success",
+          showCancelButton: true,
+          confirmButtonText: "View details",
+          cancelButtonText: "View all",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            router.push(id);
+          } else if (result.isDismissed) {
+            router.push({
+              name: 'gifts'
+            })
+          }
+        });
       }
+    } catch (e) {
+      console.log(e)
+      loading.value = false
+      // @ts-ignore
+      error.value = e.message
     }
   }
-  fn()
 }
 const handleOnCropped = ({ base64, blob, file }: { base64: string; blob: Blob | null, file: Blob | null }) => {
   tempImage.value = ""

@@ -1,5 +1,5 @@
-query FindSubregion($filters: SubregionFilters!) {
-  findSubregion(filters: $filters) {
+query FindRegion($filters: RegionFilters!) {
+  findRegion(filters: $filters) {
     id
     label
     status
@@ -9,8 +9,8 @@ query FindSubregion($filters: SubregionFilters!) {
   }
 }
 
-query ListSubregions($filters: SubregionsFilters!, $pagination: Pagination) {
-  listSubregions(filters: $filters, pagination: $pagination) {
+query ListRegions($filters: RegionsFilters!, $pagination: Pagination) {
+  listRegions(filters: $filters, pagination: $pagination) {
     items {
       id
       label
@@ -27,30 +27,30 @@ query ListSubregions($filters: SubregionsFilters!, $pagination: Pagination) {
   }
 }
 
-mutation AdminCreateSubregion($input: AdminCreateSubregionInput!) {
-  adminCreateSubregion(input: $input) {
+mutation AdminCreateRegion($input: AdminCreateRegionInput!) {
+  adminCreateRegion(input: $input) {
     id
   }
 }
 
-mutation AdminUpdateSubregion(
-  $filters: SubregionFilters!
-  $input: AdminUpdateSubregionInput!
+mutation AdminUpdateRegion(
+  $filters: RegionFilters!
+  $input: AdminUpdateRegionInput!
   $pagination: Pagination
 ) {
-  adminUpdateSubregion(filters: $filters, input: $input, pagination: $pagination)
+  adminUpdateRegion(filters: $filters, input: $input, pagination: $pagination)
 }
 
-mutation AdminMarkSubregionAsActive($filters: SubregionFilters!) {
-  adminMarkSubregionAsActive(filters: $filters)
+mutation AdminMarkRegionAsActive($filters: RegionFilters!) {
+  adminMarkRegionAsActive(filters: $filters)
 }
 
-mutation AdminMarkSubregionAsInactive($filters: SubregionFilters!) {
-  adminMarkSubregionAsInactive(filters: $filters)
+mutation AdminMarkRegionAsInactive($filters: RegionFilters!) {
+  adminMarkRegionAsInactive(filters: $filters)
 }
 
-subscription OnSubregionCreated {
-  onSubregionCreated {
+subscription OnRegionCreated {
+  onRegionCreated {
     id
     label
     status
@@ -60,8 +60,8 @@ subscription OnSubregionCreated {
   }
 }
 
-subscription OnSubregionUpdated {
-  onSubregionUpdated {
+subscription OnRegionUpdated {
+  onRegionUpdated {
     id
     label
     status
@@ -71,10 +71,10 @@ subscription OnSubregionUpdated {
   }
 }
 
-subscription OnSubregionMarkedAsActive {
-  onSubregionMarkedAsActive
+subscription OnRegionMarkedAsActive {
+  onRegionMarkedAsActive
 }
 
-subscription OnSubregionMarkedAsInactive {
-  onSubregionMarkedAsInactive
+subscription OnRegionMarkedAsInactive {
+  onRegionMarkedAsInactive
 }

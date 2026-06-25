@@ -1,44 +1,136 @@
 import {
-  GIFTS_DATABASE_COLLECTION
-} from "@/constants";
-import {
-  collection,
-  deleteDoc,
-  doc,
-  getDoc,
-  getDocs,
-  setDoc,
-  type DocumentData
-} from "firebase/firestore";
-import { database } from "./firebase";
+  AdminCreateGiftDocument,
+  type AdminCreateGiftInput,
+  AdminMarkGiftAsActiveDocument,
+  AdminMarkGiftAsInactiveDocument,
+  AdminUpdateGiftDocument,
+  type AdminUpdateGiftInput,
+  client,
+  FindGiftDocument,
+  getAuthorization,
+  ListGiftsDocument,
+  type Pagination,
+  type GiftFilters,
+  type GiftsFilters,
+} from "@/lib";
 
-const createGift = async (id: string, metadata: any) => {
-  return setDoc(doc(database, GIFTS_DATABASE_COLLECTION, id), metadata);
-};
-
-const deleteGift = async (id: string) => {
-  return deleteDoc(doc(database, GIFTS_DATABASE_COLLECTION, id));
-};
-
-const getGiftMetadata = async (id: string) => {
-  const ref = doc(database, GIFTS_DATABASE_COLLECTION, id);
-  const snapshot = await getDoc(ref);
-  if (!snapshot.exists()) {
-    throw new Error("No such document!");
-  }
-  return snapshot.data();
-};
-
-const getGifts = async () => {
-  const snapshot = await getDocs(
-    collection(database, GIFTS_DATABASE_COLLECTION)
-  );
-  const data: DocumentData[] = [];
-  snapshot.forEach((doc) => {
-    data.push({ id: doc.id, ...doc.data() });
+const findGift = async (filters: GiftFilters) => {
+  const authorization = await getAuthorization();
+  return await client.query({
+    query: FindGiftDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      filters,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
   });
-  return data;
 };
 
-export { createGift, deleteGift, getGiftMetadata, getGifts };
+const listGifts = async (
+  filters: GiftsFilters,
+  pagination?: Pagination
+) => {
+  const authorization = await getAuthorization();
+  return await client.query({
+    query: ListGiftsDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      filters,
+      pagination,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
+  });
+};
 
+const createGift = async (input: AdminCreateGiftInput) => {
+  const authorization = await getAuthorization();
+  return await client.mutate({
+    mutation: AdminCreateGiftDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      input,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
+  });
+};
+
+const updateGift = async (
+  filters: GiftFilters,
+  input: AdminUpdateGiftInput,
+  pagination?: Pagination
+) => {
+  const authorization = await getAuthorization();
+  return await client.mutate({
+    mutation: AdminUpdateGiftDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      filters,
+      input,
+      pagination,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
+  });
+};
+
+const markGiftAsActive = async (filters: GiftFilters) => {
+  const authorization = await getAuthorization();
+  return await client.mutate({
+    mutation: AdminMarkGiftAsActiveDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      filters,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
+  });
+};
+
+const markGiftAsInactive = async (filters: GiftFilters) => {
+  const authorization = await getAuthorization();
+  return await client.mutate({
+    mutation: AdminMarkGiftAsInactiveDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      filters,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
+  });
+};
+
+const deleteGift = () => {};
+const createGiftMetadata = () => {};
+const getGiftMetadata = () => {};
+export {
+  createGift,
+  createGiftMetadata,
+  deleteGift,
+  findGift,
+  getGiftMetadata,
+  listGifts,
+  markGiftAsActive,
+  markGiftAsInactive,
+  updateGift,
+};
