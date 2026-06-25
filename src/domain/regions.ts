@@ -1,6 +1,7 @@
 import {
   AdminCreateRegionDocument,
   type AdminCreateRegionInput,
+  AdminDeleteRegionDocument,
   AdminMarkRegionAsActiveDocument,
   AdminMarkRegionAsInactiveDocument,
   AdminUpdateRegionDocument,
@@ -120,15 +121,26 @@ const markRegionAsInactive = async (filters: RegionFilters) => {
   });
 };
 
-const deleteRegion = () => {};
-const createRegionMetadata = () => {};
-const getRegionMetadata = () => {};
+const deleteRegion = async (filters: RegionFilters) => {
+  const authorization = await getAuthorization();
+  return await client.mutate({
+    mutation: AdminDeleteRegionDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      filters,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
+  });
+};
+
 export {
   createRegion,
-  createRegionMetadata,
   deleteRegion,
   findRegion,
-  getRegionMetadata,
   listRegions,
   markRegionAsActive,
   markRegionAsInactive,

@@ -60,7 +60,7 @@ const handleOnClickDelete = () => {
   const fn = async () => {
     try {
       loading.value = true
-      await deleteRegion()
+      await deleteRegion({ id: regionId.value })
       Swal.fire("Delete!", "Region deleted successfully", "success");
       router.push('/countries/' + countryId + '/regions')
     } catch (e) {
@@ -69,7 +69,7 @@ const handleOnClickDelete = () => {
       error.value = e.message
     }
   }
-  if (confirm('Are you sure to delete the category?')) {
+  if (confirm('Are you sure to delete the region?')) {
     fn()
   }
 }

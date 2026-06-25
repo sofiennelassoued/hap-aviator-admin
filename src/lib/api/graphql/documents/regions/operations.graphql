@@ -14,7 +14,7 @@ query ListRegions($filters: RegionsFilters!, $pagination: Pagination) {
     items {
       id
       label
-        status
+      status
       createdAt
       createdBy
       updatedAt
@@ -45,6 +45,10 @@ mutation AdminMarkRegionAsActive($filters: RegionFilters!) {
   adminMarkRegionAsActive(filters: $filters)
 }
 
+mutation AdminDeleteRegion($filters: RegionFilters!) {
+  adminDeleteRegion(filters: $filters)
+}
+
 mutation AdminMarkRegionAsInactive($filters: RegionFilters!) {
   adminMarkRegionAsInactive(filters: $filters)
 }
@@ -69,6 +73,10 @@ subscription OnRegionUpdated {
     createdBy
     updatedAt
   }
+}
+
+subscription OnRegionDeleted {
+  onRegionDeleted
 }
 
 subscription OnRegionMarkedAsActive {
