@@ -78,7 +78,8 @@ onMounted(() => {
   const fn = async () => {
     try {
       loading.value = true
-      items.value = await listCountries()
+      const { data } = await listCountries({})
+      items.value = data.listCountries.items
       loading.value = false
     } catch (error) {
       loading.value = false

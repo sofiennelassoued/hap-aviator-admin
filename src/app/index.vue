@@ -1,40 +1,34 @@
 <script setup lang="ts">
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@/domain/auth'
-import { createCountry, findCountry, listCountries } from '@/domain/countries'
-
-const handleOnSubmit = (e) => {
-  e.preventDefault()
-  console.log("xxxx")
-  const fn = async () => {
-    try {
-      const x = await signInWithEmailAndPassword("one@admin.com", "000000")
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const fn2 = async () => {
-    try {
-      const x = await findCountry({
-       id:"01KVV74CYF97JB80CRKSKBV60J"
-       })
-      console.log(x)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  fn2()
-}
+import { onAuthStateChanged } from '@/domain/auth';
+import MainLayout from '@/layout/main/index.vue';
+import SignInView from "@/views/auth/index.vue";
+import { type User } from 'firebase/auth';
+import { onMounted, ref } from 'vue';
+const user = ref<User | null>(null);
+const loading = ref<boolean>(false);
+onMounted(() => {
+  loading.value = true
+  onAuthStateChanged(u => {
+    loading.value = true
+    user.value = u
+    loading.value = false
+  })
+})
 </script>
 
 <template>
-  <div>
-    <form @submit="handleOnSubmit">
-      <button type="submit">foo</button>
-    </form>
+  <div class="loading" v-if="loading">
+    <div class="spinner-grow" role="status" />
   </div>
+  <main-layout v-if="!loading && user" />
+  <sign-in-view v-if="!loading && !user" />
 </template>
 
-
-<style scoped></style>
+<style scoped>
+.loading {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>

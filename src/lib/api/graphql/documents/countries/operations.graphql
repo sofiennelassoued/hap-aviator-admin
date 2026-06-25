@@ -2,6 +2,7 @@ query FindCountry($filters: CountryFilters!) {
   findCountry(filters: $filters) {
     id
     label
+    code
     status
     createdAt
     createdBy
@@ -14,6 +15,7 @@ query ListCountries($filters: CountriesFilters!, $pagination: Pagination) {
     items {
       id
       label
+      code
       status
       createdAt
       createdBy
@@ -53,6 +55,7 @@ subscription OnCountryCreated {
   onCountryCreated {
     id
     label
+    code
     status
     createdAt
     createdBy
@@ -64,6 +67,7 @@ subscription OnCountryUpdated {
   onCountryUpdated {
     id
     label
+    code
     status
     createdAt
     createdBy
