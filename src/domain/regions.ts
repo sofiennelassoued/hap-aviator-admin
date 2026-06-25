@@ -1,44 +1,136 @@
-import { REGIONS_DATABASE_COLLECTION } from "@/constants";
 import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  where,
-  type DocumentData,
-} from "firebase/firestore";
-import { database } from "./firebase";
+  AdminCreateRegionDocument,
+  type AdminCreateRegionInput,
+  AdminMarkRegionAsActiveDocument,
+  AdminMarkRegionAsInactiveDocument,
+  AdminUpdateRegionDocument,
+  type AdminUpdateRegionInput,
+  client,
+  FindRegionDocument,
+  getAuthorization,
+  ListRegionsDocument,
+  type Pagination,
+  type RegionFilters,
+  type RegionsFilters,
+} from "@/lib";
 
-const createRegionMetadata = async (metadata: any) => {
-  return addDoc(collection(database, REGIONS_DATABASE_COLLECTION), metadata);
-};
-
-const deleteRegion = async (id: string) => {
-  return deleteDoc(doc(database, REGIONS_DATABASE_COLLECTION, id));
-};
-
-const getRegionMetadata = async (id: string) => {
-  const ref = doc(database, REGIONS_DATABASE_COLLECTION, id);
-  const snapshot = await getDoc(ref);
-  if (!snapshot.exists()) {
-    throw new Error("No such document!");
-  }
-  return snapshot.data();
-};
-
-const getRegions = async (countryId: string) => {
-  const q = await query(
-    collection(database, REGIONS_DATABASE_COLLECTION),
-    where("countryId", "==", countryId)
-  );
-  const snapshot = await getDocs(q);
-  const data: DocumentData[] = [];
-  snapshot.forEach((doc) => {
-    data.push({ id: doc.id, ...doc.data() });
+const findRegion = async (filters: RegionFilters) => {
+  const authorization = await getAuthorization();
+  return await client.query({
+    query: FindRegionDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      filters,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
   });
-  return data.sort((a, b) => a.position - b.position);
 };
-export { createRegionMetadata, deleteRegion, getRegionMetadata, getRegions };
+
+const listRegions = async (
+  filters: RegionsFilters,
+  pagination?: Pagination
+) => {
+  const authorization = await getAuthorization();
+  return await client.query({
+    query: ListRegionsDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      filters,
+      pagination,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
+  });
+};
+
+const createRegion = async (input: AdminCreateRegionInput) => {
+  const authorization = await getAuthorization();
+  return await client.mutate({
+    mutation: AdminCreateRegionDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      input,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
+  });
+};
+
+const updateRegion = async (
+  filters: RegionFilters,
+  input: AdminUpdateRegionInput,
+  pagination?: Pagination
+) => {
+  const authorization = await getAuthorization();
+  return await client.mutate({
+    mutation: AdminUpdateRegionDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      filters,
+      input,
+      pagination,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
+  });
+};
+
+const markRegionAsActive = async (filters: RegionFilters) => {
+  const authorization = await getAuthorization();
+  return await client.mutate({
+    mutation: AdminMarkRegionAsActiveDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      filters,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
+  });
+};
+
+const markRegionAsInactive = async (filters: RegionFilters) => {
+  const authorization = await getAuthorization();
+  return await client.mutate({
+    mutation: AdminMarkRegionAsInactiveDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      filters,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
+  });
+};
+
+const deleteRegion = () => {};
+const createRegionMetadata = () => {};
+const getRegionMetadata = () => {};
+export {
+  createRegion,
+  createRegionMetadata,
+  deleteRegion,
+  findRegion,
+  getRegionMetadata,
+  listRegions,
+  markRegionAsActive,
+  markRegionAsInactive,
+  updateRegion,
+};

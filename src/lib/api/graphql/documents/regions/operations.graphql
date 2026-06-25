@@ -1,0 +1,80 @@
+query FindRegion($filters: RegionFilters!) {
+  findRegion(filters: $filters) {
+    id
+    label
+    status
+    createdAt
+    createdBy
+    updatedAt
+  }
+}
+
+query ListRegions($filters: RegionsFilters!, $pagination: Pagination) {
+  listRegions(filters: $filters, pagination: $pagination) {
+    items {
+      id
+      label
+        status
+      createdAt
+      createdBy
+      updatedAt
+    }
+    metadata {
+      total
+      page
+      offset
+    }
+  }
+}
+
+mutation AdminCreateRegion($input: AdminCreateRegionInput!) {
+  adminCreateRegion(input: $input) {
+    id
+  }
+}
+
+mutation AdminUpdateRegion(
+  $filters: RegionFilters!
+  $input: AdminUpdateRegionInput!
+  $pagination: Pagination
+) {
+  adminUpdateRegion(filters: $filters, input: $input, pagination: $pagination)
+}
+
+mutation AdminMarkRegionAsActive($filters: RegionFilters!) {
+  adminMarkRegionAsActive(filters: $filters)
+}
+
+mutation AdminMarkRegionAsInactive($filters: RegionFilters!) {
+  adminMarkRegionAsInactive(filters: $filters)
+}
+
+subscription OnRegionCreated {
+  onRegionCreated {
+    id
+    label
+    status
+    createdAt
+    createdBy
+    updatedAt
+  }
+}
+
+subscription OnRegionUpdated {
+  onRegionUpdated {
+    id
+    label
+    status
+    createdAt
+    createdBy
+    updatedAt
+  }
+}
+
+subscription OnRegionMarkedAsActive {
+  onRegionMarkedAsActive
+}
+
+subscription OnRegionMarkedAsInactive {
+  onRegionMarkedAsInactive
+}

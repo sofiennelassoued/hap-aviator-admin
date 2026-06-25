@@ -9,7 +9,8 @@
           <span class="badge bg-success" v-if="payload.enabled === true">Yes</span>
           <span class="badge bg-danger" v-else-if="payload.enabled === false">No</span>
         </p>
-        <p>Country ID: {{ payload.countryId }} <router-link :to="'/countries/' + payload.countryId">View</router-link></p>
+        <p>Country ID: {{ countryId }} <router-link :to="'/countries/' + countryId">View</router-link>
+        </p>
         <button class="btn btn-danger" @click="handleOnClickDelete">Delete</button>
       </div>
       <div class="vh-100 d-flex justify-content-center align-items-center" v-if="loading">
@@ -25,7 +26,7 @@
 
 <script setup lang="ts">
 
-import { getRegionMetadata, deleteRegion } from '@/domain/regions';
+import { deleteRegion, findRegion } from '@/domain/regions';
 import Swal from 'sweetalert2';
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -37,11 +38,14 @@ const payload = ref()
 const countryId = ref()
 const regionId = ref()
 onMounted(() => {
+  countryId.value = route.params.countryId as string
   regionId.value = route.params.regionId as string
   const fn = async () => {
     try {
       loading.value = true
-      payload.value = await getRegionMetadata(regionId.value)
+      const { data } = await findRegion({ id: regionId.value })
+      if (data?.findRegion)
+        payload.value = data.findRegion
       loading.value = false
     } catch (e) {
       loading.value = false
@@ -56,7 +60,7 @@ const handleOnClickDelete = () => {
   const fn = async () => {
     try {
       loading.value = true
-      await deleteRegion(regionId.value)
+      await deleteRegion()
       Swal.fire("Delete!", "Region deleted successfully", "success");
       router.push('/countries/' + countryId + '/regions')
     } catch (e) {

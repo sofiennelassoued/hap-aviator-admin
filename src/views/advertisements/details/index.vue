@@ -29,8 +29,9 @@
       </div>
     </div>
     <div class="col-md-9"
-      v-if="state.analytics && state.analytics.dates && state.analytics.dates.views && state.analytics.dates.visits && state.payload" >
-      <reach :views="state.analytics.dates.views" :visits="state.analytics.dates.visits" :createdAt="state.payload.createdAt" />
+      v-if="state.analytics && state.analytics.dates && state.analytics.dates.views && state.analytics.dates.visits && state.payload">
+      <reach :views="state.analytics.dates.views" :visits="state.analytics.dates.visits"
+        :createdAt="state.payload.createdAt" />
     </div>
   </div>
   <div class="row" v-if="state.analytics">
@@ -58,15 +59,15 @@
 
 <script setup lang="ts">
 import Ages from '@/components/advertisements/analytics/ages/index.vue';
-import Reach from '@/components/advertisements/analytics/reach/index.vue';
-import Sexes from '@/components/advertisements/analytics/sexes/index.vue';
 import Interests from '@/components/advertisements/analytics/interests/index.vue';
+import Reach from '@/components/advertisements/analytics/reach/index.vue';
 import Regions from '@/components/advertisements/analytics/regions/index.vue';
+import Sexes from '@/components/advertisements/analytics/sexes/index.vue';
 import States from '@/components/advertisements/analytics/states/index.vue';
 import { getAdvertisementAnalytics } from '@/domain/advertisement-analytics';
 import { getAdvertisementMetadata } from '@/domain/advertisements';
 import { getInterests } from '@/domain/interests';
-import { getRegions } from '@/domain/regions';
+import { listRegions } from '@/domain/regions';
 import { getStates } from '@/domain/states';
 import { onMounted, onUnmounted, reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
@@ -106,7 +107,7 @@ onMounted(() => {
       if (!id) {
         throw new Error('No ID provided')
       }
-      const result = await getRegions(COUNTRY)
+      const result = await listRegions(COUNTRY)
       state.regions = result
     } catch (error) {
       console.log(error)
