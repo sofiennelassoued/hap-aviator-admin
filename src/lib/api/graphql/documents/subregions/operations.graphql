@@ -2,6 +2,7 @@ query FindSubregion($filters: SubregionFilters!) {
   findSubregion(filters: $filters) {
     id
     label
+    regionId
     status
     createdAt
     createdBy
@@ -13,8 +14,9 @@ query ListSubregions($filters: SubregionsFilters!, $pagination: Pagination) {
   listSubregions(filters: $filters, pagination: $pagination) {
     items {
       id
+      regionId
       label
-        status
+      status
       createdAt
       createdBy
       updatedAt
@@ -38,7 +40,11 @@ mutation AdminUpdateSubregion(
   $input: AdminUpdateSubregionInput!
   $pagination: Pagination
 ) {
-  adminUpdateSubregion(filters: $filters, input: $input, pagination: $pagination)
+  adminUpdateSubregion(
+    filters: $filters
+    input: $input
+    pagination: $pagination
+  )
 }
 
 mutation AdminMarkSubregionAsActive($filters: SubregionFilters!) {

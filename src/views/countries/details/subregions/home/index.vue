@@ -49,7 +49,7 @@
                 </td>
                 <td>
                   <router-link type="button" class="btn btn-sm btn-outline-primary mx-2"
-                    :to="'/countries/' + item.countryId + '/subregions/' + item.id">View</router-link>
+                    :to="'/countries/' + item.country_id + '/subregions/' + item.id">View</router-link>
                 </td>
               </tr>
             </tbody>
@@ -88,7 +88,9 @@ onMounted(() => {
   const fn = async () => {
     try {
       loading.value = true
-      items.value = await listSubregions({})
+      const { data } = await listSubregions({})
+      if (data?.listSubregions.items)
+        items.value = data?.listSubregions.items
       loading.value = false
     } catch (error) {
       loading.value = false
