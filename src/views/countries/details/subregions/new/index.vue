@@ -4,7 +4,7 @@
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><router-link to="/">Home</router-link></li>
       <li class="breadcrumb-item"><router-link to="/countries">Countries</router-link></li>
-      <li class="breadcrumb-item">States</li>
+      <li class="breadcrumb-item">Subregions</li>
       <li class="breadcrumb-item active" aria-current="page">New</li>
     </ol>
   </nav>
@@ -15,22 +15,22 @@
           <div class="card">
             <div class="card-body">
               <label for="input-label" class="form-label">Label* <small><a
-                    href="https://en.wikipedia.org/wiki/List_of_states_of_Saudi_Arabia" target="_blank">Learn
+                    href="https://en.wikipedia.org/wiki/List_of_subregions_of_Saudi_Arabia" target="_blank">Learn
                     more</a></small></label>
               <input type="text" class="form-control" id="input-label" aria-describedby="text-label"
                 placeholder="Ex: Al-Kharj" required v-model="label">
-              <div id="help-label" class="form-text">Provide the state name</div>
+              <div id="help-label" class="form-text">Provide the subregion name</div>
               <label for="input-region" class="form-label mt-3">Region*</label>
               <country-region-picker :country-id="countryId" :disabled="!countryId" :required="true"
                 @select="handleOnSelectCountryRegion" />
-              <div id="help-label" class="form-text">Provide the state name</div>
+              <div id="help-label" class="form-text">Provide the subregion name</div>
               <label for="input-position" class="form-label mt-3">Position*</label>
               <input type="number" class="form-control" id="input-position" aria-describedby="text-position"
                 placeholder="Ex: 2" required v-model.number="position">
-              <div id="help-position" class="form-text">Provide the state position</div>
+              <div id="help-position" class="form-text">Provide the subregion position</div>
               <div class="form-check form-switch mt-3">
                 <input class="form-check-input" type="checkbox" role="switch" id="switch-enabled" v-model="enabled">
-                <label class="form-check-label" for="switch-enabled">State is <span>{{ enabled ? 'enabled' :
+                <label class="form-check-label" for="switch-enabled">Subregion is <span>{{ enabled ? 'enabled' :
                   'disabled' }}</span> by default</label>
               </div>
               <div>
@@ -50,8 +50,8 @@
 </template>
 
 <script setup lang="ts">
-import CountryRegionPicker from "@/components/miscs/forms/country-region-picker/index.vue"
-import { createStateMetadata } from '@/domain/states';
+import CountryRegionPicker from "@/components/miscs/forms/country-region-picker/index.vue";
+import { createSubregion } from '@/domain/subregions';
 import Swal from 'sweetalert2';
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -78,23 +78,26 @@ const handleOnSubmit = () => {
         enabled: enabled.value,
         countryId: countryId,
         regionId: regionId.value,
-        createdAt: new Date().toISOString()
       }
-      const result = await createStateMetadata(metadata)
+      const metadata2 = {
+        label: label.value,
+        regionId: regionId.value,
+      }
+      const { data } = await createSubregion(metadata2)
       loading.value = false
       Swal.fire({
-        title: "State created",
+        title: "Subregion created",
         text: "What do you want to do next?",
         icon: "success",
         showCancelButton: true,
         confirmButtonText: "View details",
         cancelButtonText: "View all",
       }).then(({ isConfirmed, isDismissed }) => {
-        if (isConfirmed) {
-          router.push(result.id);
+        if (isConfirmed && data?.adminCreateSubregion.id) {
+          router.push(data?.adminCreateSubregion.id);
         } else if (isDismissed) {
           router.push({
-            path: '/countries/' + countryId + '/states'
+            path: '/countries/' + countryId + '/subregions'
           })
         }
       });

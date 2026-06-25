@@ -5,7 +5,7 @@
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><router-link to="/">Home</router-link></li>
         <li class="breadcrumb-item"><router-link to="/countries">Countries</router-link></li>
-        <li class="breadcrumb-item active" aria-current="page">States</li>
+        <li class="breadcrumb-item active" aria-current="page">Subregions</li>
       </ol>
     </nav>
   </div>
@@ -14,8 +14,8 @@
       <div class="row">
         <div class="card p-3">
           <div class="d-flex justify-content-between">
-            <h3>States
-              <router-link to="states/new">
+            <h3>Subregions
+              <router-link to="subregions/new">
                 <button class="btn btn-secondary btn-sm">Create</button>
               </router-link>
             </h3>
@@ -49,7 +49,7 @@
                 </td>
                 <td>
                   <router-link type="button" class="btn btn-sm btn-outline-primary mx-2"
-                    :to="'/countries/' + item.countryId + '/states/' + item.id">View</router-link>
+                    :to="'/countries/' + item.countryId + '/subregions/' + item.id">View</router-link>
                 </td>
               </tr>
             </tbody>
@@ -62,7 +62,7 @@
     <div class="text-center">
       <p>No items</p>
       <router-link type="button" class="btn btn-sm btn-outline-primary mx-2"
-        :to="'/countries/' + id + '/states/new'" v-if="id">Create</router-link>
+        :to="'/countries/' + id + '/subregions/new'" v-if="id">Create</router-link>
     </div>
   </div>
   <div class="vh-100 d-flex justify-content-center align-items-center" v-if="loading">
@@ -75,7 +75,7 @@
 
 <script lang="ts" setup>
 import Search from '@/components/miscs/forms/search/index.vue';
-import { getStates } from '@/domain/states';
+import { listSubregions } from '@/domain/subregions';
 import { type DocumentData } from 'firebase/firestore';
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
@@ -88,7 +88,7 @@ onMounted(() => {
   const fn = async () => {
     try {
       loading.value = true
-      items.value = await getStates(id.value)
+      items.value = await listSubregions({})
       loading.value = false
     } catch (error) {
       loading.value = false

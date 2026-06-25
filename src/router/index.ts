@@ -42,10 +42,10 @@ import NewCountryView from "@/views/countries/new/index.vue";
 import RegionDetailsView from "@/views/countries/details/regions/details/index.vue";
 import RegionsView from "@/views/countries/details/regions/home/index.vue";
 import NewRegionView from "@/views/countries/details/regions/new/index.vue";
-// States
-import StateDetailsView from "@/views/countries/details/states/details/index.vue";
-import StatesView from "@/views/countries/details/states/home/index.vue";
-import NewStateView from "@/views/countries/details/states/new/index.vue";
+// Subregions
+import SubregionDetailsView from "@/views/countries/details/subregions/details/index.vue";
+import SubregionsView from "@/views/countries/details/subregions/home/index.vue";
+import NewSubregionView from "@/views/countries/details/subregions/new/index.vue";
 // Amenities
 import AmenityDetailsView from "@/views/amenities/details/index.vue";
 import AmenitiesView from "@/views/amenities/home/index.vue";
@@ -231,21 +231,21 @@ const router = createRouter({
       name: "region-details",
       component: RegionDetailsView,
     },
-    // States
+    // Subregions
     {
-      path: "/countries/:id/states",
-      name: "states",
-      component: StatesView,
+      path: "/countries/:id/subregions",
+      name: "subregions",
+      component: SubregionsView,
     },
     {
-      path: "/countries/:id/states/new",
-      name: "new-state",
-      component: NewStateView,
+      path: "/countries/:id/subregions/new",
+      name: "new-subregion",
+      component: NewSubregionView,
     },
     {
-      path: "/countries/:countryId/states/:stateId",
-      name: "state-details",
-      component: StateDetailsView,
+      path: "/countries/:countryId/subregions/:subregionId",
+      name: "subregion-details",
+      component: SubregionDetailsView,
     },
     // Amenities
     {

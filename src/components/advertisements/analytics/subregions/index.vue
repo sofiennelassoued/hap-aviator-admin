@@ -2,7 +2,7 @@
   <div class="card m-h">
     <div class="card-body">
       <div class="d-flex justify-content-between">
-        <h5>States
+        <h5>Subregions
           <small v-show="isViews">(Views)</small>
           <small v-show="!isViews">(Visits)</small>
         </h5>

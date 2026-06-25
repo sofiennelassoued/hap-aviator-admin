@@ -16,7 +16,9 @@ const items = ref<DocumentData>([])
 const retrieve = async () => {
   try {
     loading.value = true
-    items.value = await listRegions(countryId)
+    const { data } = await listRegions({})
+    if (data?.listRegions.items)
+      items.value = data?.listRegions.items
     loading.value = false
   } catch (error) {
     loading.value = false

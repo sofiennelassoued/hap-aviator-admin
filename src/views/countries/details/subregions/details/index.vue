@@ -3,7 +3,7 @@
     <div class="card-body">
       <div v-if="!loading && payload">
         <h1>{{ payload.label }}</h1>
-        <p>ID: {{ stateId }}</p>
+        <p>ID: {{ subregionId }}</p>
         <p>Position: {{ payload.position }}</p>
         <p>Enabled:
           <span class="badge bg-success" v-if="payload.enabled === true">Yes</span>
@@ -28,7 +28,7 @@
 
 <script setup lang="ts">
 
-import { getStateMetadata, deleteState } from '@/domain/states';
+import { deleteSubregion, findSubregion } from '@/domain/subregions';
 import Swal from 'sweetalert2';
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -38,12 +38,12 @@ const loading = ref(false)
 const error = ref('')
 const payload = ref()
 const countryId = route.params.countryId as string
-const stateId = route.params.stateId as string
+const subregionId = route.params.subregionId as string
 onMounted(() => {
   const fn = async () => {
     try {
       loading.value = true
-      payload.value = await getStateMetadata(stateId)
+      payload.value = await findSubregion({ id: subregionId })
       loading.value = false
     } catch (e) {
       loading.value = false
@@ -58,9 +58,9 @@ const handleOnClickDelete = () => {
   const fn = async () => {
     try {
       loading.value = true
-      await deleteState(stateId)
-      Swal.fire("Delete!", "State deleted successfully", "success");
-      router.push('/countries/' + countryId + '/states')
+      await deleteSubregion()
+      Swal.fire("Delete!", "Subregion deleted successfully", "success");
+      router.push('/countries/' + countryId + '/subregions')
     } catch (e) {
       loading.value = false
       // @ts-ignore

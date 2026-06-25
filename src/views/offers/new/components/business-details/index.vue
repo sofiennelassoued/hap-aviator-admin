@@ -18,9 +18,9 @@
           <country-picker :required="true" :selected="country" @select="handleOnCountrySelect" />
         </div>
         <div class="form-group col-md-6">
-          <label for="input-phone">Business state</label>
-          <country-state-picker :required="true" :country-id="country" :selected="state"
-            @select="handleOnStateSelect" />
+          <label for="input-phone">Business subregion</label>
+          <country-subregion-picker :required="true" :country-id="country" :selected="subregion"
+            @select="handleOnSubregionSelect" />
         </div>
         <div class="form-group col-md-6">
           <label for="input-business-city">City *</label>
@@ -71,12 +71,12 @@
 
 <script setup lang="ts">
 import { onMounted, ref, toRaw } from 'vue';
-import CountryStatePicker from '@/components/miscs/forms/country-state-picker/index.vue'
+import CountrySubregionPicker from '@/components/miscs/forms/country-subregion-picker/index.vue'
 import CountryPicker from '@/components/miscs/forms/country-picker/index.vue';
 import AmenitiesPicker from '@/components/miscs/forms/amenities-picker/index.vue';
 import VibesPicker from './vibes-picker/index.vue'
 import OpeningHours from './opening-hours/index.vue';
-const props = defineProps(['name', 'representative', 'city', 'zip', 'address', 'location', 'email', 'phone', 'country', 'state', 'vibes', 'amenities'])
+const props = defineProps(['name', 'representative', 'city', 'zip', 'address', 'location', 'email', 'phone', 'country', 'subregion', 'vibes', 'amenities'])
 
 // Components
 const openingHours = ref()
@@ -84,7 +84,7 @@ const openingHours = ref()
 const name = ref()
 const representative = ref()
 const country = ref()
-const state = ref()
+const subregion = ref()
 const city = ref()
 const zip = ref()
 const address = ref()
@@ -111,15 +111,15 @@ onMounted(() => {
   const SELECTED_COUNTRY = 'sau'
   country.value = SELECTED_COUNTRY
 
-  // TODO: Update this to use the correct state
-  state.value = props.state
+  // TODO: Update this to use the correct subregion
+  subregion.value = props.subregion
   vibes.value = props.vibes
 })
 const handleOnCountrySelect = (v: string) => {
   country.value = v
 }
-const handleOnStateSelect = (v: string) => {
-  state.value = v
+const handleOnSubregionSelect = (v: string) => {
+  subregion.value = v
 }
 const handleOnAmenitiesSelect = (v: string[]) => {
   amenities.value = toRaw(v)
@@ -127,7 +127,7 @@ const handleOnAmenitiesSelect = (v: string[]) => {
 const handleOnVibesSelect = (v: string) => {
   vibes.value = v
 }
-defineExpose({ name, representative, city, zip, address, location, email, phone, hours, country, state, vibes, amenities })
+defineExpose({ name, representative, city, zip, address, location, email, phone, hours, country, subregion, vibes, amenities })
 </script>
 
 <style scoped></style>

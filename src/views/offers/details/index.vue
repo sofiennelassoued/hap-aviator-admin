@@ -15,7 +15,7 @@
           <basics ref="basics" v-bind="payload" :category="payload.categoryId" />
           <pricing ref="pricing" v-bind="payload.pricing" />
           <validity-and-availability ref="validityAndAvailability" v-bind="payload.validity" />
-          <business-details ref="businessDetails" v-bind="payload.business" :country="payload.countryId" :state="payload.stateId" />
+          <business-details ref="businessDetails" v-bind="payload.business" :country="payload.countryId" :subregion="payload.subregionId" />
           <conditions-and-limitations ref="conditionsAndLimitations" v-bind="payload.conditions" />
         </div>
         <div>

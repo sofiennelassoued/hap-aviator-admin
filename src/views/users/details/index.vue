@@ -83,10 +83,10 @@
           <hr>
           <div class="row">
             <div class="col-sm-3">
-              <h6 class="mb-0">State</h6>
+              <h6 class="mb-0">Subregion</h6>
             </div>
             <div class="col-sm-9">
-              {{ payload.stateId }}
+              {{ payload.subregionId }}
             </div>
           </div>
           <hr>
