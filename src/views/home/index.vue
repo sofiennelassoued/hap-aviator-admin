@@ -94,15 +94,6 @@
             </div>
           </div>
           <div class="col-4">
-            <h6>Regions</h6>
-            <div>
-              <router-link to="/countries">View</router-link>
-            </div>
-            <div>
-              <router-link to="/countries/new">Create</router-link>
-            </div>
-          </div>
-          <div class="col-4 mt-4">
             <h6>Amenities</h6>
             <div>
               <router-link to="/amenities">View</router-link>
