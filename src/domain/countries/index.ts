@@ -1,6 +1,7 @@
 import {
   AdminCreateCountryDocument,
   type AdminCreateCountryInput,
+  AdminDeleteCountryDocument,
   AdminMarkCountryAsActiveDocument,
   AdminMarkCountryAsInactiveDocument,
   AdminUpdateCountryDocument,
@@ -120,15 +121,26 @@ const markCountryAsInactive = async (filters: CountryFilters) => {
   });
 };
 
-const deleteCountry = () => {};
-const createCountryMetadata = () => {};
-const getCountryMetadata = () => {};
+const deleteCountry = async (filters: CountryFilters) => {
+  const authorization = await getAuthorization();
+  return await client.mutate({
+    mutation: AdminDeleteCountryDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      filters,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
+  });
+};
+
 export {
   createCountry,
-  createCountryMetadata,
   deleteCountry,
   findCountry,
-  getCountryMetadata,
   listCountries,
   markCountryAsActive,
   markCountryAsInactive,

@@ -51,6 +51,10 @@ mutation AdminMarkCountryAsInactive($filters: CountryFilters!) {
   adminMarkCountryAsInactive(filters: $filters)
 }
 
+mutation AdminDeleteCountry($filters: CountryFilters!) {
+  adminDeleteCountry(filters: $filters)
+}
+
 subscription OnCountryCreated {
   onCountryCreated {
     id

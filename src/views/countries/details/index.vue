@@ -29,7 +29,7 @@
           </div>
         </div>
       </div>
-      <div class="alert alert-danger" v-if="error">{{ error }}</div>
+      <div class="alert alert-danger my-1">{{ error }}</div>
     </div>
   </div>
   <div class="card" v-if="!loading && payload">
@@ -90,7 +90,7 @@ const handleOnClickDelete = () => {
   const fn = async () => {
     try {
       loading.value = true
-      await deleteCountry()
+      await deleteCountry({ id: id.value })
       Swal.fire("Delete!", "Country deleted successfully", "success");
       router.push('/countries')
     } catch (e) {
@@ -99,7 +99,7 @@ const handleOnClickDelete = () => {
       error.value = e.message
     }
   }
-  if (confirm('Are you sure to delete the category?')) {
+  if (confirm('Are you sure to delete the country?')) {
     fn()
   }
 }

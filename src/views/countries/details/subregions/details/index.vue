@@ -21,7 +21,7 @@
           </div>
         </div>
       </div>
-      <div class="alert alert-danger" v-if="error">{{ error }}</div>
+      <div class="alert alert-danger my-1" v-if="error">{{ error }}</div>
     </div>
   </div>
 </template>
