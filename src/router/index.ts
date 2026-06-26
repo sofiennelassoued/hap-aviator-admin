@@ -16,6 +16,10 @@ import NewAdvertisementView from "@/views/advertisements/new/index.vue";
 import GiftDetailsView from "@/views/gifts/details/index.vue";
 import GiftsView from "@/views/gifts/home/index.vue";
 import NewGiftView from "@/views/gifts/new/index.vue";
+// Organizations
+import OrganizationDetailsView from "@/views/organizations/details/index.vue";
+import OrganizationsView from "@/views/organizations/home/index.vue";
+import NewOrganizationView from "@/views/organizations/new/index.vue";
 // Partners
 import PartnerDetailsView from "@/views/partners/details/index.vue";
 import PartnersView from "@/views/partners/home/index.vue";
@@ -148,6 +152,22 @@ const router = createRouter({
       path: "/advertisers/:id",
       name: "advertiser-details",
       component: AdvertiserDetailsView,
+    },
+    // Organizations
+    {
+      path: "/Organizations",
+      name: "organizations",
+      component: OrganizationsView,
+    },
+    {
+      path: "/organizations/new",
+      name: "new-organization",
+      component: NewOrganizationView,
+    },
+    {
+      path: "/organizations/:id",
+      name: "organization-details",
+      component: OrganizationDetailsView,
     },
     // Partners
     {

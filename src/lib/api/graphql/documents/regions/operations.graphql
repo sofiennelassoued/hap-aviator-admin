@@ -1,23 +1,15 @@
-query FindRegion($filters: RegionFilters!) {
-  findRegion(filters: $filters) {
+query FindOrganization($filters: OrganizationFilters!) {
+  findOrganization(filters: $filters) {
     id
     label
-    status
-    createdAt
-    createdBy
-    updatedAt
   }
 }
 
-query ListRegions($filters: RegionsFilters!, $pagination: Pagination) {
-  listRegions(filters: $filters, pagination: $pagination) {
+query ListOrganizations($filters: OrganizationsFilters!, $pagination: Pagination) {
+  listOrganizations(filters: $filters, pagination: $pagination) {
     items {
       id
       label
-      status
-      createdAt
-      createdBy
-      updatedAt
     }
     metadata {
       total
@@ -27,62 +19,15 @@ query ListRegions($filters: RegionsFilters!, $pagination: Pagination) {
   }
 }
 
-mutation AdminCreateRegion($input: AdminCreateRegionInput!) {
-  adminCreateRegion(input: $input) {
+mutation CreateOrganization($input: CreateOrganizationInput!) {
+  createOrganization(input: $input) {
     id
   }
 }
 
-mutation AdminUpdateRegion(
-  $filters: RegionFilters!
-  $input: AdminUpdateRegionInput!
-  $pagination: Pagination
-) {
-  adminUpdateRegion(filters: $filters, input: $input, pagination: $pagination)
-}
-
-mutation AdminMarkRegionAsActive($filters: RegionFilters!) {
-  adminMarkRegionAsActive(filters: $filters)
-}
-
-mutation AdminDeleteRegion($filters: RegionFilters!) {
-  adminDeleteRegion(filters: $filters)
-}
-
-mutation AdminMarkRegionAsInactive($filters: RegionFilters!) {
-  adminMarkRegionAsInactive(filters: $filters)
-}
-
-subscription OnRegionCreated {
-  onRegionCreated {
+subscription OnOrganizationCreated {
+  onOrganizationCreated {
     id
     label
-    status
-    createdAt
-    createdBy
-    updatedAt
   }
-}
-
-subscription OnRegionUpdated {
-  onRegionUpdated {
-    id
-    label
-    status
-    createdAt
-    createdBy
-    updatedAt
-  }
-}
-
-subscription OnRegionDeleted {
-  onRegionDeleted
-}
-
-subscription OnRegionMarkedAsActive {
-  onRegionMarkedAsActive
-}
-
-subscription OnRegionMarkedAsInactive {
-  onRegionMarkedAsInactive
 }

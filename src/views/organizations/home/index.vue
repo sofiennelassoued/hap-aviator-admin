@@ -66,7 +66,7 @@
 
 <script setup>
 import Search from '@/components/miscs/forms/search/index.vue';
-import { getOrganizations } from '@/domain/organizations';
+import { listOrganizations } from '@/domain/organizations';
 import { onMounted, ref } from 'vue';
 const loading = ref(false)
 const allItems = ref([])
@@ -75,7 +75,7 @@ onMounted(() => {
   const fn = async () => {
     try {
       loading.value = true
-      allItems.value = await getOrganizations()
+      allItems.value = await listOrganizations()
       items.value = allItems.value;
       loading.value = false
     } catch (error) {

@@ -30,10 +30,6 @@
               <input type="text" class="form-control" id="input-email" aria-describedby="text-email"
                 placeholder="Ex: contact@happy-pizza.com / name@hap-organization.com" required v-model="email">
               <div id="help-email" class="form-text">Provide the business email or the representative email</div>
-              <label for="input-password" class="form-label">Login password*</label>
-              <input type="password" class="form-control" id="input-password" aria-describedby="text-password"
-                placeholder="Input password" required v-model="password">
-              <div id="help-password" class="form-text">Type a strong password</div>
               <label for="input-name" class="form-label">Name*</label>
               <input type="text" class="form-control" id="input-name" aria-describedby="text-name"
                 placeholder="Ex: Pizza Example" required v-model="name">
@@ -106,8 +102,9 @@ import { CROPPER_ASPECT_RATIO } from '@/components/miscs/image-cropper/index.con
 import ImageCropper from '@/components/miscs/image-cropper/index.vue';
 import ImagePicker from '@/components/miscs/image-picker/index.vue';
 import { IMAGES_STORAGE_BUCKET } from '@/constants';
-import { createOrganizationIdentity, createOrganizationMetadata } from '@/domain/organizations';
+import { createOrganization } from '@/domain/organizations';
 import { upload } from '@/domain/storage';
+import type { CreateOrganizationInput } from '@/lib';
 import Swal from 'sweetalert2';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -116,7 +113,6 @@ const image = ref<string>('')
 const imageBlob = ref<Blob | null>(null)
 const tempImage = ref<string>('')
 const email = ref()
-const password = ref()
 const name = ref()
 const representative = ref()
 const contactEmail = ref()
@@ -130,12 +126,27 @@ const error = ref<string>('')
 const progress = ref<number>(0)
 const handleOnSubmit = () => {
   const fn = async () => {
+    try {
+      loading.value = true
+      const payload: CreateOrganizationInput = {
+        label: name.value
+      }
+      const x = await createOrganization(payload)
+    } catch (error) {
+      loading.value = false
+      console.log(error)
+    }
+  }
+  fn()
+}
+const handleOnSubmit2 = () => {
+  const fn = async () => {
     if (imageBlob.value) {
       try {
         loading.value = true
         error.value = ""
-        const { user } = await createOrganizationIdentity(email.value,
-          password.value)
+        const user = { uid: "" }
+
         const u = await upload(IMAGES_STORAGE_BUCKET + '/organizations/' + user.uid, imageBlob.value, async (e, s) => {
           if (e) error.value
           if (s) progress.value = (s.bytesTransferred / s.totalBytes) * 100;
@@ -154,7 +165,7 @@ const handleOnSubmit = () => {
             image: u,
             createdAt: new Date().toISOString()
           }
-          await createOrganizationMetadata(user.uid, metadata)
+          await createOrganization(metadata)
           loading.value = false
           Swal.fire({
             title: "Organization created",

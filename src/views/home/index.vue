@@ -62,6 +62,15 @@
             </div>
           </div>
           <div class="col-4">
+            <h6>Organizations</h6>
+            <div>
+              <router-link to="/organizations">View</router-link>
+            </div>
+            <div>
+              <router-link to="/organizations/new">Create</router-link>
+            </div>
+          </div>
+          <div class="col-4">
             <h6>Partners</h6>
             <div>
               <router-link to="/partners">View</router-link>
