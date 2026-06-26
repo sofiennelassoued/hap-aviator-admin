@@ -1,0 +1,33 @@
+query FindOrganization($filters: OrganizationFilters!) {
+  findOrganization(filters: $filters) {
+    id
+    label
+  }
+}
+
+query ListOrganizations($filters: OrganizationsFilters!, $pagination: Pagination) {
+  listOrganizations(filters: $filters, pagination: $pagination) {
+    items {
+      id
+      label
+    }
+    metadata {
+      total
+      page
+      offset
+    }
+  }
+}
+
+mutation CreateOrganization($input: CreateOrganizationInput!) {
+  createOrganization(input: $input) {
+    id
+  }
+}
+
+subscription OnOrganizationCreated {
+  onOrganizationCreated {
+    id
+    label
+  }
+}

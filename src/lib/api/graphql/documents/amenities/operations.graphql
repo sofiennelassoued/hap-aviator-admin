@@ -1,0 +1,90 @@
+query FindAmenity($filters: AmenityFilters!) {
+  findAmenity(filters: $filters) {
+    id
+    label
+    icon
+    status
+    createdAt
+    createdBy
+    updatedAt
+  }
+}
+
+query ListAmenities($filters: AmenitiesFilters!, $pagination: Pagination) {
+  listAmenities(filters: $filters, pagination: $pagination) {
+    items {
+      id
+      label
+      icon
+      status
+      createdAt
+      createdBy
+      updatedAt
+    }
+    metadata {
+      total
+      page
+      offset
+    }
+  }
+}
+
+mutation AdminCreateAmenity($input: AdminCreateAmenityInput!) {
+  adminCreateAmenity(input: $input) {
+    id
+  }
+}
+
+mutation AdminUpdateAmenity(
+  $filters: AmenityFilters!
+  $input: AdminUpdateAmenityInput!
+  $pagination: Pagination
+) {
+  adminUpdateAmenity(filters: $filters, input: $input, pagination: $pagination)
+}
+
+mutation AdminDeleteAmenity($filters: AmenityFilters!) {
+  adminDeleteAmenity(filters: $filters)
+}
+
+mutation AdminMarkAmenityAsActive($filters: AmenityFilters!) {
+  adminMarkAmenityAsActive(filters: $filters)
+}
+
+mutation AdminMarkAmenityAsInactive($filters: AmenityFilters!) {
+  adminMarkAmenityAsInactive(filters: $filters)
+}
+
+subscription OnAmenityCreated {
+  onAmenityCreated {
+    id
+    label
+    status
+    createdAt
+    createdBy
+    updatedAt
+  }
+}
+
+subscription OnAmenityUpdated {
+  onAmenityUpdated {
+    id
+    label
+    status
+    createdAt
+    createdBy
+    updatedAt
+  }
+}
+
+subscription OnAmenityDeleted {
+  onAmenityDeleted
+}
+
+subscription OnAmenityMarkedAsActive {
+  onAmenityMarkedAsActive
+}
+
+subscription OnAmenityMarkedAsInactive {
+  onAmenityMarkedAsInactive
+}

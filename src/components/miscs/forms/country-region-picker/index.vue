@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { getRegions } from '@/domain/regions';
+import { listRegions } from '@/domain/regions';
 import { type DocumentData } from 'firebase/firestore';
 import { onMounted, ref, watch } from 'vue';
 const { countryId, selected, disabled, required } = defineProps(['countryId', 'selected', 'disabled', 'required'])
@@ -16,7 +16,9 @@ const items = ref<DocumentData>([])
 const retrieve = async () => {
   try {
     loading.value = true
-    items.value = await getRegions(countryId)
+    const { data } = await listRegions({})
+    if (data?.listRegions.items)
+      items.value = data?.listRegions.items
     loading.value = false
   } catch (error) {
     loading.value = false

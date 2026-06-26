@@ -50,7 +50,7 @@
 <script setup>
 import Fab from '@/components/miscs/buttons/fab/index.vue';
 import Search from '@/components/miscs/forms/search/index.vue';
-import { getGifts } from '@/domain/gifts';
+import { listGifts } from '@/domain/gifts';
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 const route = useRoute()
@@ -62,12 +62,11 @@ onMounted(() => {
   const fn = async () => {
     try {
       loading.value = true
-      if (gift) {
-        allItems.value = await getGiftsByGift(gift)
-      } else {
-        allItems.value = await getGifts()
-      }
-      items.value = allItems.value;
+
+      // TODO: Add gifts by gift
+      const { data } = await listGifts({});
+      if (data?.listGifts.items)
+        items.value = data?.listGifts.items
       loading.value = false
     } catch (error) {
       loading.value = false

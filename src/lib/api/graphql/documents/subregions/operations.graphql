@@ -1,0 +1,86 @@
+query FindSubregion($filters: SubregionFilters!) {
+  findSubregion(filters: $filters) {
+    id
+    label
+    regionId
+    status
+    createdAt
+    createdBy
+    updatedAt
+  }
+}
+
+query ListSubregions($filters: SubregionsFilters!, $pagination: Pagination) {
+  listSubregions(filters: $filters, pagination: $pagination) {
+    items {
+      id
+      regionId
+      label
+      status
+      createdAt
+      createdBy
+      updatedAt
+    }
+    metadata {
+      total
+      page
+      offset
+    }
+  }
+}
+
+mutation AdminCreateSubregion($input: AdminCreateSubregionInput!) {
+  adminCreateSubregion(input: $input) {
+    id
+  }
+}
+
+mutation AdminUpdateSubregion(
+  $filters: SubregionFilters!
+  $input: AdminUpdateSubregionInput!
+  $pagination: Pagination
+) {
+  adminUpdateSubregion(
+    filters: $filters
+    input: $input
+    pagination: $pagination
+  )
+}
+
+mutation AdminMarkSubregionAsActive($filters: SubregionFilters!) {
+  adminMarkSubregionAsActive(filters: $filters)
+}
+
+mutation AdminMarkSubregionAsInactive($filters: SubregionFilters!) {
+  adminMarkSubregionAsInactive(filters: $filters)
+}
+
+subscription OnSubregionCreated {
+  onSubregionCreated {
+    id
+    label
+    status
+    createdAt
+    createdBy
+    updatedAt
+  }
+}
+
+subscription OnSubregionUpdated {
+  onSubregionUpdated {
+    id
+    label
+    status
+    createdAt
+    createdBy
+    updatedAt
+  }
+}
+
+subscription OnSubregionMarkedAsActive {
+  onSubregionMarkedAsActive
+}
+
+subscription OnSubregionMarkedAsInactive {
+  onSubregionMarkedAsInactive
+}

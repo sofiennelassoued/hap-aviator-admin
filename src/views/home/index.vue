@@ -15,6 +15,15 @@
             </div>
           </div>
           <div class="col-4">
+            <h6>Offer Proposals</h6>
+            <div>
+              <router-link to="/offer-proposals">View</router-link>
+            </div>
+            <div>
+              <router-link to="/offer-proposals/new">Create</router-link>
+            </div>
+          </div>
+          <div class="col-4">
             <h6>Advertisements</h6>
             <div>
               <router-link to="/advertisements">View</router-link>
@@ -50,6 +59,15 @@
             </div>
             <div>
               <router-link to="/advertisers/new">Create</router-link>
+            </div>
+          </div>
+          <div class="col-4">
+            <h6>Organizations</h6>
+            <div>
+              <router-link to="/organizations">View</router-link>
+            </div>
+            <div>
+              <router-link to="/organizations/new">Create</router-link>
             </div>
           </div>
           <div class="col-4">
@@ -94,15 +112,6 @@
             </div>
           </div>
           <div class="col-4">
-            <h6>Regions</h6>
-            <div>
-              <router-link to="/countries">View</router-link>
-            </div>
-            <div>
-              <router-link to="/countries/new">Create</router-link>
-            </div>
-          </div>
-          <div class="col-4 mt-4">
             <h6>Amenities</h6>
             <div>
               <router-link to="/amenities">View</router-link>

@@ -109,7 +109,7 @@
 </template>
 
 <script setup lang="ts">
-import { deleteGift, getGiftMetadata } from '@/domain/gifts';
+import { deleteGift, findGift } from '@/domain/gifts';
 import Swal from 'sweetalert2';
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -123,7 +123,9 @@ onMounted(() => {
   const fn = async () => {
     try {
       loading.value = true
-      payload.value = await getGiftMetadata(id.value)
+      const { data } = await findGift({ id: id.value })
+      if (data?.findGift)
+        payload.value = data.findGift
       loading.value = false
     } catch (error) {
       loading.value = false
@@ -136,7 +138,7 @@ const handleOnClickDelete = () => {
   const fn = async () => {
     try {
       loading.value = true
-      await deleteGift(id.value)
+      await deleteGift()
       Swal.fire("Delete!", "Gift deleted successfully", "success");
       router.push('/gifts')
     } catch (e) {

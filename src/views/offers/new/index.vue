@@ -151,7 +151,7 @@ const handleOnSubmit = () => {
         if (priority) payload['validity']['priority'] = priority
       }
       if (businessDetails.value) {
-        const { name, representative, city, zip, address, location, email, phone, hours, country, state, amenities, vibes } = businessDetails.value
+        const { name, representative, city, zip, address, location, email, phone, hours, country, subregion, amenities, vibes } = businessDetails.value
         payload['business'] = {}
         if (name) payload['business']['name'] = name
         if (representative) payload['business']['representative'] = representative
@@ -165,9 +165,9 @@ const handleOnSubmit = () => {
         if (vibes) payload['business']['vibes'] = vibes
         if (hours) payload['business']['hours'] = toRaw(hours)
         if (country) payload['countryId'] = country
-        if (state) {
-          payload['stateId'] = state.id
-          payload['regionId'] = state.regionId
+        if (subregion) {
+          payload['subregionId'] = subregion.id
+          payload['regionId'] = subregion.regionId
         }
         if (amenities) payload['amenities'] = amenities
       }

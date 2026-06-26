@@ -1,51 +1,59 @@
 import HomeView from "@/views/home/index.vue";
 import TestView from "@/views/test/index.vue";
 // Offers
-import OffersDetailsView from "@/views/offers/details/index.vue";
+import OfferDetailsView from "@/views/offers/details/index.vue";
 import OffersView from "@/views/offers/home/index.vue";
 import NewOfferView from "@/views/offers/new/index.vue";
+// Offer Proposals
+import OfferProposalDetailsView from "@/views/offer-proposals/details/index.vue";
+import OfferProposalsView from "@/views/offer-proposals/home/index.vue";
+import NewOfferProposalView from "@/views/offer-proposals/new/index.vue";
 // Advertisements
-import AdvertisementsDetailsView from "@/views/advertisements/details/index.vue";
+import AdvertisementDetailsView from "@/views/advertisements/details/index.vue";
 import AdvertisementsView from "@/views/advertisements/home/index.vue";
 import NewAdvertisementView from "@/views/advertisements/new/index.vue";
 // Gifts
-import GiftsDetailsView from "@/views/gifts/details/index.vue";
+import GiftDetailsView from "@/views/gifts/details/index.vue";
 import GiftsView from "@/views/gifts/home/index.vue";
 import NewGiftView from "@/views/gifts/new/index.vue";
+// Organizations
+import OrganizationDetailsView from "@/views/organizations/details/index.vue";
+import OrganizationsView from "@/views/organizations/home/index.vue";
+import NewOrganizationView from "@/views/organizations/new/index.vue";
 // Partners
-import PartnersDetailsView from "@/views/partners/details/index.vue";
+import PartnerDetailsView from "@/views/partners/details/index.vue";
 import PartnersView from "@/views/partners/home/index.vue";
 import NewPartnerView from "@/views/partners/new/index.vue";
 // Advertisers
-import AdvertisersDetailsView from "@/views/advertisers/details/index.vue";
+import AdvertiserDetailsView from "@/views/advertisers/details/index.vue";
 import AdvertisersView from "@/views/advertisers/home/index.vue";
 import NewAdvertiserView from "@/views/advertisers/new/index.vue";
 // Users
-import UsersDetailsView from "@/views/users/details/index.vue";
+import UserDetailsView from "@/views/users/details/index.vue";
 import UsersView from "@/views/users/home/index.vue";
 // Offer Validations
 import OfferValidationDetailsView from "@/views/offer-validations/details/index.vue";
 import OfferValidationsView from "@/views/offer-validations/home/index.vue";
 // Categories
-import CategoriesDetailsView from "@/views/categories/details/index.vue";
+import CategoryDetailsView from "@/views/categories/details/index.vue";
 import CategoriesView from "@/views/categories/home/index.vue";
 import NewCategoryView from "@/views/categories/new/index.vue";
 // Interests
-import InterestsDetailsView from "@/views/interests/details/index.vue";
+import InterestDetailsView from "@/views/interests/details/index.vue";
 import InterestsView from "@/views/interests/home/index.vue";
 import NewInterestView from "@/views/interests/new/index.vue";
 // Countries
-import CountriesDetailsView from "@/views/countries/details/index.vue";
+import CountryDetailsView from "@/views/countries/details/index.vue";
 import CountriesView from "@/views/countries/home/index.vue";
 import NewCountryView from "@/views/countries/new/index.vue";
 // Regions
 import RegionDetailsView from "@/views/countries/details/regions/details/index.vue";
 import RegionsView from "@/views/countries/details/regions/home/index.vue";
 import NewRegionView from "@/views/countries/details/regions/new/index.vue";
-// States
-import StateDetailsView from "@/views/countries/details/states/details/index.vue";
-import StatesView from "@/views/countries/details/states/home/index.vue";
-import NewStateView from "@/views/countries/details/states/new/index.vue";
+// Subregions
+import SubregionDetailsView from "@/views/countries/details/subregions/details/index.vue";
+import SubregionsView from "@/views/countries/details/subregions/home/index.vue";
+import NewSubregionView from "@/views/countries/details/subregions/new/index.vue";
 // Amenities
 import AmenityDetailsView from "@/views/amenities/details/index.vue";
 import AmenitiesView from "@/views/amenities/home/index.vue";
@@ -79,7 +87,23 @@ const router = createRouter({
     {
       path: "/advertisements/:id",
       name: "advertisement-details",
-      component: AdvertisementsDetailsView,
+      component: AdvertisementDetailsView,
+    },
+    // Offer Proposals
+    {
+      path: "/offer-proposals",
+      name: "offer-proposals",
+      component: OfferProposalsView,
+    },
+    {
+      path: "/offer-proposals/new",
+      name: "new-offer-proposal",
+      component: NewOfferProposalView,
+    },
+    {
+      path: "/offer-proposals/:id",
+      name: "offer-proposal-details",
+      component: OfferProposalDetailsView,
     },
     // Offers
     {
@@ -95,7 +119,7 @@ const router = createRouter({
     {
       path: "/offers/:id",
       name: "offer-details",
-      component: OffersDetailsView,
+      component: OfferDetailsView,
     },
     // Gifts
     {
@@ -111,7 +135,7 @@ const router = createRouter({
     {
       path: "/gifts/:id",
       name: "gift-details",
-      component: GiftsDetailsView,
+      component: GiftDetailsView,
     },
     // Advertisers
     {
@@ -127,7 +151,23 @@ const router = createRouter({
     {
       path: "/advertisers/:id",
       name: "advertiser-details",
-      component: AdvertisersDetailsView,
+      component: AdvertiserDetailsView,
+    },
+    // Organizations
+    {
+      path: "/Organizations",
+      name: "organizations",
+      component: OrganizationsView,
+    },
+    {
+      path: "/organizations/new",
+      name: "new-organization",
+      component: NewOrganizationView,
+    },
+    {
+      path: "/organizations/:id",
+      name: "organization-details",
+      component: OrganizationDetailsView,
     },
     // Partners
     {
@@ -143,7 +183,7 @@ const router = createRouter({
     {
       path: "/partners/:id",
       name: "partner-details",
-      component: PartnersDetailsView,
+      component: PartnerDetailsView,
     },
     // Users
     {
@@ -154,7 +194,7 @@ const router = createRouter({
     {
       path: "/users/:id",
       name: "user-details",
-      component: UsersDetailsView,
+      component: UserDetailsView,
     },
     // Offer Validations
     {
@@ -181,7 +221,7 @@ const router = createRouter({
     {
       path: "/categories/:id",
       name: "category-details",
-      component: CategoriesDetailsView,
+      component: CategoryDetailsView,
     },
     // Interests
     {
@@ -197,7 +237,7 @@ const router = createRouter({
     {
       path: "/interests/:id",
       name: "interest-details",
-      component: InterestsDetailsView,
+      component: InterestDetailsView,
     },
     // Countries
     {
@@ -213,7 +253,7 @@ const router = createRouter({
     {
       path: "/countries/:id",
       name: "country-details",
-      component: CountriesDetailsView,
+      component: CountryDetailsView,
     },
     // Regions
     {
@@ -231,21 +271,21 @@ const router = createRouter({
       name: "region-details",
       component: RegionDetailsView,
     },
-    // States
+    // Subregions
     {
-      path: "/countries/:id/states",
-      name: "states",
-      component: StatesView,
+      path: "/countries/:id/subregions",
+      name: "subregions",
+      component: SubregionsView,
     },
     {
-      path: "/countries/:id/states/new",
-      name: "new-state",
-      component: NewStateView,
+      path: "/countries/:id/subregions/new",
+      name: "new-subregion",
+      component: NewSubregionView,
     },
     {
-      path: "/countries/:countryId/states/:stateId",
-      name: "state-details",
-      component: StateDetailsView,
+      path: "/countries/:countryId/subregions/:subregionId",
+      name: "subregion-details",
+      component: SubregionDetailsView,
     },
     // Amenities
     {

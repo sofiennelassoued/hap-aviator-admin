@@ -40,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import { createAmenityMetadata } from '@/domain/amenities';
+import { createAmenity } from '@/domain/amenities';
 import Swal from 'sweetalert2';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -61,7 +61,11 @@ const handleOnSubmit = () => {
         icon: icon.value,
         createdAt: new Date().toISOString()
       }
-      const result = await createAmenityMetadata(metadata)
+      const metadata2 = {
+        label: label.value,
+
+      }
+      const { data } = await createAmenity(metadata2)
       loading.value = false
       Swal.fire({
         title: "Amenity created",
@@ -71,8 +75,8 @@ const handleOnSubmit = () => {
         confirmButtonText: "View details",
         cancelButtonText: "View all",
       }).then(({ isConfirmed, isDismissed }) => {
-        if (isConfirmed) {
-          router.push(result.id);
+        if (isConfirmed && data?.adminCreateAmenity.id) {
+          router.push(data?.adminCreateAmenity.id);
         } else if (isDismissed) {
           router.push({
             name: 'amenities'

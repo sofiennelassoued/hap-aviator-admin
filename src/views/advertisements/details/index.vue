@@ -58,16 +58,16 @@
 
 <script setup lang="ts">
 import Ages from '@/components/advertisements/analytics/ages/index.vue';
-import Reach from '@/components/advertisements/analytics/reach/index.vue';
-import Sexes from '@/components/advertisements/analytics/sexes/index.vue';
 import Interests from '@/components/advertisements/analytics/interests/index.vue';
+import Reach from '@/components/advertisements/analytics/reach/index.vue';
 import Regions from '@/components/advertisements/analytics/regions/index.vue';
-import States from '@/components/advertisements/analytics/states/index.vue';
+import Sexes from '@/components/advertisements/analytics/sexes/index.vue';
+import Subregions from '@/components/advertisements/analytics/subregions/index.vue';
 import { getAdvertisementAnalytics } from '@/domain/advertisement-analytics';
 import { getAdvertisementMetadata } from '@/domain/advertisements';
 import { getInterests } from '@/domain/interests';
-import { getRegions } from '@/domain/regions';
-import { getStates } from '@/domain/states';
+import { listRegions } from '@/domain/regions';
+import { listSubregions } from '@/domain/subregions';
 import { onMounted, onUnmounted, reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -106,7 +106,7 @@ onMounted(() => {
       if (!id) {
         throw new Error('No ID provided')
       }
-      const result = await getRegions(COUNTRY)
+      const result = await listRegions(COUNTRY)
       state.regions = result
     } catch (error) {
       console.log(error)
@@ -118,7 +118,7 @@ onMounted(() => {
       if (!id) {
         throw new Error('No ID provided')
       }
-      const result = await getStates(COUNTRY)
+      const result = await listSubregions(COUNTRY)
       state.states = result
     } catch (error) {
       console.log(error)

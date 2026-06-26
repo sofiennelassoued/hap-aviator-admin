@@ -70,7 +70,7 @@
 
 <script lang="ts" setup>
 import Search from '@/components/miscs/forms/search/index.vue';
-import { getRegions } from '@/domain/regions';
+import { listRegions } from '@/domain/regions';
 import { type DocumentData } from 'firebase/firestore';
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
@@ -83,7 +83,9 @@ onMounted(() => {
   const fn = async () => {
     try {
       loading.value = true
-      items.value = await getRegions(id.value)
+      const { data } = await listRegions({})
+      if (data?.listRegions.items)
+        items.value = data?.listRegions.items
       loading.value = false
     } catch (error) {
       loading.value = false

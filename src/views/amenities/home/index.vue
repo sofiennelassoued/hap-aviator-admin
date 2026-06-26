@@ -54,8 +54,7 @@
   <div class="vh-100 d-flex justify-content-center align-items-center" v-if="!loading && items.length === 0">
     <div class="text-center">
       <p>No items</p>
-      <router-link type="button" class="btn btn-sm btn-outline-primary mx-2"
-        :to="'/amenities/new'">Create</router-link>
+      <router-link type="button" class="btn btn-sm btn-outline-primary mx-2" :to="'/amenities/new'">Create</router-link>
     </div>
   </div>
   <div class="vh-100 d-flex justify-content-center align-items-center" v-if="loading">
@@ -68,7 +67,7 @@
 
 <script setup>
 import Search from '@/components/miscs/forms/search/index.vue';
-import { getAmenities } from '@/domain/amenities';
+import { listAmenities } from '@/domain/amenities';
 import { onMounted, ref } from 'vue';
 const loading = ref(false)
 const items = ref([])
@@ -76,7 +75,9 @@ onMounted(() => {
   const fn = async () => {
     try {
       loading.value = true
-      items.value = await getAmenities()
+      const { data } = await listAmenities({})
+      if (data.listAmenities.items)
+        items.value = data.listAmenities.items
       loading.value = false
     } catch (error) {
       loading.value = false

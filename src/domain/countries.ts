@@ -1,45 +1,148 @@
-import { COUNTRIES_DATABASE_COLLECTION } from "@/constants";
 import {
-  collection,
-  deleteDoc,
-  doc,
-  getDoc,
-  getDocs,
-  setDoc,
-  type DocumentData,
-} from "firebase/firestore";
-import { database } from "./firebase";
+  AdminCreateCountryDocument,
+  type AdminCreateCountryInput,
+  AdminDeleteCountryDocument,
+  AdminMarkCountryAsActiveDocument,
+  AdminMarkCountryAsInactiveDocument,
+  AdminUpdateCountryDocument,
+  type AdminUpdateCountryInput,
+  client,
+  type CountriesFilters,
+  type CountryFilters,
+  FindCountryDocument,
+  getAuthorization,
+  ListCountriesDocument,
+  type Pagination,
+} from "@/lib";
 
-const createCountryMetadata = async (id: string, metadata: any) => {
-  return setDoc(doc(database, COUNTRIES_DATABASE_COLLECTION, id), metadata);
-};
-
-const deleteCountry = async (id: string) => {
-  return deleteDoc(doc(database, COUNTRIES_DATABASE_COLLECTION, id));
-};
-
-const getCountryMetadata = async (id: string) => {
-  const ref = doc(database, COUNTRIES_DATABASE_COLLECTION, id);
-  const snapshot = await getDoc(ref);
-  if (!snapshot.exists()) {
-    throw new Error("No such document!");
-  }
-  return snapshot.data();
-};
-
-const getCountries = async () => {
-  const snapshot = await getDocs(
-    collection(database, COUNTRIES_DATABASE_COLLECTION)
-  );
-  const data: DocumentData[] = [];
-  snapshot.forEach((doc) => {
-    data.push({ id: doc.id, ...doc.data() });
+const findCountry = async (filters: CountryFilters) => {
+  const authorization = await getAuthorization();
+  return await client.query({
+    query: FindCountryDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      filters,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
   });
-  return data.sort((a, b) => a.position - b.position);
 };
+
+const listCountries = async (
+  filters: CountriesFilters,
+  pagination?: Pagination
+) => {
+  const authorization = await getAuthorization();
+  return await client.query({
+    query: ListCountriesDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      filters,
+      pagination,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
+  });
+};
+
+const createCountry = async (input: AdminCreateCountryInput) => {
+  const authorization = await getAuthorization();
+  return await client.mutate({
+    mutation: AdminCreateCountryDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      input,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
+  });
+};
+
+const updateCountry = async (
+  filters: CountryFilters,
+  input: AdminUpdateCountryInput,
+  pagination?: Pagination
+) => {
+  const authorization = await getAuthorization();
+  return await client.mutate({
+    mutation: AdminUpdateCountryDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      filters,
+      input,
+      pagination,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
+  });
+};
+
+const markCountryAsActive = async (filters: CountryFilters) => {
+  const authorization = await getAuthorization();
+  return await client.mutate({
+    mutation: AdminMarkCountryAsActiveDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      filters,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
+  });
+};
+
+const markCountryAsInactive = async (filters: CountryFilters) => {
+  const authorization = await getAuthorization();
+  return await client.mutate({
+    mutation: AdminMarkCountryAsInactiveDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      filters,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
+  });
+};
+
+const deleteCountry = async (filters: CountryFilters) => {
+  const authorization = await getAuthorization();
+  return await client.mutate({
+    mutation: AdminDeleteCountryDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      filters,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
+  });
+};
+
 export {
-  createCountryMetadata,
+  createCountry,
   deleteCountry,
-  getCountries,
-  getCountryMetadata,
+  findCountry,
+  listCountries,
+  markCountryAsActive,
+  markCountryAsInactive,
+  updateCountry,
 };

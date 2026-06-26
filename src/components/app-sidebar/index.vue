@@ -51,7 +51,8 @@
           </router-link>
           <router-link to="/offer-validations">
             <li class="sidebar-item">
-              <a class="sidebar-link" :class="route.path === '/offer-validations' ? 'active' : ''" aria-expanded="false">
+              <a class="sidebar-link" :class="route.path === '/offer-validations' ? 'active' : ''"
+                aria-expanded="false">
                 <iconify-icon icon="solar:check-circle-bold"></iconify-icon>
                 <span class="hide-menu">Offer validations</span>
               </a>
@@ -62,7 +63,7 @@
           </li>
           <li class="nav-small-cap">
             <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
-            <span class="hide-menu">Accounts</span>
+            <span class="hide-menu">Principals</span>
           </li>
           <router-link to="/advertisers">
             <li class="sidebar-item">
@@ -95,6 +96,14 @@
             <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
             <span class="hide-menu">Miscs</span>
           </li>
+          <router-link to="/countries">
+            <li class="sidebar-item">
+              <a class="sidebar-link" :class="route.path === '/countries' ? 'active' : ''" aria-expanded="false">
+                <iconify-icon icon="solar:earth-bold"></iconify-icon>
+                <span class="hide-menu">Countries</span>
+              </a>
+            </li>
+          </router-link>
           <router-link to="/categories">
             <li class="sidebar-item">
               <a class="sidebar-link" :class="route.path === '/categories' ? 'active' : ''" aria-expanded="false">
@@ -108,14 +117,6 @@
               <a class="sidebar-link" :class="route.path === '/interests' ? 'active' : ''" aria-expanded="false">
                 <iconify-icon class="icon-lg" icon="mdi:heart"></iconify-icon>
                 <span class="hide-menu">Interests</span>
-              </a>
-            </li>
-          </router-link>
-          <router-link to="/countries">
-            <li class="sidebar-item">
-              <a class="sidebar-link" :class="route.path === '/countries' ? 'active' : ''" aria-expanded="false">
-                <iconify-icon icon="solar:earth-bold"></iconify-icon>
-                <span class="hide-menu">Countries</span>
               </a>
             </li>
           </router-link>
@@ -136,6 +137,6 @@
   <!--  Sidebar End -->
 </template>
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
+import { useRoute } from 'vue-router';
 const route = useRoute()
 </script>

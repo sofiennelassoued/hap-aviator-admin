@@ -16,12 +16,12 @@
               <label for="input-label" class="form-label">Label*</label>
               <input type="text" class="form-control" id="input-label" aria-describedby="text-label"
                 placeholder="Ex: Saudi Arabia" required v-model="label">
-              <label for="input-label" class="form-label mt-3">Initials* <small><a
+              <label for="input-label" class="form-label mt-3">Code* <small><a
                     href="https://www.nationsonline.org/oneworld/country_code_list.htm" target="_blank">Learn
                     more</a></small></label>
-              <input type="text" class="form-control" id="input-initials" aria-describedby="text-initials"
-                placeholder="Ex: sau" min="3" max="3" required v-model="initials">
-              <div id="help-initials" class="form-text">Provide the country initial (3 letters)</div>
+              <input type="text" class="form-control" id="input-code" aria-describedby="text-initials"
+                placeholder="Ex: sau" min="3" max="3" required v-model="code">
+              <div id="help-code" class="form-text">Provide the country code (3 letters)</div>
               <label for="input-position" class="form-label mt-3">Position*</label>
               <input type="number" class="form-control" id="input-position" aria-describedby="text-position"
                 placeholder="Ex: 2" required v-model.number="position">
@@ -58,7 +58,7 @@
 <script setup lang="ts">
 import ImagePicker from '@/components/miscs/image-picker/index.vue';
 import { IMAGES_STORAGE_BUCKET } from '@/constants';
-import { createCountryMetadata } from '@/domain/countries';
+import { createCountry } from '@/domain/countries';
 import { upload } from '@/domain/storage';
 import Swal from 'sweetalert2';
 import { ref } from 'vue';
@@ -67,7 +67,7 @@ const router = useRouter()
 const image = ref<string>('')
 const imageBlob = ref<Blob | null>(null)
 const label = ref()
-const initials = ref()
+const code = ref()
 const position = ref()
 const loading = ref<boolean>(false)
 const error = ref<string>('')
@@ -78,22 +78,25 @@ const handleOnSubmit = () => {
     try {
       loading.value = true
       error.value = ""
-      const u = await upload(IMAGES_STORAGE_BUCKET + '/countries/' + initials.value, imageBlob.value, async (e, s) => {
-        if (e) error.value
-        if (s) progress.value = (s.bytesTransferred / s.totalBytes) * 100;
-      })
-      if (u) {
-        const id = initials.value.toLowerCase()
+      // const u = await upload(IMAGES_STORAGE_BUCKET + '/countries/' + code.value, imageBlob.value, async (e, s) => {
+      //   if (e) error.value
+      //   if (s) progress.value = (s.bytesTransferred / s.totalBytes) * 100;
+      // })
+      if (true) {
         const metadata = {
           label: label.value,
-          initials: initials.value.toLowerCase(),
+          code: code.value.toLowerCase(),
           position: position.value,
           enabled: enabled.value,
-          flag: u,
-          id,
+          flag: "u",
+          id: "",
           createdAt: new Date().toISOString()
         }
-        await createCountryMetadata(id, metadata)
+        const metadata2 = {
+          label: label.value,
+          code: code.value
+        }
+        const { data } = await createCountry(metadata2)
         loading.value = false
         Swal.fire({
           title: "Country created",
@@ -103,8 +106,8 @@ const handleOnSubmit = () => {
           confirmButtonText: "View details",
           cancelButtonText: "View all",
         }).then(({ isConfirmed, isDismissed }) => {
-          if (isConfirmed) {
-            router.push(id);
+          if (isConfirmed && data?.adminCreateCountry.id) {
+            router.push(data?.adminCreateCountry.id);
           } else if (isDismissed) {
             router.push({
               name: 'countries'

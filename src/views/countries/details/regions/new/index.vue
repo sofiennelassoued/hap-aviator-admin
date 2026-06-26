@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { createRegionMetadata } from '@/domain/regions';
+import { createRegion } from '@/domain/regions';
 import Swal from 'sweetalert2';
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -73,7 +73,11 @@ const handleOnSubmit = () => {
         countryId: id,
         createdAt: new Date().toISOString()
       }
-      const result = await createRegionMetadata(metadata)
+      const metadata2 = {
+        label: label.value,
+        countryId: id,
+      }
+      const { data } = await createRegion(metadata2)
       loading.value = false
       Swal.fire({
         title: "Region created",
@@ -83,8 +87,8 @@ const handleOnSubmit = () => {
         confirmButtonText: "View details",
         cancelButtonText: "View all",
       }).then(({ isConfirmed, isDismissed }) => {
-        if (isConfirmed) {
-          router.push(result.id);
+        if (isConfirmed && data?.adminCreateRegion.id) {
+          router.push(data?.adminCreateRegion.id);
         } else if (isDismissed) {
           router.push({
             path: '/countries/' + id + '/regions'

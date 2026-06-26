@@ -11,6 +11,6 @@ export const CATEGORIES_DATABASE_COLLECTION = "categories";
 export const INTERESTS_DATABASE_COLLECTION = "interests";
 export const COUNTRIES_DATABASE_COLLECTION = "countries";
 export const REGIONS_DATABASE_COLLECTION = "regions";
-export const STATES_DATABASE_COLLECTION = "states";
+export const SUBREGIONS_DATABASE_COLLECTION = "subregions";
 export const AMENETIES_DATABASE_COLLECTION = "amenities";
 export const IMAGES_STORAGE_BUCKET = "uploads/images";

@@ -14,7 +14,7 @@
       <div v-if="!loading && payload">
         <h1>{{ payload.label }}</h1>
         <p>ID: {{ payload.id }}</p>
-        <p>Initials: {{ payload.initials }}</p>
+        <p>Code: {{ payload.code }}</p>
         <p>Position: {{ payload.position }}</p>
         <p>Enabled:
           <span class="badge bg-success" v-if="payload.enabled === true">Yes</span>
@@ -29,7 +29,7 @@
           </div>
         </div>
       </div>
-      <div class="alert alert-danger" v-if="error">{{ error }}</div>
+      <div class="alert alert-danger my-1" v-if="error">{{ error }}</div>
     </div>
   </div>
   <div class="card" v-if="!loading && payload">
@@ -38,10 +38,10 @@
       <div class="row">
         <div class="col">
           <div>
-            <router-link :to="'/countries/' + payload.id + '/states'"><a>View states</a></router-link>
+            <router-link :to="'/countries/' + payload.id + '/subregions'"><a>View subregions</a></router-link>
           </div>
           <div class="mt-3">
-            <router-link :to="'/countries/' + payload.id + '/states/new'"><a>Create state</a></router-link>
+            <router-link :to="'/countries/' + payload.id + '/subregions/new'"><a>Create subregion</a></router-link>
           </div>
         </div>
         <div class="col">
@@ -59,7 +59,7 @@
 
 <script setup lang="ts">
 
-import { getCountryMetadata, deleteCountry } from '@/domain/countries';
+import { deleteCountry, findCountry } from '@/domain/countries';
 import Swal from 'sweetalert2';
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -74,7 +74,8 @@ onMounted(() => {
   const fn = async () => {
     try {
       loading.value = true
-      payload.value = await getCountryMetadata(id.value)
+      const { data } = await findCountry({ id: id.value })
+      payload.value = data?.findCountry
       loading.value = false
     } catch (e) {
       loading.value = false
@@ -89,7 +90,7 @@ const handleOnClickDelete = () => {
   const fn = async () => {
     try {
       loading.value = true
-      await deleteCountry(id.value)
+      await deleteCountry({ id: id.value })
       Swal.fire("Delete!", "Country deleted successfully", "success");
       router.push('/countries')
     } catch (e) {
@@ -98,7 +99,7 @@ const handleOnClickDelete = () => {
       error.value = e.message
     }
   }
-  if (confirm('Are you sure to delete the category?')) {
+  if (confirm('Are you sure to delete the country?')) {
     fn()
   }
 }

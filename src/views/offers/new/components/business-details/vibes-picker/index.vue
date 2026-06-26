@@ -1,7 +1,9 @@
 <template>
   <select class="form-select" name="select" aria-label="Select vibes" @change="handleOnChange">
     <option disabled :selected="!selected">Select vibes</option>
-    <option :key="i.id" :value="i.id" :selected="selected === i.id" v-for="i in items">{{ i.label }}</option>
+    <option :key="i.id" :value="i.id" :selected="selected === i.id"
+      v-for="i in items.sort((a, b) => a.label.localeCompare(b.label))">{{
+        i.label }}</option>
   </select>
 </template>
 
