@@ -1,17 +1,18 @@
 import {
   AdminCreateAmenityDocument,
   type AdminCreateAmenityInput,
+  AdminDeleteAmenityDocument,
   AdminMarkAmenityAsActiveDocument,
   AdminMarkAmenityAsInactiveDocument,
   AdminUpdateAmenityDocument,
   type AdminUpdateAmenityInput,
+  type AmenitiesFilters,
+  type AmenityFilters,
   client,
   FindAmenityDocument,
   getAuthorization,
   ListAmenitiesDocument,
   type Pagination,
-  type AmenityFilters,
-  type AmenitiesFilters,
 } from "@/lib";
 
 const findAmenity = async (filters: AmenityFilters) => {
@@ -120,9 +121,22 @@ const markAmenityAsInactive = async (filters: AmenityFilters) => {
   });
 };
 
-const deleteAmenity = () => {};
-const createAmenityMetadata = () => {};
-const getAmenityMetadata = () => {};
+const deleteAmenity = async (filters: AmenityFilters) => {
+  const authorization = await getAuthorization();
+  return await client.mutate({
+    mutation: AdminDeleteAmenityDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      filters,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
+  });
+};
+
 export {
   createAmenity,
   createAmenityMetadata,

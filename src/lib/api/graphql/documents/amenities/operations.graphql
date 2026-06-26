@@ -43,6 +43,10 @@ mutation AdminUpdateAmenity(
   adminUpdateAmenity(filters: $filters, input: $input, pagination: $pagination)
 }
 
+mutation AdminDeleteAmenity($filters: AmenityFilters!) {
+  adminDeleteAmenity(filters: $filters)
+}
+
 mutation AdminMarkAmenityAsActive($filters: AmenityFilters!) {
   adminMarkAmenityAsActive(filters: $filters)
 }
@@ -71,6 +75,10 @@ subscription OnAmenityUpdated {
     createdBy
     updatedAt
   }
+}
+
+subscription OnAmenityDeleted {
+  onAmenityDeleted
 }
 
 subscription OnAmenityMarkedAsActive {

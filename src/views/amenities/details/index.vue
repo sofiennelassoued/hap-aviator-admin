@@ -56,7 +56,7 @@ const handleOnClickDelete = () => {
   const fn = async () => {
     try {
       loading.value = true
-      await deleteAmenity()
+      await deleteAmenity({ id: id.value })
       Swal.fire("Delete!", "Amenity deleted successfully", "success");
       router.push('/amenities')
     } catch (e) {
