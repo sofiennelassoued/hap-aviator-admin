@@ -10,7 +10,7 @@
               <iconify-icon icon="solar:bell-linear" class="fs-6"></iconify-icon>
             </a>
             <div class="mx-2">
-              Happipi
+              Hap Pilot Admin
             </div>
           </div>
         </router-link>
@@ -23,30 +23,38 @@
         <ul id="sidebarnav">
           <li class="nav-small-cap">
             <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
-            <span class="hide-menu">Home</span>
+            <span class="hide-menu">Entities</span>
           </li>
-          <router-link to="/">
+          <router-link to="/offers">
             <li class="sidebar-item">
-              <a class="sidebar-link" :class="!route.query.status && route.path !== '/new' ? 'active' : ''"
+              <a class="sidebar-link" :class="route.path === '/offers' ? 'active' : ''" aria-expanded="false">
+                <iconify-icon icon="solar:gift-bold"></iconify-icon>
+                <span class="hide-menu">Offers</span>
+              </a>
+            </li>
+          </router-link>
+          <router-link to="/advertisements">
+            <li class="sidebar-item">
+              <a class="sidebar-link" :class="route.path === '/advertisements' ? 'active' : ''" aria-expanded="false">
+                <iconify-icon icon="solar:gallery-round-bold"></iconify-icon>
+                <span class="hide-menu">Advertisements</span>
+              </a>
+            </li>
+          </router-link>
+          <router-link to="/gifts">
+            <li class="sidebar-item">
+              <a class="sidebar-link" :class="route.path === '/gifts' ? 'active' : ''" aria-expanded="false">
+                <iconify-icon icon="solar:tag-bold"></iconify-icon>
+                <span class="hide-menu">Gifts</span>
+              </a>
+            </li>
+          </router-link>
+          <router-link to="/offer-validations">
+            <li class="sidebar-item">
+              <a class="sidebar-link" :class="route.path === '/offer-validations' ? 'active' : ''"
                 aria-expanded="false">
-                <iconify-icon icon="solar:play-bold"></iconify-icon>
-                <span class="hide-menu">Live</span>
-              </a>
-            </li>
-          </router-link>
-          <router-link to="/?status=paused">
-            <li class="sidebar-item">
-              <a class="sidebar-link" :class="route.query.status === 'paused' ? 'active' : ''" aria-expanded="false">
-                <iconify-icon icon="solar:pause-bold"></iconify-icon>
-                <span class="hide-menu">Paused</span>
-              </a>
-            </li>
-          </router-link>
-          <router-link to="/new">
-            <li class="sidebar-item">
-              <a class="sidebar-link" :class="route.path === '/new' ? 'active' : ''" aria-expanded="false">
-                <iconify-icon icon="solar:pen-2-bold"></iconify-icon>
-                <span class="hide-menu">Create</span>
+                <iconify-icon icon="solar:check-circle-bold"></iconify-icon>
+                <span class="hide-menu">Offer validations</span>
               </a>
             </li>
           </router-link>
@@ -55,37 +63,68 @@
           </li>
           <li class="nav-small-cap">
             <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
-            <span class="hide-menu">Requires attention</span>
+            <span class="hide-menu">Principals</span>
           </li>
-          <router-link to="/?status=draft">
+          <router-link to="/advertisers">
             <li class="sidebar-item">
-              <a class="sidebar-link" :class="route.query.status === 'draft' ? 'active' : ''" aria-expanded="false">
-                <iconify-icon icon="solar:clapperboard-edit-bold"></iconify-icon>
-                <span class="hide-menu">Draft</span>
+              <a class="sidebar-link" :class="route.path === '/advertisers' ? 'active' : ''" aria-expanded="false">
+                <iconify-icon icon="solar:shield-user-bold-duotone"></iconify-icon>
+                <span class="hide-menu">Advertisers</span>
               </a>
             </li>
           </router-link>
-          <router-link to="/?status=pending">
+          <router-link to="/partners">
             <li class="sidebar-item">
-              <a class="sidebar-link" :class="route.query.status === 'pending' ? 'active' : ''" aria-expanded="false">
-                <iconify-icon icon="solar:clock-circle-bold"></iconify-icon>
-                <span class="hide-menu">Pending</span>
+              <a class="sidebar-link" :class="route.path === '/partners' ? 'active' : ''" aria-expanded="false">
+                <iconify-icon icon="solar:user-circle-bold-duotone"></iconify-icon>
+                <span class="hide-menu">Partners</span>
               </a>
             </li>
           </router-link>
-          <router-link to="/?status=rejected">
+          <router-link to="/users">
             <li class="sidebar-item">
-              <a class="sidebar-link" :class="route.query.status === 'rejected' ? 'active' : ''" aria-expanded="false">
-                <iconify-icon icon="solar:forbidden-circle-bold"></iconify-icon>
-                <span class="hide-menu">Rejected</span>
+              <a class="sidebar-link" :class="route.path === '/users' ? 'active' : ''" aria-expanded="false">
+                <iconify-icon icon="solar:user-bold"></iconify-icon>
+                <span class="hide-menu">Users</span>
               </a>
             </li>
           </router-link>
-          <router-link to="/?status=archived">
+          <li>
+            <span class="sidebar-divider lg"></span>
+          </li>
+          <li class="nav-small-cap">
+            <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
+            <span class="hide-menu">Miscs</span>
+          </li>
+          <router-link to="/countries">
             <li class="sidebar-item">
-              <a class="sidebar-link" :class="route.query.status === 'archived' ? 'active' : ''" aria-expanded="false">
-                <iconify-icon icon="solar:archive-minimalistic-bold"></iconify-icon>
-                <span class="hide-menu">Archived</span>
+              <a class="sidebar-link" :class="route.path === '/countries' ? 'active' : ''" aria-expanded="false">
+                <iconify-icon icon="solar:earth-bold"></iconify-icon>
+                <span class="hide-menu">Countries</span>
+              </a>
+            </li>
+          </router-link>
+          <router-link to="/categories">
+            <li class="sidebar-item">
+              <a class="sidebar-link" :class="route.path === '/categories' ? 'active' : ''" aria-expanded="false">
+                <iconify-icon icon="solar:checklist-minimalistic-bold"></iconify-icon>
+                <span class="hide-menu">Categories</span>
+              </a>
+            </li>
+          </router-link>
+          <router-link to="/interests">
+            <li class="sidebar-item">
+              <a class="sidebar-link" :class="route.path === '/interests' ? 'active' : ''" aria-expanded="false">
+                <iconify-icon class="icon-lg" icon="mdi:heart"></iconify-icon>
+                <span class="hide-menu">Interests</span>
+              </a>
+            </li>
+          </router-link>
+          <router-link to="/amenities">
+            <li class="sidebar-item">
+              <a class="sidebar-link" :class="route.path === '/amenities' ? 'active' : ''" aria-expanded="false">
+                <iconify-icon class="icon-lg" icon="mdi:sofa"></iconify-icon>
+                <span class="hide-menu">Amenities</span>
               </a>
             </li>
           </router-link>
@@ -98,6 +137,6 @@
   <!--  Sidebar End -->
 </template>
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
+import { useRoute } from 'vue-router';
 const route = useRoute()
 </script>

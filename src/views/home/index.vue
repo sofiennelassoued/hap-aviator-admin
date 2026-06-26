@@ -1,39 +1,133 @@
 <template>
-  <div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
-      <advertisements-collection-item :key="p.id" v-for="p in advertisements" :payload="p" />
+  <div>
+    <h3>
+      Quick links
+    </h3>
+    <div class="my-3" />
+    <div class="card">
+      <div class="card-body">
+        <p>Entities</p>
+        <div class="row">
+          <div class="col-4">
+            <h6>Offers</h6>
+            <div>
+              <router-link to="/offers">View</router-link>
+            </div>
+          </div>
+          <div class="col-4">
+            <h6>Offer Proposals</h6>
+            <div>
+              <router-link to="/offer-proposals">View</router-link>
+            </div>
+            <div>
+              <router-link to="/offer-proposals/new">Create</router-link>
+            </div>
+          </div>
+          <div class="col-4">
+            <h6>Advertisements</h6>
+            <div>
+              <router-link to="/advertisements">View</router-link>
+            </div>
+          </div>
+          <div class="col-4">
+            <h6>Gifts</h6>
+            <div>
+              <router-link to="/gifts">View</router-link>
+            </div>
+            <div>
+              <router-link to="/gifts/new">Create</router-link>
+            </div>
+          </div>
+          <div class="col-4">
+            <h6>Offer validations</h6>
+            <div>
+              <router-link to="/offer-validations">View</router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="my-5" />
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <p>Accounts</p>
+          <div class="col-4">
+            <h6>Advertisers</h6>
+            <div>
+              <router-link to="/advertisers">View</router-link>
+            </div>
+            <div>
+              <router-link to="/advertisers/new">Create</router-link>
+            </div>
+          </div>
+          <div class="col-4">
+            <h6>Organizations</h6>
+            <div>
+              <router-link to="/organizations">View</router-link>
+            </div>
+            <div>
+              <router-link to="/organizations/new">Create</router-link>
+            </div>
+          </div>
+          <div class="col-4">
+            <h6>Partners</h6>
+            <div>
+              <router-link to="/partners">View</router-link>
+            </div>
+            <div>
+              <router-link to="/partners/new">Create</router-link>
+            </div>
+          </div>
+          <div class="col-4">
+            <h6>Users</h6>
+            <div>
+              <router-link to="/users">View</router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="my-5" />
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <p>Miscs</p>
+          <div class="col-4">
+            <h6>Categories</h6>
+            <div>
+              <router-link to="/categories">View</router-link>
+            </div>
+            <div>
+              <router-link to="/categories/new">Create</router-link>
+            </div>
+          </div>
+          <div class="col-4">
+            <h6>Countries</h6>
+            <div>
+              <router-link to="/countries">View</router-link>
+            </div>
+            <div>
+              <router-link to="/countries/new">Create</router-link>
+            </div>
+          </div>
+          <div class="col-4">
+            <h6>Amenities</h6>
+            <div>
+              <router-link to="/amenities">View</router-link>
+            </div>
+            <div>
+              <router-link to="/amenities/new">Create</router-link>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-import { onMounted, reactive, toRefs, watch } from 'vue'
-import { useRoute } from 'vue-router'
-import AdvertisementsCollectionItem from '@/components/advertisements/collection-item/index.vue'
-import { getAdvertisements } from '@/domain/advertisements'
+<script setup>
 
-const route = useRoute()
-const state = reactive({ allAdvertisements: [], advertisements: [] })
-onMounted(() => {
-  const fn = async () => {
-    try {
-      const result = await getAdvertisements()
-      state.allAdvertisements = result
-      if (route.query.status)
-        state.advertisements = result.filter(({ status }) => status === route.query.status)
-      else state.advertisements = result.filter(({ status }) => status === 'live')
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  fn()
-})
-watch(route, (to) => {
-  if (route.query.status)
-    state.advertisements = state.allAdvertisements.filter(({ status }) => status === route.query.status)
-  else state.advertisements = state.allAdvertisements.filter(({ status }) => status === 'live')
-}, { flush: 'pre', immediate: true, deep: true })
-const { advertisements } = toRefs(state)
 </script>
 
-<style scoped></style>
+<style lang="css" scoped></style>

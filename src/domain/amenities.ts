@@ -1,0 +1,150 @@
+import {
+  AdminCreateAmenityDocument,
+  type AdminCreateAmenityInput,
+  AdminDeleteAmenityDocument,
+  AdminMarkAmenityAsActiveDocument,
+  AdminMarkAmenityAsInactiveDocument,
+  AdminUpdateAmenityDocument,
+  type AdminUpdateAmenityInput,
+  type AmenitiesFilters,
+  type AmenityFilters,
+  client,
+  FindAmenityDocument,
+  getAuthorization,
+  ListAmenitiesDocument,
+  type Pagination,
+} from "@/lib";
+
+const findAmenity = async (filters: AmenityFilters) => {
+  const authorization = await getAuthorization();
+  return await client.query({
+    query: FindAmenityDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      filters,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
+  });
+};
+
+const listAmenities = async (
+  filters: AmenitiesFilters,
+  pagination?: Pagination
+) => {
+  const authorization = await getAuthorization();
+  return await client.query({
+    query: ListAmenitiesDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      filters,
+      pagination,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
+  });
+};
+
+const createAmenity = async (input: AdminCreateAmenityInput) => {
+  const authorization = await getAuthorization();
+  return await client.mutate({
+    mutation: AdminCreateAmenityDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      input,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
+  });
+};
+
+const updateAmenity = async (
+  filters: AmenityFilters,
+  input: AdminUpdateAmenityInput,
+  pagination?: Pagination
+) => {
+  const authorization = await getAuthorization();
+  return await client.mutate({
+    mutation: AdminUpdateAmenityDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      filters,
+      input,
+      pagination,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
+  });
+};
+
+const markAmenityAsActive = async (filters: AmenityFilters) => {
+  const authorization = await getAuthorization();
+  return await client.mutate({
+    mutation: AdminMarkAmenityAsActiveDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      filters,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
+  });
+};
+
+const markAmenityAsInactive = async (filters: AmenityFilters) => {
+  const authorization = await getAuthorization();
+  return await client.mutate({
+    mutation: AdminMarkAmenityAsInactiveDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      filters,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
+  });
+};
+
+const deleteAmenity = async (filters: AmenityFilters) => {
+  const authorization = await getAuthorization();
+  return await client.mutate({
+    mutation: AdminDeleteAmenityDocument,
+    fetchPolicy: "no-cache",
+    variables: {
+      filters,
+    },
+    context: {
+      headers: {
+        ...authorization,
+      },
+    },
+  });
+};
+
+export {
+  createAmenity,
+  createAmenityMetadata,
+  deleteAmenity,
+  findAmenity,
+  getAmenityMetadata,
+  listAmenities,
+  markAmenityAsActive,
+  markAmenityAsInactive,
+  updateAmenity,
+};

@@ -1,0 +1,118 @@
+<template>
+  <!-- Breadcrumb -->
+  <nav aria-label="breadcrumb" class="main-breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><router-link to="/">Home</router-link></li>
+      <li class="breadcrumb-item"><router-link to="/countries">Countries</router-link></li>
+      <li class="breadcrumb-item">Subregions</li>
+      <li class="breadcrumb-item active" aria-current="page">New</li>
+    </ol>
+  </nav>
+  <div class="container">
+    <form @submit.prevent="handleOnSubmit">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <div class="card">
+            <div class="card-body">
+              <label for="input-label" class="form-label">Label* <small><a
+                    href="https://en.wikipedia.org/wiki/List_of_subregions_of_Saudi_Arabia" target="_blank">Learn
+                    more</a></small></label>
+              <input type="text" class="form-control" id="input-label" aria-describedby="text-label"
+                placeholder="Ex: Al-Kharj" required v-model="label">
+              <div id="help-label" class="form-text">Provide the subregion name</div>
+              <label for="input-region" class="form-label mt-3">Region*</label>
+              <country-region-picker :country-id="countryId" :disabled="!countryId" :required="true"
+                @select="handleOnSelectCountryRegion" />
+              <div id="help-label" class="form-text">Provide the subregion name</div>
+              <label for="input-position" class="form-label mt-3">Position*</label>
+              <input type="number" class="form-control" id="input-position" aria-describedby="text-position"
+                placeholder="Ex: 2" required v-model.number="position">
+              <div id="help-position" class="form-text">Provide the subregion position</div>
+              <div class="form-check form-switch mt-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="switch-enabled" v-model="enabled">
+                <label class="form-check-label" for="switch-enabled">Subregion is <span>{{ enabled ? 'enabled' :
+                  'disabled' }}</span> by default</label>
+              </div>
+              <div>
+                <button type="submit" class="btn btn-primary mt-4" :disabled="loading">
+                  <span v-if="!loading">Submit</span>
+                  <div class="spinner-grow text-light spinner-grow-sm" role="status" v-else>
+                  </div>
+                </button>
+                <div class="alert alert-danger mt-2" v-if="error">{{ error }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</template>
+
+<script setup lang="ts">
+import CountryRegionPicker from "@/components/miscs/forms/country-region-picker/index.vue";
+import { createSubregion } from '@/domain/subregions';
+import Swal from 'sweetalert2';
+import { ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+const route = useRoute()
+const router = useRouter()
+const label = ref()
+const position = ref()
+const loading = ref<boolean>(false)
+const error = ref<string>('')
+const enabled = ref<boolean>(false)
+const regionId = ref()
+const countryId = route.params.id
+const handleOnSubmit = () => {
+  const fn = async () => {
+    try {
+      if (!countryId) {
+        throw "Country ID is not provided"
+      }
+      loading.value = true
+      error.value = ""
+      const metadata = {
+        label: label.value,
+        position: position.value,
+        enabled: enabled.value,
+        countryId: countryId,
+        regionId: regionId.value,
+      }
+      const metadata2 = {
+        label: label.value,
+        regionId: regionId.value,
+      }
+      const { data } = await createSubregion(metadata2)
+      loading.value = false
+      Swal.fire({
+        title: "Subregion created",
+        text: "What do you want to do next?",
+        icon: "success",
+        showCancelButton: true,
+        confirmButtonText: "View details",
+        cancelButtonText: "View all",
+      }).then(({ isConfirmed, isDismissed }) => {
+        if (isConfirmed && data?.adminCreateSubregion.id) {
+          router.push(data?.adminCreateSubregion.id);
+        } else if (isDismissed) {
+          router.push({
+            path: '/countries/' + countryId + '/subregions'
+          })
+        }
+      });
+    } catch (e) {
+      console.log(e)
+      loading.value = false
+      // @ts-ignore
+      error.value = e.message
+    }
+  }
+  fn()
+}
+const handleOnSelectCountryRegion = (v: string) => {
+  regionId.value = v
+}
+</script>
+
+<style scoped></style>

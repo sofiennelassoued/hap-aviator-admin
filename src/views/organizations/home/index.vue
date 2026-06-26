@@ -1,0 +1,99 @@
+<template>
+  <!-- Breadcrumb -->
+  <div class="d-flex justify-content-between">
+    <nav aria-label="breadcrumb" class="main-breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><router-link to="/">Home</router-link></li>
+        <li class="breadcrumb-item active" aria-current="page">Organizations</li>
+      </ol>
+    </nav>
+  </div>
+  <div class="album py-5 bg-body-tertiary" v-if="!loading && items.length > 0">
+    <div class="container">
+      <div class="row">
+        <div class="card p-3">
+          <div class="d-flex justify-content-between">
+            <h3>Organizations
+              <router-link to="organizations/new">
+                <button class="btn btn-secondary btn-sm">Create</button>
+              </router-link>
+            </h3>
+            <div>
+              <search :items="allItems" @filtered="handleOnFiltered" />
+            </div>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Logo</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in items" :key="item.id">
+                <th scope="row"><img class="image" :src="item.image" /></th>
+                <td>{{ item.name }}</td>
+                <td>{{ item.email }}</td>
+                <td>
+                  <router-link type="button" class="btn btn-sm btn-outline-primary mx-2"
+                    :to="'/organizations/' + item.id">View</router-link>
+                  <router-link type="button" class="btn btn-sm btn-outline-secondary"
+                    :to="'/offers/new?organization=' + item.id">Create offer</router-link>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="vh-100 d-flex justify-content-center align-items-center" v-if="!loading && items.length === 0">
+    <div class="text-center">
+      <p>No items</p>
+      <router-link type="button" class="btn btn-sm btn-outline-primary mx-2"
+        :to="'/organizations/new'">Create</router-link>
+    </div>
+  </div>
+  <div class="vh-100 d-flex justify-content-center align-items-center" v-if="loading">
+    <div class="text-center">
+      <div class="spinner-border" role="status">
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import Search from '@/components/miscs/forms/search/index.vue';
+import { listOrganizations } from '@/domain/organizations';
+import { onMounted, ref } from 'vue';
+const loading = ref(false)
+const allItems = ref([])
+const items = ref([])
+onMounted(() => {
+  const fn = async () => {
+    try {
+      loading.value = true
+      allItems.value = await listOrganizations()
+      items.value = allItems.value;
+      loading.value = false
+    } catch (error) {
+      loading.value = false
+      console.log(error)
+    }
+  }
+  fn()
+})
+const handleOnFiltered = (i) => {
+  items.value = i
+}
+</script>
+
+<style lang="css" scoped>
+.image {
+  height: 32px;
+  width: 32px;
+  border-radius: 16px;
+}
+</style>
