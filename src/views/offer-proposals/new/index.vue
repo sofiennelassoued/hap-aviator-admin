@@ -3,7 +3,7 @@
   <nav aria-label="breadcrumb" class="main-breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><router-link to="/">Home</router-link></li>
-      <li class="breadcrumb-item"><router-link to="/offers">Offers</router-link></li>
+      <li class="breadcrumb-item"><router-link to="/offer-proposals">Offer Proposals</router-link></li>
       <li class="breadcrumb-item active" aria-current="page">Create</li>
     </ol>
   </nav>
@@ -35,9 +35,9 @@
 <script setup lang="ts">
 import { IMAGES_STORAGE_BUCKET, OFFERS_DATABASE_COLLECTION } from '@/constants';
 import { generateId } from '@/domain/firebase';
-import { createOffer } from '@/domain/offers';
-import { getPartnerMetadata } from '@/domain/partners';
+import { createOfferProposal } from '@/domain/offer-proposals';
 import { upload } from '@/domain/storage';
+import type { AdminCreateRegionInput } from '@/lib';
 import Basics from '@/views/offers/new/components/basics/index.vue';
 import BusinessDetails from '@/views/offers/new/components/business-details/index.vue';
 import ConditionsAndLimitations from '@/views/offers/new/components/conditions-and-limitations/index.vue';
@@ -65,7 +65,7 @@ const loading = ref<boolean>(false)
 const error = ref<string>('')
 const progresses = ref<number[]>([])
 const partnerId = route.query.partner
-const partner = ref()
+const partner = {}
 // Business details
 const name = ref()
 const representative = ref()
@@ -80,8 +80,8 @@ const whatsapp = ref()
 onMounted(() => {
   const fn = async () => {
     try {
-      if (partnerId) {
-        partner.value = await getPartnerMetadata(partnerId?.toString())
+      if (true) {
+        partner.value = "await getPartnerMetadata(partnerId?.toString())"
         name.value = partner.value.name;
         representative.value = partner.value.representative;
         contactEmail.value = partner.value.contactEmail;
@@ -98,6 +98,29 @@ onMounted(() => {
   fn()
 })
 const handleOnSubmit = () => {
+  const fn = async () => {
+    try {
+      console.log("START")
+
+      loading.value = true
+      error.value = ""
+      const payload: Partial<AdminCreateRegionInput> = {}
+      if (basics.value) {
+        const { title, description, category } = basics.value
+        if (title) payload['label'] = title
+      }
+      const x = await createOfferProposal({ ...payload })
+      console.log(x)
+    } catch (e) {
+      console.log(e),
+        loading.value = false
+      error.value = JSON.stringify(e)
+
+    }
+  }
+  fn()
+}
+const handleOnSubmit2 = () => {
   const fn = async () => {
     try {
       if (!route.query.partner) {
@@ -189,7 +212,7 @@ const handleOnSubmit = () => {
       payload["id"] = id
       payload['partnerId'] = partnerId
       payload["createdAt"] = new Date().toISOString()
-      await createOffer(id, payload)
+      await createOfferProposal(payload)
       loading.value = false
       Swal.fire({
         title: "Offer created",

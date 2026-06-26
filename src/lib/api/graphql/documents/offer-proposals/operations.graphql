@@ -1,0 +1,38 @@
+query FindOfferProposal($filters: OfferProposalFilters!) {
+  findOfferProposal(filters: $filters) {
+    id
+    label
+    status
+  }
+}
+
+query ListOfferProposals(
+  $filters: OfferProposalsFilters!
+  $pagination: Pagination
+) {
+  listOfferProposals(filters: $filters, pagination: $pagination) {
+    items {
+      id
+      label
+      status
+    }
+    metadata {
+      total
+      page
+      offset
+    }
+  }
+}
+
+mutation CreateOfferProposal($input: CreateOfferProposalInput!) {
+  createOfferProposal(input: $input) {
+    id
+  }
+}
+
+mutation UpdateOfferProposal(
+  $filters: OfferProposalFilters!
+  $input: UpdateOfferProposalInput!
+) {
+  updateOfferProposal(filters: $filters, input: $input)
+}

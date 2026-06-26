@@ -5,7 +5,7 @@
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><router-link to="/">Home</router-link></li>
         <li class="breadcrumb-item active" aria-current="page" v-if="partner">Offers of partner</li>
-        <li class="breadcrumb-item active" aria-current="page" v-else>All Offers</li>
+        <li class="breadcrumb-item active" aria-current="page" v-else>All Offer Proposals</li>
       </ol>
     </nav>
     <div>
@@ -54,7 +54,7 @@
     <div class="text-center">
       <p>No items</p>
       <router-link type="button" class="btn btn-sm btn-outline-primary mx-2"
-        :to="'/offers/new'">Create</router-link>
+        :to="'/offer-proposals/new'">Create</router-link>
     </div>
   </div>
   <div class="vh-100 d-flex justify-content-center align-items-center" v-if="loading">
